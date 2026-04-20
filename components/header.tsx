@@ -2,12 +2,15 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Phone } from "lucide-react"
 import Image from "next/image"
+import { usePathname } from "next/navigation"
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const pathname = usePathname()
+  const isLanding = pathname?.startsWith("/free-trial")
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,6 +19,47 @@ export function Header() {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  if (isLanding) {
+    return (
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled ? "bg-background/95 backdrop-blur-sm shadow-sm" : "bg-background/90 backdrop-blur-sm"
+        }`}
+      >
+        <nav className="max-w-7xl mx-auto px-6 py-3">
+          <div className="flex items-center justify-between gap-4">
+            <Link href="/free-trial" className="hover:opacity-80 transition-opacity">
+              <Image
+                src="/images/boutique-coffee-logo-transparent-clean.png"
+                alt="Boutique Coffee @work"
+                width={200}
+                height={64}
+                className="h-12 md:h-14 w-auto"
+                priority
+              />
+            </Link>
+            <div className="flex items-center gap-3 md:gap-4">
+              <a
+                href="tel:0411876625"
+                className="hidden sm:inline-flex items-center gap-2 text-sm text-foreground/70 hover:text-copper transition-colors"
+              >
+                <Phone size={16} />
+                <span className="hidden md:inline">Call Chris</span>
+                <span className="font-medium">0411 876 625</span>
+              </a>
+              <a
+                href="#claim-trial"
+                className="inline-flex items-center px-4 md:px-6 py-2 bg-copper text-background text-xs uppercase tracking-wider font-medium rounded-full shadow-md hover:bg-copper-dark hover:shadow-lg hover:scale-105 transition-all duration-200 whitespace-nowrap"
+              >
+                Claim Free Trial
+              </a>
+            </div>
+          </div>
+        </nav>
+      </header>
+    )
+  }
 
   const navItems = [
     { label: "Home", href: "/" },
@@ -59,12 +103,12 @@ export function Header() {
             </Link>
 
             {/* Desktop Menu */}
-            <div className="hidden lg:flex items-center gap-2 flex-1 ml-6">
+            <div className="hidden lg:flex items-center gap-5 xl:gap-6 ml-auto">
               {navItems.map((item) => (
                 <div key={item.label} className="relative group">
                   <Link
                     href={item.href}
-                    className="text-xs uppercase tracking-tight font-medium text-foreground/80 hover:text-copper transition-colors py-2 px-0.5 whitespace-nowrap leading-tight"
+                    className="text-xs uppercase tracking-tight font-medium text-foreground/80 hover:text-copper transition-colors py-2 whitespace-nowrap leading-tight"
                   >
                     {item.label}
                   </Link>
@@ -86,7 +130,7 @@ export function Header() {
             </div>
 
             {/* CTA Section */}
-            <div className="hidden lg:flex flex-col items-end gap-1 ml-auto flex-shrink-0">
+            <div className="hidden lg:flex flex-col items-end gap-1 ml-6 flex-shrink-0">
               <Link
                 href="/contact"
                 className="px-6 py-2 bg-copper text-background text-xs uppercase tracking-wider font-medium rounded-full shadow-md hover:bg-copper-dark hover:shadow-lg hover:scale-105 transition-all duration-200 whitespace-nowrap"

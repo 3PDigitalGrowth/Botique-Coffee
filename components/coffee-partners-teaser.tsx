@@ -38,8 +38,8 @@ export function CoffeePartnersTeaser() {
             }}
           >
             <img
-              src="/premium-coffee-beans.jpg"
-              alt="Premium coffee beans and roasting"
+              src="/boutique-coffee-van-chris-team.png"
+              alt="Chris and the Boutique Coffee at Work team with their branded service van"
               className="w-full h-full object-cover"
             />
           </div>

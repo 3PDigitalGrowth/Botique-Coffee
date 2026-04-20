@@ -1,8 +1,48 @@
+"use client"
+
 import Link from "next/link"
 import Image from "next/image"
 import { Phone, Mail, Facebook, Instagram, Linkedin } from "lucide-react"
+import { usePathname } from "next/navigation"
 
 export function Footer() {
+  const pathname = usePathname()
+  const isLanding = pathname?.startsWith("/free-trial")
+
+  if (isLanding) {
+    return (
+      <footer className="bg-foreground text-background py-10">
+        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center md:items-start justify-between gap-6">
+          <div className="flex flex-col items-center md:items-start gap-3">
+            <Image
+              src="/images/boutique-coffee-logo-transparent-clean.png"
+              alt="Boutique Coffee @work"
+              width={180}
+              height={60}
+              className="h-12 w-auto brightness-0 invert"
+            />
+            <p className="text-xs text-background/60 text-center md:text-left max-w-xs">
+              Founder-led coffee experiences for Victorian workplaces. ABN 73 058 783 430.
+            </p>
+          </div>
+          <div className="flex flex-col items-center md:items-end gap-2 text-sm">
+            <a href="tel:0411876625" className="flex items-center gap-2 text-background/80 hover:text-copper transition-colors">
+              <Phone size={14} />
+              <span>0411 876 625</span>
+            </a>
+            <a href="mailto:chris@boutiquecoffee.com.au" className="flex items-center gap-2 text-background/80 hover:text-copper transition-colors">
+              <Mail size={14} />
+              <span>chris@boutiquecoffee.com.au</span>
+            </a>
+            <p className="text-xs text-background/50 mt-2">
+              &copy; {new Date().getFullYear()} Boutique Coffee at Work
+            </p>
+          </div>
+        </div>
+      </footer>
+    )
+  }
+
   return (
     <footer className="bg-foreground text-background py-16">
       <div className="max-w-7xl mx-auto px-6">
