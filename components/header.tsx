@@ -82,7 +82,7 @@ export function Header() {
       ],
     },
     { label: "How It Works", href: "/how-it-works" },
-    { label: "Free Trial", href: "/free-trial", highlight: true },
+    { label: "Contact", href: "/contact" },
     { label: "Guides", href: "/guides" },
   ]
 
