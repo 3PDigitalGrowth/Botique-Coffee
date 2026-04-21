@@ -140,7 +140,7 @@ export function Header() {
             </div>
 
             {/* CTA Section */}
-            <div className="hidden lg:flex flex-col items-end gap-1 ml-6 flex-shrink-0">
+            <div className="hidden lg:flex flex-col items-center gap-1 ml-6 flex-shrink-0">
               <Link
                 href="/contact"
                 className="px-6 py-2 bg-copper text-background text-xs uppercase tracking-wider font-medium rounded-full shadow-md hover:bg-copper-dark hover:shadow-lg hover:scale-105 transition-all duration-200 whitespace-nowrap"
