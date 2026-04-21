@@ -33,8 +33,8 @@ export default function FounderHero() {
       </div>
 
       {/* Content block */}
-      <div className="relative lg:min-h-[680px] xl:min-h-[740px] lg:flex lg:items-center">
-        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 py-12 md:py-14 lg:py-24">
+      <div className="relative lg:min-h-[760px] xl:min-h-[820px] lg:flex lg:items-center">
+        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 py-12 md:py-14 lg:pt-40 lg:pb-24 xl:pt-48">
           <div className="max-w-xl">
             <p className="text-xs uppercase tracking-[0.2em] text-copper font-semibold mb-4">
               Meet the founder
