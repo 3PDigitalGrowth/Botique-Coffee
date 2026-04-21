@@ -68,7 +68,7 @@ export function TrialFinalCta() {
             transitionDelay: "200ms",
           }}
         >
-          30 days, delivered and installed on us. Nothing to pay, nothing to sign beyond a simple 1-page agreement. If it's not right, we uplift it free.
+          30 days, delivered and installed on us. Nothing to pay, nothing to sign beyond a simple 1-page agreement. If it's not right, we pick it up free.
         </p>
 
         <div

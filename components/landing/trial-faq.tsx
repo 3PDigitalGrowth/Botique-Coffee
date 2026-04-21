@@ -34,7 +34,7 @@ const faqs = [
   },
   {
     q: "What if the machine isn't right for us?",
-    a: "Tell Chris. If the fit's wrong, we'll swap it to a better-suited machine during the trial, at no cost. If it's simply not for you, we uplift it at a time that works for you. No awkward follow-ups.",
+    a: "Tell Chris. If the fit's wrong, we'll swap it to a better-suited machine during the trial, at no cost. If it's simply not for you, we pick it up at a time that works for you. No awkward follow-ups.",
   },
 ]
 

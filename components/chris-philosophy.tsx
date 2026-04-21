@@ -14,7 +14,7 @@ const principles = [
   },
   {
     title: "No lock-in, ever",
-    body: "Our rentals are month to month. If we're not doing the job, you give me a month's notice and we uplift the machine. I'd rather you leave happy than stay stuck. In 17 years that policy has never cost me a client I wanted to keep.",
+    body: "Our rentals are month to month. If we're not doing the job, you give me a month's notice and we pick up the machine. I'd rather you leave happy than stay stuck. In 17 years that policy has never cost me a client I wanted to keep.",
   },
   {
     title: "I won't sell you the wrong machine",

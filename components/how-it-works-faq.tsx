@@ -12,7 +12,7 @@ const faqs = [
   },
   {
     q: "How long am I locked in?",
-    a: "You are not locked in. The trial is 30 days with zero obligation. If you keep the machine, you move to a simple month-to-month rental. Give us a month's notice any time and we uplift at no cost.",
+    a: "You are not locked in. The trial is 30 days with zero obligation. If you keep the machine, you move to a simple month-to-month rental. Give us a month's notice any time and we pick up at no cost.",
   },
   {
     q: "What if our team grows or shrinks?",

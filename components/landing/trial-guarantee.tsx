@@ -20,7 +20,7 @@ const options = [
     icon: Truck,
     title: "Return it",
     description:
-      "Not for you? We uplift it, free, at a time that suits. No guilt, no follow-up sales calls. Ever.",
+      "Not for you? We pick it up, free, at a time that suits. No guilt, no follow-up sales calls. Ever.",
   },
 ]
 

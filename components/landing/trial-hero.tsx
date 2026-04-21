@@ -51,18 +51,18 @@ export function TrialHero() {
               Delivered, installed, and dialled-in on-site by Chris, so your team and clients get café-quality coffee from day one. No cards. No lock-in.
             </p>
 
-            <div className="grid sm:grid-cols-3 gap-3 mb-8 max-w-xl">
+            <div className="flex flex-wrap gap-x-5 gap-y-2 mb-8 max-w-xl">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-5 h-5 text-copper flex-shrink-0" />
-                <span className="text-sm text-white/90">No card required</span>
+                <span className="text-sm text-white/90 whitespace-nowrap">No card required</span>
               </div>
               <div className="flex items-center gap-2">
                 <Truck className="w-5 h-5 text-copper flex-shrink-0" />
-                <span className="text-sm text-white/90">Free delivery &amp; install</span>
+                <span className="text-sm text-white/90 whitespace-nowrap">Free delivery &amp; install</span>
               </div>
               <div className="flex items-center gap-2">
                 <Check className="w-5 h-5 text-copper flex-shrink-0" />
-                <span className="text-sm text-white/90">We uplift if it's not for you</span>
+                <span className="text-sm text-white/90 whitespace-nowrap">We pick up if it's not for you</span>
               </div>
             </div>
 
