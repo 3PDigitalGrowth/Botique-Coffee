@@ -52,7 +52,7 @@ export function HowItWorksHero() {
                 href="/free-trial"
                 className="inline-flex items-center gap-2 px-7 py-4 bg-copper hover:bg-copper-dark text-white text-sm uppercase tracking-widest font-medium rounded-full shadow-lg hover:scale-[1.02] transition-all duration-200"
               >
-                Start my free 30-day trial
+                Start my free 7-day trial
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <a

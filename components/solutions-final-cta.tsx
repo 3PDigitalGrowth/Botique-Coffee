@@ -71,7 +71,7 @@ export function SolutionsFinalCta() {
             transitionDelay: "300ms",
           }}
         >
-          Every tier starts with a 30-day free trial. No card required. No lock-in contracts, ever.
+          Every tier starts with a 7-day free trial. No card required. No lock-in contracts, ever.
         </p>
       </div>
     </section>

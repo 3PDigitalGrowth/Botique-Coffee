@@ -73,7 +73,7 @@ export function HowItWorksCta() {
             </div>
 
             <p className="text-sm text-white/70">
-              30-day free trial. No credit card. No pressure. Cancel any time.
+              7-day free trial. No credit card. No pressure. Cancel any time.
             </p>
           </div>
         </div>

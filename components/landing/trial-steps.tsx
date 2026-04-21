@@ -21,9 +21,9 @@ const steps = [
   {
     icon: Coffee,
     number: "03",
-    title: "Enjoy 30 days on us",
+    title: "Enjoy 7 days on us",
     description:
-      "Live with it for a month of barista-quality coffee on tap. Love it? Keep it on a plan that suits you. Not for you? We pick it up, free.",
+      "Live with it for a week of barista-quality coffee on tap. Love it? Keep it on a plan that suits you. Not for you? We pick it up, free.",
   },
 ]
 

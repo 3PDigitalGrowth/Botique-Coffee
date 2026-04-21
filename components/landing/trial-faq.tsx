@@ -6,18 +6,18 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 const faqs = [
   {
     q: "Is this really free? What's the catch?",
-    a: "There's no catch. For 30 days you get the machine, the install, training and a starter supply of beans at zero cost. No credit card, no deposit, no setup fees. We bet on the quality of the coffee and service. If you love it, you stay on a simple monthly plan. If you don't, we pick the machine back up, free.",
+    a: "There's no catch. For 7 days you get the machine, the install, training and a starter supply of beans at zero cost. No credit card, no deposit, no setup fees. We bet on the quality of the coffee and service. If you love it, you stay on a simple monthly plan. If you don't, we pick the machine back up, free.",
   },
   {
     q: "What happens if the machine breaks or jams?",
-    a: "One call to Chris on 0411 876 625 and we handle it. During the 30-day trial, every service call, part, and on-site fix is on us. No tickets, no call centres, no waiting three days for a technician.",
+    a: "One call to Chris on 0411 876 625 and we handle it. During the 7-day trial, every service call, part, and on-site fix is on us. No tickets, no call centres, no waiting three days for a technician.",
   },
   {
     q: "Is training included, or do we work it out ourselves?",
     a: "Training is included and done on-site by our team on install day. We walk your staff through the machine, dial in the grind, and make sure at least two people on your team are confident pulling a proper shot before we leave. If you need a refresher later in the trial, we come back.",
   },
   {
-    q: "What if we want to keep the machine after 30 days? What does it cost?",
+    q: "What if we want to keep the machine after 7 days? What does it cost?",
     a: "Three options. Keep the same machine on a simple month-to-month plan starting from a set monthly fee (Chris will quote based on your team size and usage). Swap to a different model at no cost if a better fit exists. Or return it with zero obligation. No follow-up sales calls either way.",
   },
   {

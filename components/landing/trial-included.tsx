@@ -19,11 +19,11 @@ const inclusions = [
   },
   {
     title: "Fresh, locally roasted beans",
-    desc: "A starter supply from Victoria's best roasters, included in your 30-day trial. Milk options sorted too.",
+    desc: "A starter supply from Victoria's best roasters, included in your 7-day trial. Milk options sorted too.",
   },
   {
     title: "Maintenance during trial",
-    desc: "We check in, clean, and tune the machine during the 30 days so it's performing at its best.",
+    desc: "We check in, clean, and tune the machine during the 7 days so it's performing at its best.",
   },
   {
     title: "Chris on call, personally",
@@ -84,7 +84,7 @@ export function TrialIncluded() {
             }}
           >
             <p className="text-xs uppercase tracking-widest text-copper font-semibold mb-3">
-              Everything included, zero cost for 30 days
+              Everything included, zero cost for 7 days
             </p>
             <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground mb-6 text-balance leading-tight">
               A turnkey coffee setup, on the house
@@ -125,7 +125,7 @@ export function TrialIncluded() {
                 Total retail value: $2,800+
               </p>
               <p className="text-base md:text-lg font-medium leading-snug text-white/95">
-                Yours free for 30 days. No card, no bean minimums, no strings.
+                Yours free for 7 days. No card, no bean minimums, no strings.
               </p>
             </div>
           </div>

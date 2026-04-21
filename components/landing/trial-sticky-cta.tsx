@@ -34,7 +34,7 @@ export function TrialStickyCta() {
             href="#claim-trial"
             className="flex-1 inline-flex items-center justify-center gap-2 bg-copper hover:bg-copper-dark text-white h-11 rounded-full text-sm uppercase tracking-wider font-medium shadow-md transition-all"
           >
-            Claim 30-day free trial
+            Claim 7-day free trial
             <ArrowRight className="w-4 h-4" />
           </a>
         </div>

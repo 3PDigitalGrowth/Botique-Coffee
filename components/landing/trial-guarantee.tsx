@@ -54,7 +54,7 @@ export function TrialGuarantee() {
         >
           <p className="text-xs uppercase tracking-widest text-copper mb-3">The no-catch guarantee</p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl mb-4 text-balance">
-            After 30 days, you choose
+            After 7 days, you choose
           </h2>
           <p className="text-base md:text-lg text-background/75 max-w-2xl mx-auto">
             Three simple options. You're never stuck. This is how we'd want to be treated if the tables were turned.

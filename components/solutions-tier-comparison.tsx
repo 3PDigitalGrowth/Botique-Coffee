@@ -229,7 +229,7 @@ export function SolutionsTierComparison() {
             transitionDelay: "600ms",
           }}
         >
-          All tiers include a 30-day free trial, no card required. No lock-in contracts, ever.
+          All tiers include a 7-day free trial, no card required. No lock-in contracts, ever.
         </p>
       </div>
     </section>

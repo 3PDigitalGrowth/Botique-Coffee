@@ -44,7 +44,7 @@ export function TrialHero() {
 
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.05] mb-5 text-balance">
               Try a premium coffee machine in your workplace.
-              <span className="block text-copper mt-2">Free for 30 days.</span>
+              <span className="block text-copper mt-2">Free for 7 days.</span>
             </h1>
 
             <p className="text-white/85 text-lg md:text-xl mb-6 max-w-xl leading-relaxed text-pretty">
@@ -185,7 +185,7 @@ export function TrialHero() {
                       size="lg"
                       className="w-full bg-copper hover:bg-copper-dark text-white border-none shadow-lg h-12 text-base rounded-lg font-medium"
                     >
-                      Start my 30 days, no card, no lock-in
+                      Start my 7 days, no card, no lock-in
                     </Button>
 
                     <p className="text-xs text-muted-foreground text-center leading-relaxed">

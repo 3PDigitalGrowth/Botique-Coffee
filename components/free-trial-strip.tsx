@@ -8,9 +8,9 @@ export function FreeTrialStrip() {
         <div className="flex items-center gap-2.5 md:gap-3">
           <Sparkles className="hidden sm:block w-4 h-4 flex-shrink-0" strokeWidth={2.5} />
           <p className="text-sm md:text-base leading-snug">
-            <span className="font-semibold tracking-wide">30 days. On us. Zero risk.</span>{" "}
+            <span className="font-semibold tracking-wide">7 days. On us. Zero risk.</span>{" "}
             <span className="text-white/90">
-              Try a commercial coffee machine at your workplace, free for a month. No card required.
+              Try a commercial coffee machine at your workplace, free for a week. No card required.
             </span>
           </p>
         </div>

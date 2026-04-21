@@ -68,7 +68,7 @@ export function TrialFinalCta() {
             transitionDelay: "200ms",
           }}
         >
-          30 days, delivered and installed on us. Nothing to pay, nothing to sign beyond a simple 1-page agreement. If it's not right, we pick it up free.
+          7 days, delivered and installed on us. Nothing to pay, nothing to sign beyond a simple 1-page agreement. If it's not right, we pick it up free.
         </p>
 
         <div
@@ -83,7 +83,7 @@ export function TrialFinalCta() {
             href="#claim-trial"
             className="inline-flex items-center gap-2 px-10 py-4 bg-copper hover:bg-copper-dark text-white text-base uppercase tracking-widest font-medium rounded-full shadow-2xl hover:scale-105 transition-all duration-200 w-full sm:w-auto justify-center"
           >
-            Claim my 30-day free trial
+            Claim my 7-day free trial
             <ArrowRight className="w-5 h-5" />
           </a>
           <a

@@ -139,7 +139,7 @@ export function WhatsIncluded() {
               From $35 a week. Starting price for small offices. Fair weekly rates for mid-size and large teams too.
             </p>
             <p className="text-sm md:text-base text-white/95 leading-snug">
-              No lock-in contracts. 30-day free trial.
+              No lock-in contracts. 7-day free trial.
             </p>
           </div>
           <Link

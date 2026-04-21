@@ -71,7 +71,7 @@ export function CoffeeCTA() {
             transitionDelay: "300ms",
           }}
         >
-          Every rental starts with a 30-day free trial. If the coffee isn't right, we change it. If the setup isn't right, we return it. No card required to start.
+          Every rental starts with a 7-day free trial. If the coffee isn't right, we change it. If the setup isn't right, we return it. No card required to start.
         </p>
       </div>
     </section>

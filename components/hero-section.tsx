@@ -72,7 +72,7 @@ export function HeroSection() {
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-copper text-white mb-6 shadow-lg">
               <Sparkles className="w-3.5 h-3.5" strokeWidth={2.5} />
               <span className="text-[0.7rem] md:text-xs uppercase tracking-[0.15em] font-semibold whitespace-nowrap">
-                30-day free trial · Melbourne workplaces
+                7-day free trial · Melbourne workplaces
               </span>
             </div>
 
@@ -81,7 +81,7 @@ export function HeroSection() {
             </h1>
 
             <p className="text-white/90 text-base md:text-lg lg:text-lg xl:text-xl mb-5 max-w-xl leading-relaxed text-pretty">
-              From $35 a week. Machine, install, training, beans, and servicing all included. Try it free for 30 days, no card, no lock-in.
+              From $35 a week. Machine, install, training, beans, and servicing all included. Try it free for 7 days, no card, no lock-in.
             </p>
 
             {/* Trust row */}
@@ -235,7 +235,7 @@ export function HeroSection() {
                       size="lg"
                       className="w-full bg-copper hover:bg-copper-dark text-white border-none shadow-lg h-12 text-base rounded-lg font-medium"
                     >
-                      Start my 30-day free trial
+                      Start my 7-day free trial
                       <ArrowRight className="w-4 h-4 ml-1" />
                     </Button>
 

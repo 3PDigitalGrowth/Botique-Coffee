@@ -11,13 +11,13 @@ import { TrialFinalCta } from "@/components/landing/trial-final-cta"
 import { TrialStickyCta } from "@/components/landing/trial-sticky-cta"
 
 export const metadata: Metadata = {
-  title: "30-Day Free Coffee Machine Trial | For Victorian Businesses | Boutique Coffee",
+  title: "7-Day Free Coffee Machine Trial | For Victorian Businesses | Boutique Coffee",
   description:
-    "Try a premium commercial coffee machine in your Victorian workplace, free for 30 days, delivered and installed on-site. No card, no lock-in. Founder-led by Chris.",
+    "Try a premium commercial coffee machine in your Victorian workplace, free for 7 days, delivered and installed on-site. No card, no lock-in. Founder-led by Chris.",
   openGraph: {
-    title: "30-Day Free Coffee Machine Trial for Victorian Businesses",
+    title: "7-Day Free Coffee Machine Trial for Victorian Businesses",
     description:
-      "A premium coffee machine in your workplace. Free for 30 days, delivered and installed on-site. No card. No lock-in.",
+      "A premium coffee machine in your workplace. Free for 7 days, delivered and installed on-site. No card. No lock-in.",
     type: "website",
   },
   robots: {
