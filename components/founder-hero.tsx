@@ -10,7 +10,7 @@ export default function FounderHero() {
       {/* Image: flow (banner) on mobile/tablet, absolute full-bleed on desktop */}
       <div className="relative w-full aspect-[16/10] md:aspect-[16/9] overflow-hidden lg:absolute lg:inset-0 lg:aspect-auto">
         <Image
-          src="/images/Chris_Solo_Van.png"
+          src="/images/Chris_Solo_Van.jpg"
           alt="Chris Prokopiou in front of the Boutique Coffee at Work branded service van"
           fill
           priority

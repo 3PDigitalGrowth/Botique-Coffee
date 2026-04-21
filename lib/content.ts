@@ -90,7 +90,7 @@ export const GUIDES: GuideMeta[] = [
       "The questions to ask, the red flags to look for, and what \u201cgood\u201d actually looks like. Written by a supplier, as straight as it gets.",
     tag: "Buyer guide",
     readTime: "9 min read",
-    thumbnail: "/images/Chris_Solo_Van.png",
+    thumbnail: "/images/Chris_Solo_Van.jpg",
     thumbnailAlt: "Chris Prokopiou in front of the Boutique Coffee at Work service van",
     metaTitle:
       "How to Choose a Workplace Coffee Supplier in Melbourne | Boutique Coffee",

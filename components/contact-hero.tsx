@@ -53,7 +53,7 @@ export function ContactHero() {
           >
             <div className="relative rounded-2xl overflow-hidden shadow-xl aspect-[4/3]">
               <Image
-                src="/images/Chris_Solo_Van.png"
+                src="/images/Chris_Solo_Van.jpg"
                 alt="Chris Prokopiou in front of the Boutique Coffee at Work branded service van"
                 fill
                 priority

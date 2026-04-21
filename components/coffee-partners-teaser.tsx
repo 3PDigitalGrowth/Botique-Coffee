@@ -36,7 +36,7 @@ export function CoffeePartnersTeaser() {
       {/* Background image */}
       <div className="absolute inset-0">
         <img
-          src="/images/Chris_Solo_Van.png"
+          src="/images/Chris_Solo_Van.jpg"
           alt="Chris Prokopiou in front of the Boutique Coffee at Work branded service van"
           className="w-full h-full object-cover object-[35%_center] md:object-[38%_center]"
         />
