@@ -10,8 +10,8 @@ export default function FounderHero() {
       {/* Image: flow (banner) on mobile/tablet, absolute full-bleed on desktop */}
       <div className="relative w-full aspect-[16/10] md:aspect-[16/9] overflow-hidden lg:absolute lg:inset-0 lg:aspect-auto">
         <Image
-          src="/boutique-coffee-van-chris-team.png"
-          alt="Chris Prokopiou and the Boutique Coffee at Work team with their branded service van"
+          src="/images/Chris_Solo_Van.png"
+          alt="Chris Prokopiou in front of the Boutique Coffee at Work branded service van"
           fill
           priority
           sizes="100vw"
@@ -22,7 +22,7 @@ export default function FounderHero() {
         {/* Subtle top fade on mobile so the fixed header blends over the image */}
         <div className="lg:hidden absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-background/70 to-transparent" />
 
-        {/* Desktop: left-to-right dark gradient for copy legibility, fading off before the van */}
+        {/* Desktop: left-to-right dark gradient for copy legibility, fading off before Chris */}
         <div
           className="hidden lg:block absolute inset-0"
           style={{

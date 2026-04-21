@@ -53,8 +53,8 @@ export function ContactHero() {
           >
             <div className="relative rounded-2xl overflow-hidden shadow-xl aspect-[4/3]">
               <Image
-                src="/boutique-coffee-van-chris-team.png"
-                alt="Chris Prokopiou and the Boutique Coffee at Work team with their branded service van"
+                src="/images/Chris_Solo_Van.png"
+                alt="Chris Prokopiou in front of the Boutique Coffee at Work branded service van"
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -62,7 +62,7 @@ export function ContactHero() {
               />
             </div>
             <p className="mt-3 text-sm text-muted-foreground italic text-center lg:text-left">
-              Chris and the team. That&apos;s the van you&apos;ll see in your car park on install day.
+              Chris, founder. That&apos;s the van you&apos;ll see in your car park on install day.
             </p>
           </div>
         </div>
