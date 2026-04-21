@@ -1,117 +1,105 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Coffee, Heart, Sparkles } from "lucide-react"
+import { Package, Truck, Repeat, Heart } from "lucide-react"
+
+const items = [
+  {
+    icon: Package,
+    title: "Fresh beans, weekly",
+    body: "Locally roasted Victorian coffee beans delivered on a schedule that matches your team's volume. No bean running out. No emergency runs to the supermarket.",
+  },
+  {
+    icon: Truck,
+    title: "Topped up on every service call",
+    body: "When we visit to service the machine, we leave you stocked. Cups, sugar sticks, wooden stirrers, paper napkins, and hot chocolate if you want it.",
+  },
+  {
+    icon: Repeat,
+    title: "Flexible rotation",
+    body: "Want to mix it up? We can rotate through different roasts seasonally or swap your blend entirely if the team's taste changes. Just ask.",
+  },
+  {
+    icon: Heart,
+    title: "Your preferred brand, if you have one",
+    body: "Already love a specific Melbourne roaster? We'll often work with it. Tell Chris on the consult and we'll sort the supply side.",
+  },
+]
 
 export function CoffeePhilosophy() {
-  const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set())
-  const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
+  const [isVisible, setIsVisible] = useState(false)
+  const sectionRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const observers = sectionRefs.current.map((ref, index) => {
-      if (!ref) return null
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setVisibleSections((prev) => new Set(prev).add(index))
-            }
-          })
-        },
-        { threshold: 0.2 },
-      )
-
-      observer.observe(ref)
-      return observer
-    })
-
-    return () => {
-      observers.forEach((observer) => observer?.disconnect())
-    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true)
+      },
+      { threshold: 0.1 },
+    )
+    if (sectionRef.current) observer.observe(sectionRef.current)
+    return () => observer.disconnect()
   }, [])
 
-  const isVisible = (index: number) => visibleSections.has(index)
-
   return (
-    <section className="py-24 px-6 md:px-12 lg:px-20">
-      <div className="max-w-7xl mx-auto">
-        {/* Subsection A */}
+    <section
+      ref={sectionRef}
+      className="relative py-20 md:py-28 px-6 md:px-12 lg:px-16 bg-background overflow-hidden"
+    >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-24 -right-24 w-[28rem] h-[28rem] rounded-full bg-copper/5 blur-3xl"
+      />
+
+      <div className="relative max-w-6xl mx-auto">
         <div
-          ref={(el) => {
-            sectionRefs.current[0] = el
+          className="max-w-3xl mx-auto text-center mb-14 md:mb-16 transition-all duration-1000"
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "translateY(0)" : "translateY(20px)",
           }}
-          className={`mb-32 transition-all duration-1000 ${
-            isVisible(0) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-          }`}
         >
-          <div className="grid md:grid-cols-12 gap-8 items-center">
-            <div className="md:col-span-8">
-              <blockquote className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground mb-8 text-balance leading-tight">
-                "Great coffee isn't just a commodity. It's a craft, a story, and a connection."
-              </blockquote>
-              <p className="font-sans text-lg md:text-xl text-muted-foreground leading-relaxed text-pretty max-w-2xl">
-                At Boutique Coffee at Work, we don't just supply coffee - we curate experiences. Every bean tells a story
-                of dedication, artistry, and community. We partner with local roasters who share our commitment to
-                quality, sustainability, and the human connections that make exceptional coffee possible.
-              </p>
-            </div>
-            <div className="md:col-span-4 flex justify-center md:justify-end">
-              <Coffee className="w-24 h-24 md:w-32 md:h-32 text-copper opacity-20" strokeWidth={1} />
-            </div>
-          </div>
+          <p className="text-xs uppercase tracking-[0.2em] text-copper font-semibold mb-3">
+            What's included in your supply
+          </p>
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground mb-5 text-balance leading-tight">
+            What shows up at your door
+          </h2>
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto text-pretty">
+            Everything your team needs to make good coffee, all day, every day. Included in the weekly rental, no add-ons.
+          </p>
         </div>
 
-        {/* Subsection B */}
-        <div
-          ref={(el) => {
-            sectionRefs.current[1] = el
-          }}
-          className={`mb-32 transition-all duration-1000 delay-200 ${
-            isVisible(1) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-          }`}
-        >
-          <div className="grid md:grid-cols-12 gap-8 items-center">
-            <div className="md:col-span-4 flex justify-center md:justify-start order-2 md:order-1">
-              <Heart className="w-24 h-24 md:w-32 md:h-32 text-copper opacity-20" strokeWidth={1} />
-            </div>
-            <div className="md:col-span-8 order-1 md:order-2">
-              <blockquote className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground mb-8 text-balance leading-tight">
-                "We believe in supporting local artisans and building community."
-              </blockquote>
-              <p className="font-sans text-lg md:text-xl text-muted-foreground leading-relaxed text-pretty max-w-2xl">
-                Local sourcing isn't just better for the environment - it's about relationships. When you choose our
-                coffee, you're supporting small businesses, reducing carbon footprints, and investing in the artisans
-                who pour their hearts into every roast. It's coffee with purpose, community, and care.
-              </p>
-            </div>
-          </div>
-        </div>
+        <div className="grid md:grid-cols-2 gap-5 md:gap-6">
+          {items.map((item, index) => {
+            const Icon = item.icon
+            return (
+              <article
+                key={item.title}
+                className="group relative flex flex-col h-full p-7 md:p-8 rounded-2xl bg-background border border-muted/50 hover:border-copper/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-500"
+                style={{
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? "translateY(0)" : "translateY(30px)",
+                  transitionDelay: `${index * 120}ms`,
+                  transitionProperty: "opacity, transform, border-color, box-shadow",
+                  transitionDuration: "800ms",
+                }}
+              >
+                <div className="mb-5">
+                  <div className="w-14 h-14 rounded-2xl bg-copper/10 flex items-center justify-center group-hover:bg-copper/15 group-hover:scale-105 transition-all duration-300">
+                    <Icon className="w-7 h-7 text-copper" strokeWidth={1.75} />
+                  </div>
+                </div>
 
-        {/* Subsection C */}
-        <div
-          ref={(el) => {
-            sectionRefs.current[2] = el
-          }}
-          className={`transition-all duration-1000 delay-400 ${
-            isVisible(2) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-          }`}
-        >
-          <div className="grid md:grid-cols-12 gap-8 items-center">
-            <div className="md:col-span-8">
-              <blockquote className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground mb-8 text-balance leading-tight">
-                "Every coffee selection is curated specifically for your business."
-              </blockquote>
-              <p className="font-sans text-lg md:text-xl text-muted-foreground leading-relaxed text-pretty max-w-2xl">
-                No two businesses are alike, and neither is their coffee. We take time to understand your team's
-                preferences, your company culture, and your unique needs. Whether you prefer bright, fruity notes or
-                rich, chocolatey depths, we'll match you with roasters and beans that reflect your values and taste.
-              </p>
-            </div>
-            <div className="md:col-span-4 flex justify-center md:justify-end">
-              <Sparkles className="w-24 h-24 md:w-32 md:h-32 text-copper opacity-20" strokeWidth={1} />
-            </div>
-          </div>
+                <h3 className="font-serif text-xl md:text-2xl text-foreground mb-3 leading-snug text-balance">
+                  {item.title}
+                </h3>
+                <p className="text-muted-foreground text-sm md:text-base leading-relaxed text-pretty">
+                  {item.body}
+                </p>
+              </article>
+            )
+          })}
         </div>
       </div>
     </section>

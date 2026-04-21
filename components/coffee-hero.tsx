@@ -1,91 +1,59 @@
 "use client"
 
-import type React from "react"
-
-import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Phone } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { ArrowRight, Phone } from "lucide-react"
 
 export function CoffeeHero() {
-  const [scrollY, setScrollY] = useState(0)
-  const [email, setEmail] = useState("")
-  const sectionRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect()
-        const scrollProgress = Math.max(0, -rect.top) / rect.height
-        setScrollY(scrollProgress)
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    handleScroll()
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle form submission
-  }
-
   return (
-    <section ref={sectionRef} className="relative h-screen overflow-hidden">
-      <div className="absolute inset-0" style={{ transform: `translateY(${scrollY * 30}%)` }}>
-        <Image
-          src="/artisan-coffee-brewing-moment.jpg"
-          alt="Artisan coffee brewing"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/50" />
-      </div>
+    <section className="relative w-full bg-background pt-24 md:pt-28 pb-12 md:pb-20 px-6 md:px-12 lg:px-16">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div className="order-2 lg:order-1">
+            <p className="text-xs uppercase tracking-[0.2em] text-copper font-semibold mb-4">
+              The coffee
+            </p>
 
-      <div className="relative h-full flex items-center px-6" style={{ opacity: 1 - scrollY * 2 }}>
-        <div className="w-full max-w-7xl mx-auto">
-          <div className="max-w-2xl bg-black/75 backdrop-blur-md rounded-2xl p-8 md:p-12">
-            <h1 className="font-serif text-5xl md:text-7xl text-white mb-6 text-balance">
-              Where Quality Meets Community
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground mb-5 leading-[1.05] text-balance">
+              Fresh beans, delivered. Matched to your team. Topped up on every visit.
             </h1>
-            <p className="font-sans text-xl md:text-2xl text-white/90 mb-4 text-pretty">
-              Artisan coffee, locally sourced, personally curated
-            </p>
-            <p className="font-sans text-base md:text-lg text-white/80 mb-8 text-pretty leading-relaxed">
-              We partner with exceptional local roasters to bring you coffee that tells a story - crafted with care,
-              delivered with passion.
+
+            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 text-pretty">
+              Every rental includes a regular supply of locally roasted Victorian coffee, delivered to your door. No separate bean contracts. No minimum orders. No &ldquo;we ran out on Tuesday.&rdquo;
             </p>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <input
-                type="email"
-                placeholder="Your work email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-6 py-4 rounded-full bg-white text-neutral-900 placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-copper"
-                required
-              />
-              <Button
-                type="submit"
-                className="w-full bg-copper hover:bg-copper/90 text-white rounded-full py-6 font-medium transition-all"
-              >
-                Discover Our Coffee
-              </Button>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
               <Link
-                href="tel:0411876625"
-                className="flex items-center justify-center gap-2 text-white/80 hover:text-white transition-colors text-sm"
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-copper hover:bg-copper-dark text-white text-sm uppercase tracking-wider font-medium rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200"
               >
-                <Phone className="h-4 w-4" />
-                Or call 0411 876 625
+                Schedule a 10-minute consult
+                <ArrowRight className="w-4 h-4" />
               </Link>
-            </form>
+              <a
+                href="tel:0411876625"
+                className="inline-flex items-center gap-2 text-foreground/80 hover:text-copper transition-colors text-sm font-medium"
+              >
+                <Phone className="w-4 h-4" />
+                Or call Chris direct: 0411 876 625
+              </a>
+            </div>
+          </div>
+
+          <div className="order-1 lg:order-2">
+            <div className="relative rounded-2xl overflow-hidden shadow-xl aspect-[4/3] lg:aspect-[4/5]">
+              <Image
+                src="/premium-coffee-beans.jpg"
+                alt="Freshly roasted coffee beans"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+              />
+            </div>
           </div>
         </div>
       </div>
-      {/* </CHANGE> */}
     </section>
   )
 }

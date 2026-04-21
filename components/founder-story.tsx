@@ -1,72 +1,60 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
+import { Quote } from "lucide-react"
 
-const storyMoments = [
-  {
-    quote: "It started with a simple question",
-    paragraph:
-      "Why was it so difficult for businesses to access quality coffee equipment without the burden of ownership? Chris spent years in corporate environments, watching companies struggle with outdated machines, expensive purchases, and inflexible contracts. There had to be a better way.",
-  },
-  {
-    quote: "The coffee shop revelation",
-    paragraph:
-      "Working alongside independent café owners, Chris discovered the same pain point everywhere: access to premium equipment was reserved for those with deep pockets. Small businesses and growing companies were left with subpar solutions that compromised on quality and experience.",
-  },
-  {
-    quote: "Building a new model",
-    paragraph:
-      "What if businesses could access top-tier coffee machines through flexible leasing? Chris partnered with leading manufacturers to create a model that prioritized accessibility without compromising on quality. Maintenance included, no hidden costs, just exceptional coffee for every business.",
-  },
-  {
-    quote: "A mission realized",
-    paragraph:
-      "Today, over 500 companies trust our coffee solutions. From startups to enterprise, we've democratised access to premium coffee equipment. But the journey isn't about numbers - it's about the thousands of employees who start their day with an exceptional cup of coffee.",
-  },
-]
-
-function StoryMoment({ quote, paragraph, index }: { quote: string; paragraph: string; index: number }) {
-  const momentRef = useRef<HTMLDivElement>(null)
+export default function FounderStory() {
+  const [isVisible, setIsVisible] = useState(false)
+  const sectionRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("opacity-100", "translate-y-0")
-            entry.target.classList.remove("opacity-0", "translate-y-12")
-          }
-        })
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true)
       },
-      { threshold: 0.3 },
+      { threshold: 0.15 },
     )
-
-    if (momentRef.current) {
-      observer.observe(momentRef.current)
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current)
     return () => observer.disconnect()
   }, [])
 
   return (
-    <div ref={momentRef} className="opacity-0 translate-y-12 transition-all duration-1000 ease-out mb-24 md:mb-32">
-      <div className={`max-w-4xl ${index % 2 === 0 ? "ml-0" : "ml-auto"}`}>
-        <blockquote className="font-serif text-3xl md:text-5xl text-foreground mb-6 text-pretty leading-tight">
-          "{quote}"
-        </blockquote>
-        <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl">{paragraph}</p>
-      </div>
-    </div>
-  )
-}
+    <section
+      ref={sectionRef}
+      className="py-16 md:py-24 px-6 md:px-12 bg-background"
+    >
+      <div
+        className="max-w-3xl mx-auto transition-all duration-1000"
+        style={{
+          opacity: isVisible ? 1 : 0,
+          transform: isVisible ? "translateY(0)" : "translateY(20px)",
+        }}
+      >
+        <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground mb-10 text-balance leading-tight">
+          How this started, and why it hasn't changed much
+        </h2>
 
-export default function FounderStory() {
-  return (
-    <section className="py-24 md:py-32 px-6 md:px-12 bg-background">
-      <div className="max-w-7xl mx-auto">
-        {storyMoments.map((moment, index) => (
-          <StoryMoment key={index} {...moment} index={index} />
-        ))}
+        <div className="space-y-6 text-lg md:text-xl text-foreground/85 leading-relaxed text-pretty">
+          <p>
+            In 2008 I was watching Melbourne offices put up with coffee that didn't match the city they were in. Outside the door, some of the best cafés in the world. Inside, a tin of instant and a kettle. The gap didn't make sense to me.
+          </p>
+          <p>
+            So I started Boutique Coffee at Work with a simple idea. Rent a proper commercial machine to a workplace, install it, keep the beans coming, service it when it needs servicing, and actually answer the phone when something goes wrong. No big contracts. No lock-ins. No hiding behind a support ticket.
+          </p>
+          <p>
+            Seventeen years on, we've grown, but the model hasn't changed. I still do the site visits personally. I still pick the machines that suit the team. I still answer the phone. If you rent a machine from us, you get me. That's the whole point.
+          </p>
+        </div>
+
+        <figure className="mt-14 md:mt-16 max-w-2xl mx-auto text-center">
+          <Quote className="w-8 h-8 text-copper mx-auto mb-4" strokeWidth={1.5} />
+          <blockquote className="font-serif italic text-2xl md:text-3xl text-foreground leading-snug text-balance">
+            &ldquo;I'm not trying to be the biggest coffee machine company in Melbourne. I'm trying to be the one that still gives a damn.&rdquo;
+          </blockquote>
+          <figcaption className="mt-5 text-sm uppercase tracking-[0.2em] text-copper font-semibold">
+            Chris
+          </figcaption>
+        </figure>
       </div>
     </section>
   )

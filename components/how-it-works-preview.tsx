@@ -155,10 +155,10 @@ export function HowItWorksPreview() {
           }}
         >
           <Link
-            href="/journey"
+            href="/how-it-works"
             className="inline-flex items-center gap-2 text-[oklch(0.7_0.15_45)] hover:text-[oklch(0.65_0.15_45)] transition-colors"
           >
-            <span className="text-sm uppercase tracking-wide">Explore the Full Journey</span>
+            <span className="text-sm uppercase tracking-wide">See the full six-step process</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

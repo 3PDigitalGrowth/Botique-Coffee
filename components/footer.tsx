@@ -77,13 +77,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/journey" className="text-sm text-background/80 hover:text-copper transition-colors">
+                <Link href="/how-it-works" className="text-sm text-background/80 hover:text-copper transition-colors">
                   How It Works
-                </Link>
-              </li>
-              <li>
-                <Link href="/stories" className="text-sm text-background/80 hover:text-copper transition-colors">
-                  Client Stories
                 </Link>
               </li>
               <li>
@@ -92,8 +87,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="text-sm text-background/80 hover:text-copper transition-colors">
-                  Blog
+                <Link href="/guides" className="text-sm text-background/80 hover:text-copper transition-colors">
+                  Guides
                 </Link>
               </li>
               <li>
@@ -110,31 +105,26 @@ export function Footer() {
             <ul className="space-y-3">
               <li>
                 <Link
-                  href="/solutions#creative"
+                  href="/solutions#small-office"
                   className="text-sm text-background/80 hover:text-copper transition-colors"
                 >
-                  Creative Agencies
-                </Link>
-              </li>
-              <li>
-                <Link href="/solutions#tech" className="text-sm text-background/80 hover:text-copper transition-colors">
-                  Tech Startups
+                  Small office
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/solutions#professional"
+                  href="/solutions#mid-office"
                   className="text-sm text-background/80 hover:text-copper transition-colors"
                 >
-                  Professional Services
+                  Mid-size office
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/solutions#growing"
+                  href="/solutions#large-office"
                   className="text-sm text-background/80 hover:text-copper transition-colors"
                 >
-                  Growing Businesses
+                  Large office
                 </Link>
               </li>
             </ul>
@@ -144,14 +134,10 @@ export function Footer() {
           <div>
             <h3 className="font-serif text-lg mb-6">Service Areas</h3>
             <ul className="space-y-3">
-              <li>
-                <Link href="/contact#areas" className="text-sm text-background/80 hover:text-copper transition-colors">
-                  View All Service Areas
-                </Link>
-              </li>
+              <li className="text-sm text-background font-medium">Servicing Melbourne metro</li>
               <li className="text-sm text-background/60">Melbourne CBD</li>
-              <li className="text-sm text-background/60">Inner Suburbs</li>
-              <li className="text-sm text-background/60">Greater Melbourne</li>
+              <li className="text-sm text-background/60">Inner suburbs</li>
+              <li className="text-sm text-background/60">Eastern, Western, Northern, and South-Eastern metro</li>
             </ul>
           </div>
 

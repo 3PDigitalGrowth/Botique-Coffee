@@ -82,7 +82,7 @@ export function CoffeePartnersTeaser() {
                 href="/coffee"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-copper hover:bg-copper-dark text-background rounded-full transition-all duration-200 font-medium text-xs uppercase tracking-wider shadow-md hover:shadow-lg hover:scale-105"
               >
-                Explore coffee &amp; partners
+                See what&rsquo;s in your supply
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link

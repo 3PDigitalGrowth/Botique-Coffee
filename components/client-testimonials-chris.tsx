@@ -1,96 +1,89 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
-const testimonials = [
+const receipts = [
   {
-    quote:
-      "Chris doesn't just supply equipment - he genuinely cares about our team's coffee experience. He visited our office three times before we even signed a contract, just to understand our needs.",
-    name: "Sarah Mitchell",
-    company: "Pixel & Code",
-    role: "Operations Director",
+    value: "200+",
+    label: "Melbourne workplaces currently renting from us",
   },
   {
-    quote:
-      "What sets Chris apart is his honesty. When we wanted a specific machine, he recommended something different that better suited our team size and usage. He was right, and we're grateful for his integrity.",
-    name: "James Harrison",
-    company: "Maven Ventures",
-    role: "CEO",
+    value: "5+ years",
+    label: "Average client relationship",
   },
   {
-    quote:
-      "It's rare to find someone in business who genuinely prioritizes relationships over sales. Chris has become a trusted advisor for our growing company, not just a supplier.",
-    name: "Emma Chen",
-    company: "Greenleaf Architecture",
-    role: "Partner",
+    value: "24 hours",
+    label: "Typical response time on any service call",
   },
 ]
 
-function Testimonial({
-  quote,
-  name,
-  company,
-  role,
-  index,
-}: {
-  quote: string
-  name: string
-  company: string
-  role: string
-  index: number
-}) {
-  const testimonialRef = useRef<HTMLDivElement>(null)
+export default function ClientTestimonialsChris() {
+  const [isVisible, setIsVisible] = useState(false)
+  const sectionRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("opacity-100", "translate-y-0")
-            entry.target.classList.remove("opacity-0", "translate-y-12")
-          }
-        })
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true)
       },
-      { threshold: 0.2 },
+      { threshold: 0.1 },
     )
-
-    if (testimonialRef.current) {
-      observer.observe(testimonialRef.current)
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current)
     return () => observer.disconnect()
   }, [])
 
   return (
-    <div
-      ref={testimonialRef}
-      className="opacity-0 translate-y-12 transition-all duration-1000 ease-out mb-12 md:mb-16"
-      style={{ transitionDelay: `${index * 200}ms` }}
+    <section
+      ref={sectionRef}
+      className="py-16 md:py-24 px-6 md:px-12 bg-background"
     >
-      <blockquote className="mb-6">
-        <p className="text-lg md:text-xl text-foreground leading-relaxed italic text-pretty">"{quote}"</p>
-      </blockquote>
-      <div className="flex flex-col gap-1">
-        <cite className="not-italic font-medium text-foreground">{name}</cite>
-        <span className="text-sm text-muted-foreground uppercase tracking-wide">
-          {role}, {company}
-        </span>
-      </div>
-    </div>
-  )
-}
+      <div className="max-w-6xl mx-auto text-center">
+        <div
+          className="transition-all duration-1000"
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "translateY(0)" : "translateY(20px)",
+          }}
+        >
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground mb-4 text-balance">
+            The receipts
+          </h2>
+          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+            Numbers that are actually real, as of 2026.
+          </p>
+        </div>
 
-export default function ClientTestimonialsChris() {
-  return (
-    <section className="py-24 md:py-32 px-6 md:px-12 bg-muted/30">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="font-serif text-4xl md:text-5xl text-foreground mb-16 md:mb-20 text-balance">
-          What Clients Say About Working with Chris
-        </h2>
+        <div className="grid md:grid-cols-3 gap-10 md:gap-12 mt-12 md:mt-16">
+          {receipts.map((stat, index) => (
+            <div
+              key={stat.label}
+              className="transition-all duration-1000"
+              style={{
+                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? "translateY(0)" : "translateY(30px)",
+                transitionDelay: `${index * 150}ms`,
+              }}
+            >
+              <p className="font-serif text-5xl md:text-6xl text-copper leading-none mb-4">
+                {stat.value}
+              </p>
+              <p className="text-base md:text-lg text-foreground/80 leading-snug max-w-xs mx-auto text-balance">
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </div>
 
-        {testimonials.map((testimonial, index) => (
-          <Testimonial key={index} {...testimonial} index={index} />
-        ))}
+        <p
+          className="mt-14 md:mt-16 max-w-2xl mx-auto text-base md:text-lg text-foreground/80 leading-relaxed transition-all duration-1000"
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "translateY(0)" : "translateY(20px)",
+            transitionDelay: "500ms",
+          }}
+        >
+          I'll give you three client references on the first call if you want them. Most suppliers won't.
+        </p>
       </div>
     </section>
   )

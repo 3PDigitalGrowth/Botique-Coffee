@@ -1,9 +1,8 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { Phone } from "lucide-react"
+import { ArrowRight, Phone } from "lucide-react"
 
 export function CoffeeCTA() {
   const [isVisible, setIsVisible] = useState(false)
@@ -11,56 +10,69 @@ export function CoffeeCTA() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true)
-          }
-        })
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true)
       },
-      { threshold: 0.3 },
+      { threshold: 0.1 },
     )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current)
     return () => observer.disconnect()
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-32 px-6 md:px-12 lg:px-20">
-      <div className="max-w-3xl mx-auto text-center">
+    <section
+      ref={sectionRef}
+      className="py-16 md:py-24 px-6 md:px-12 lg:px-16 bg-foreground text-background"
+    >
+      <div className="max-w-4xl mx-auto text-center">
         <div
-          className={`transition-all duration-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-          }`}
+          className="transition-all duration-1000"
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "translateY(0)" : "translateY(20px)",
+          }}
         >
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl mb-6 text-balance">
-            Ready to Discover the Difference?
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl mb-5 text-balance leading-tight">
+            Want to talk through the supply side?
           </h2>
-          <p className="font-sans text-lg md:text-xl text-muted-foreground leading-relaxed mb-4 text-pretty">
-            Schedule a consultation to explore our coffee selection and services
+          <p className="text-background/75 text-base md:text-lg leading-relaxed max-w-2xl mx-auto text-pretty mb-10">
+            Ten minutes with Chris and we'll work out what beans, what volume, and what setup suits your team. No commitment. No pushy follow-up.
           </p>
-          <p className="font-sans text-base text-muted-foreground leading-relaxed mb-12 text-pretty">
-            We'll work with you to find the perfect coffee solution for your business.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/contact">
-              <Button size="lg" className="bg-copper hover:bg-copper/90 text-white px-8">
-                Schedule a Consultation
-              </Button>
-            </Link>
-            <a
-              href="tel:0411876625"
-              className="inline-flex items-center gap-2 text-muted-foreground hover:text-copper transition-colors"
-            >
-              <Phone className="w-4 h-4" />
-              <span className="font-sans text-sm">Call us at 0411 876 625</span>
-            </a>
-          </div>
         </div>
+
+        <div
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 transition-all duration-1000"
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "translateY(0)" : "translateY(20px)",
+            transitionDelay: "150ms",
+          }}
+        >
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-copper hover:bg-copper-dark text-white text-sm uppercase tracking-widest font-medium rounded-full shadow-xl hover:scale-105 transition-all duration-200"
+          >
+            Schedule a 10-minute consult
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+          <a
+            href="tel:0411876625"
+            className="inline-flex items-center gap-2 px-4 py-4 text-background/90 hover:text-copper transition-colors text-sm font-medium"
+          >
+            <Phone className="w-4 h-4" />
+            Or call Chris direct: 0411 876 625
+          </a>
+        </div>
+
+        <p
+          className="mt-8 text-sm text-background/60 transition-all duration-1000"
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transitionDelay: "300ms",
+          }}
+        >
+          Every rental starts with a 30-day free trial. If the coffee isn't right, we change it. If the setup isn't right, we return it. No card required to start.
+        </p>
       </div>
     </section>
   )

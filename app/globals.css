@@ -153,3 +153,127 @@
     background: oklch(0.65 0.15 45);
   }
 }
+
+/* Long-form content styling for /guides and /articles bodies */
+@layer components {
+  .content-prose {
+    color: color-mix(in oklab, var(--foreground) 85%, transparent);
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  @media (min-width: 768px) {
+    .content-prose {
+      font-size: 1.125rem;
+    }
+  }
+
+  .content-prose > * + * {
+    margin-top: 1.25em;
+  }
+
+  .content-prose h2 {
+    font-family: var(--font-serif);
+    color: var(--foreground);
+    font-size: 1.875rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-top: 2.5em;
+    margin-bottom: 0.75em;
+    text-wrap: balance;
+    scroll-margin-top: 6rem;
+  }
+
+  @media (min-width: 768px) {
+    .content-prose h2 {
+      font-size: 2.25rem;
+    }
+  }
+
+  .content-prose h3 {
+    font-family: var(--font-serif);
+    color: var(--foreground);
+    font-size: 1.35rem;
+    line-height: 1.3;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+    text-wrap: balance;
+    scroll-margin-top: 6rem;
+  }
+
+  @media (min-width: 768px) {
+    .content-prose h3 {
+      font-size: 1.5rem;
+    }
+  }
+
+  .content-prose p {
+    text-wrap: pretty;
+  }
+
+  .content-prose a {
+    color: var(--copper);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .content-prose a:hover {
+    text-decoration: underline;
+  }
+
+  .content-prose strong {
+    color: var(--foreground);
+    font-weight: 600;
+  }
+
+  .content-prose ul,
+  .content-prose ol {
+    padding-left: 1.5em;
+  }
+
+  .content-prose ul {
+    list-style: disc;
+  }
+
+  .content-prose ol {
+    list-style: decimal;
+  }
+
+  .content-prose li {
+    margin-top: 0.5em;
+    line-height: 1.7;
+  }
+
+  .content-prose blockquote {
+    border-left: 4px solid var(--copper);
+    background: color-mix(in oklab, var(--muted) 60%, transparent);
+    padding: 1rem 1.25rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-family: var(--font-serif);
+    font-size: 1.1em;
+    color: color-mix(in oklab, var(--foreground) 90%, transparent);
+  }
+
+  .content-prose blockquote p {
+    margin: 0;
+  }
+
+  .content-prose hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 2.5em 0;
+  }
+
+  .content-prose img {
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px -4px color-mix(in oklab, var(--foreground) 20%, transparent);
+  }
+
+  .content-prose code {
+    background: var(--muted);
+    padding: 0.15em 0.35em;
+    border-radius: 0.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+}

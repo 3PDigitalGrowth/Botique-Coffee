@@ -1,13 +1,22 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { ArrowRight, Sparkles, ShieldCheck, Truck, Check } from "lucide-react"
 
 export function HeroSection() {
   const [scrollY, setScrollY] = useState(0)
+  const [submitted, setSubmitted] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -24,8 +33,13 @@ export function HeroSection() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setSubmitted(true)
+  }
+
   return (
-    <section ref={sectionRef} className="relative h-screen w-full overflow-hidden">
+    <section ref={sectionRef} className="relative flex flex-col min-h-[calc(100svh-4.5rem)] w-full overflow-hidden pt-20 md:pt-24 pb-8 md:pb-10">
       {/* Parallax Image */}
       <div
         className="absolute inset-0 w-full h-[120vh]"
@@ -38,117 +52,213 @@ export function HeroSection() {
           backgroundAttachment: "fixed",
         }}
       >
-        {/* Subtle gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent md:from-black/60 md:via-black/50 md:to-black/30" />
+        {/* Darker gradient overlay to keep copy legible with the new two-column layout */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/35 md:from-black/75 md:via-black/45 md:to-black/25" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/40 to-transparent" />
       </div>
 
-      {/* Floating Typography */}
-      <div className="relative h-full flex items-center">
-        <div className="w-full max-w-7xl mx-auto px-6">
+      {/* Content */}
+      <div className="relative flex-1 flex items-center w-full max-w-7xl mx-auto px-6">
+        <div className="w-full grid lg:grid-cols-5 gap-6 lg:gap-10 items-center">
+          {/* Left: Copy */}
           <div
-            className="max-w-2xl bg-black/75 backdrop-blur-md p-8 md:p-10 rounded-2xl"
+            className="lg:col-span-3 text-white"
             style={{
-              opacity: 1 - scrollY * 2,
-              transform: `translateY(${scrollY * 50}px)`,
+              opacity: 1 - scrollY * 1.5,
+              transform: `translateY(${scrollY * 30}px)`,
               transition: "opacity 0.1s ease-out, transform 0.1s ease-out",
             }}
           >
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white mb-4 leading-tight text-balance">
-              Curated coffee experiences for workplaces that care about culture
-            </h1>
-            <p className="text-white/90 text-lg mb-6 max-w-xl text-pretty">
-              Chris personally designs and supports your coffee setup, pairing premium machines with locally roasted beans so your team and clients get café-quality every day.
-            </p>
-
-            <p className="text-white/70 text-sm mb-6 max-w-xl">
-              Talk directly with Chris. No call centres. No corporate runaround.
-            </p>
-
-            <form className="space-y-3 mb-4" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <Label htmlFor="businessName" className="text-white/90 text-xs uppercase tracking-wide mb-1 block">
-                    Business Name
-                  </Label>
-                  <Input
-                    id="businessName"
-                    type="text"
-                    placeholder="Your company name"
-                    className="bg-white/95 backdrop-blur-sm border-none text-gray-900 placeholder:text-gray-500 h-11 px-4 rounded-lg"
-                    required
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="email" className="text-white/90 text-xs uppercase tracking-wide mb-1 block">
-                    Work Email
-                  </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="you@company.com"
-                    className="bg-white/95 backdrop-blur-sm border-none text-gray-900 placeholder:text-gray-500 h-11 px-4 rounded-lg"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <Label htmlFor="phone" className="text-white/90 text-xs uppercase tracking-wide mb-1 block">
-                    Phone <span className="text-white/60">(optional)</span>
-                  </Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    placeholder="0411 876 625"
-                    className="bg-white/95 backdrop-blur-sm border-none text-gray-900 placeholder:text-gray-500 h-11 px-4 rounded-lg"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="looking" className="text-white/90 text-xs uppercase tracking-wide mb-1 block">
-                    What are you looking for? <span className="text-white/60">(optional)</span>
-                  </Label>
-                  <Select>
-                    <SelectTrigger className="bg-white/95 backdrop-blur-sm border-none text-gray-900 h-11 rounded-lg">
-                      <SelectValue placeholder="Select an option" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="new-setup">New workplace setup</SelectItem>
-                      <SelectItem value="upgrade">Upgrade our current setup</SelectItem>
-                      <SelectItem value="beans-service">Better beans and service</SelectItem>
-                      <SelectItem value="not-sure">Not sure yet</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-
-              <Button
-                type="submit"
-                size="lg"
-                className="w-full bg-[oklch(0.7_0.15_45)] hover:bg-[oklch(0.65_0.15_45)] text-white border-none shadow-2xl h-12 text-base rounded-lg"
-              >
-                Schedule My Coffee Consult
-              </Button>
-            </form>
-
-            <p className="text-white/70 text-sm mb-3">
-              We'll reach out within 24 hours to lock in a time. No commitment, just a friendly chat.
-            </p>
-
-            <div>
-              <a href="tel:0411876625" className="text-white/70 hover:text-[oklch(0.7_0.15_45)] transition-colors text-sm">
-                Prefer to talk first? Call Chris on 0411 876 625
-              </a>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-copper text-white mb-6 shadow-lg">
+              <Sparkles className="w-3.5 h-3.5" strokeWidth={2.5} />
+              <span className="text-[0.7rem] md:text-xs uppercase tracking-[0.15em] font-semibold whitespace-nowrap">
+                30-day free trial · Melbourne workplaces
+              </span>
             </div>
 
-            <p className="text-white/70 text-sm mt-4">Trusted by Melbourne teams who want coffee that feels personal.</p>
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-[2.75rem] xl:text-6xl text-white mb-4 leading-[1.05] text-balance">
+              Premium coffee machines, rented and managed for your Melbourne workplace
+            </h1>
+
+            <p className="text-white/90 text-base md:text-lg lg:text-lg xl:text-xl mb-5 max-w-xl leading-relaxed text-pretty">
+              From $35 a week. Machine, install, training, beans, and servicing all included. Try it free for 30 days, no card, no lock-in.
+            </p>
+
+            {/* Trust row */}
+            <div className="grid sm:grid-cols-3 gap-3 mb-5 max-w-xl">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="w-5 h-5 text-copper flex-shrink-0" />
+                <span className="text-sm text-white/90">No card required</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Truck className="w-5 h-5 text-copper flex-shrink-0" />
+                <span className="text-sm text-white/90">Free delivery &amp; install</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-5 h-5 text-copper flex-shrink-0" />
+                <span className="text-sm text-white/90">We uplift if it's not for you</span>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-white/15 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <p className="text-sm text-white/75">
+                Founder-led by Chris. No call centres. No corporate runaround.
+              </p>
+              <a
+                href="tel:0411876625"
+                className="text-sm text-white/80 hover:text-copper transition-colors whitespace-nowrap"
+              >
+                Or call Chris on <span className="font-medium">0411 876 625</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Right: Form card */}
+          <div className="lg:col-span-2 w-full">
+            <div className="bg-background rounded-2xl shadow-2xl p-5 md:p-6 border border-white/10">
+              {submitted ? (
+                <div className="text-center py-8">
+                  <div className="w-14 h-14 rounded-full bg-copper/15 flex items-center justify-center mx-auto mb-4">
+                    <Check className="w-7 h-7 text-copper" />
+                  </div>
+                  <h3 className="font-serif text-2xl text-foreground mb-2">You're in.</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    Chris will be in touch within 1 business day to confirm your machine, delivery slot and install. Keep an eye on your inbox.
+                  </p>
+                  <a
+                    href="tel:0411876625"
+                    className="inline-flex items-center gap-2 mt-5 text-copper hover:text-copper-dark transition-colors text-sm font-medium"
+                  >
+                    Prefer to talk now? Call Chris on 0411 876 625
+                  </a>
+                </div>
+              ) : (
+                <>
+                  <div className="mb-4">
+                    <p className="text-xs uppercase tracking-widest text-copper font-semibold mb-1">
+                      Start your free trial
+                    </p>
+                    <h2 className="font-serif text-xl md:text-2xl text-foreground leading-tight">
+                      Book a 10-minute consult
+                    </h2>
+                  </div>
+
+                  <form className="space-y-3" onSubmit={handleSubmit}>
+                    <div>
+                      <Label
+                        htmlFor="home-business"
+                        className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block"
+                      >
+                        Business name
+                      </Label>
+                      <Input
+                        id="home-business"
+                        type="text"
+                        placeholder="Your company"
+                        className="h-10 px-4 rounded-lg"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <Label
+                        htmlFor="home-email"
+                        className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block"
+                      >
+                        Work email
+                      </Label>
+                      <Input
+                        id="home-email"
+                        type="email"
+                        placeholder="you@company.com.au"
+                        className="h-10 px-4 rounded-lg"
+                        required
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <Label
+                          htmlFor="home-phone"
+                          className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block"
+                        >
+                          Phone
+                        </Label>
+                      <Input
+                        id="home-phone"
+                        type="tel"
+                        placeholder="0411 000 000"
+                        className="h-10 px-4 rounded-lg"
+                        required
+                      />
+                      </div>
+                      <div>
+                        <Label
+                          htmlFor="home-postcode"
+                          className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block"
+                        >
+                          Postcode
+                        </Label>
+                        <Input
+                          id="home-postcode"
+                          type="text"
+                          inputMode="numeric"
+                          pattern="3[0-9]{3}"
+                          placeholder="3000"
+                        className="h-10 px-4 rounded-lg"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label
+                      htmlFor="home-team"
+                        className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block"
+                      >
+                        Team size
+                      </Label>
+                      <Select>
+                        <SelectTrigger id="home-team" className="h-10 rounded-lg">
+                          <SelectValue placeholder="How many people drink coffee?" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="1-15">1 to 15 people (small office)</SelectItem>
+                          <SelectItem value="15-50">15 to 50 people (mid-size office)</SelectItem>
+                          <SelectItem value="50+">50+ people (large office)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <Button
+                      type="submit"
+                      size="lg"
+                      className="w-full bg-copper hover:bg-copper-dark text-white border-none shadow-lg h-12 text-base rounded-lg font-medium"
+                    >
+                      Start my 30-day free trial
+                      <ArrowRight className="w-4 h-4 ml-1" />
+                    </Button>
+
+                    <p className="text-xs text-muted-foreground text-center leading-relaxed">
+                      Prefer to talk first?{" "}
+                      <a
+                        href="tel:0411876625"
+                        className="text-copper hover:text-copper-dark font-medium transition-colors"
+                      >
+                        Call Chris on 0411 876 625
+                      </a>
+                    </p>
+                  </form>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>
 
       {/* Scroll indicator */}
       <div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="hidden md:block absolute bottom-6 left-1/2 -translate-x-1/2"
         style={{
           opacity: 1 - scrollY * 3,
         }}

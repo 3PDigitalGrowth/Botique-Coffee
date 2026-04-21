@@ -120,10 +120,12 @@ export function TrialIncluded() {
               ))}
             </ul>
 
-            <div className="mt-8 p-5 rounded-xl bg-copper/10 border border-copper/20">
-              <p className="text-sm text-foreground/90 leading-relaxed">
-                <span className="font-semibold text-copper-dark">Total retail value: $2,800+</span>
-                <span className="text-muted-foreground">, yours free for 30 days, no strings.</span>
+            <div className="mt-8 p-6 md:p-7 rounded-2xl bg-copper text-white shadow-lg">
+              <p className="font-serif text-xl md:text-2xl font-semibold leading-tight mb-1">
+                Total retail value: $2,800+
+              </p>
+              <p className="text-base md:text-lg font-medium leading-snug text-white/95">
+                Yours free for 30 days. No card, no bean minimums, no strings.
               </p>
             </div>
           </div>

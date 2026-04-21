@@ -9,20 +9,24 @@ const faqs = [
     a: "There's no catch. For 30 days you get the machine, the install, training and a starter supply of beans at zero cost. No credit card, no deposit, no setup fees. We bet on the quality of the coffee and service. If you love it, you stay on a simple monthly plan. If you don't, we pick the machine back up, free.",
   },
   {
+    q: "What happens if the machine breaks or jams?",
+    a: "One call to Chris on 0411 876 625 and we handle it. During the 30-day trial, every service call, part, and on-site fix is on us. No tickets, no call centres, no waiting three days for a technician.",
+  },
+  {
+    q: "Is training included, or do we work it out ourselves?",
+    a: "Training is included and done on-site by our team on install day. We walk your staff through the machine, dial in the grind, and make sure at least two people on your team are confident pulling a proper shot before we leave. If you need a refresher later in the trial, we come back.",
+  },
+  {
+    q: "What if we want to keep the machine after 30 days? What does it cost?",
+    a: "Three options. Keep the same machine on a simple month-to-month plan starting from a set monthly fee (Chris will quote based on your team size and usage). Swap to a different model at no cost if a better fit exists. Or return it with zero obligation. No follow-up sales calls either way.",
+  },
+  {
     q: "Which parts of Victoria do you service?",
     a: "We service Melbourne metro (CBD and all suburbs), Geelong, the Mornington Peninsula, Ballarat, Bendigo and most of regional Victoria. Enter your postcode when you claim your trial, and if we can't get to you directly, we'll let you know within one business day.",
   },
   {
     q: "How long does delivery and install take?",
-    a: "Most trials are delivered and installed within 5–7 business days of booking. The install itself takes 30–45 minutes on-site, including a quick plumbing and power check and a 10-minute team training. We work around your schedule.",
-  },
-  {
-    q: "Do I need to sign anything?",
-    a: "You'll sign a simple 1-page trial agreement so we know the machine is in good hands. It confirms the 30-day trial terms, pick-up responsibilities, and our commitment to you. No payment details, no auto-renewal traps.",
-  },
-  {
-    q: "What kind of coffee machine will I get?",
-    a: "A commercial-grade machine matched to your team size and space. These are the same machines we supply to boutique Victorian cafés. For smaller teams, that might be a premium bean-to-cup; for larger offices, a traditional 2-group espresso setup. Chris personally recommends the right fit.",
+    a: "Most trials are delivered and installed within 5 to 7 business days of booking. The install itself takes 30 to 45 minutes on-site, including a quick plumbing and power check and a 10-minute team training. We work around your schedule.",
   },
   {
     q: "What happens with beans and milk during the trial?",
@@ -31,10 +35,6 @@ const faqs = [
   {
     q: "What if the machine isn't right for us?",
     a: "Tell Chris. If the fit's wrong, we'll swap it to a better-suited machine during the trial, at no cost. If it's simply not for you, we uplift it at a time that works for you. No awkward follow-ups.",
-  },
-  {
-    q: "Is there a limit on cups during the trial?",
-    a: "Nope. Drink as much as your team can handle. The trial is designed to show you what daily life with a real coffee machine actually feels like.",
   },
 ]
 

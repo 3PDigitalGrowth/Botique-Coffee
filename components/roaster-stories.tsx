@@ -1,199 +1,110 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import Image from "next/image"
-import { ArrowRight } from "lucide-react"
+import { MessageCircle, Coffee, SlidersHorizontal } from "lucide-react"
+import { TestimonialCard } from "@/components/testimonial-card"
+
+const steps = [
+  {
+    icon: MessageCircle,
+    number: "01",
+    title: "We ask about your team",
+    body: "Do they drink mostly espresso or mostly milk-based? Strong and bold, or smooth and balanced? Any specific dislikes? Five minutes of conversation sorts most of it.",
+  },
+  {
+    icon: Coffee,
+    number: "02",
+    title: "We start you on a well-matched blend",
+    body: "Based on the conversation, we pick a starting blend we know suits that profile. First delivery arrives with the machine on install day.",
+  },
+  {
+    icon: SlidersHorizontal,
+    number: "03",
+    title: "We adjust based on what you say",
+    body: "If the team wants something brighter, richer, or different, tell Chris and we change it on the next delivery. No fuss. Most clients settle on a favourite within the first month.",
+  },
+]
 
 export function RoasterStories() {
-  const [visibleRoasters, setVisibleRoasters] = useState<Set<number>>(new Set())
-  const roasterRefs = useRef<(HTMLDivElement | null)[]>([])
+  const [isVisible, setIsVisible] = useState(false)
+  const sectionRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const observers = roasterRefs.current.map((ref, index) => {
-      if (!ref) return null
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setVisibleRoasters((prev) => new Set(prev).add(index))
-            }
-          })
-        },
-        { threshold: 0.15 },
-      )
-
-      observer.observe(ref)
-      return observer
-    })
-
-    return () => {
-      observers.forEach((observer) => observer?.disconnect())
-    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true)
+      },
+      { threshold: 0.1 },
+    )
+    if (sectionRef.current) observer.observe(sectionRef.current)
+    return () => observer.disconnect()
   }, [])
 
-  const isVisible = (index: number) => visibleRoasters.has(index)
-
   return (
-    <section className="py-24 px-6 md:px-12 lg:px-20 bg-accent/30">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl mb-20 text-balance">Our Roasting Partners</h2>
-
-        {/* Roaster 1 - Featured */}
+    <section ref={sectionRef} className="py-16 md:py-24 px-6 md:px-12 lg:px-16 bg-muted/30">
+      <div className="max-w-6xl mx-auto">
         <div
-          ref={(el) => {
-            roasterRefs.current[0] = el
+          className="text-center mb-12 md:mb-16 max-w-3xl mx-auto transition-all duration-1000"
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "translateY(0)" : "translateY(20px)",
           }}
-          className={`mb-32 transition-all duration-1000 ${
-            isVisible(0) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
-          }`}
         >
-          <div className="grid md:grid-cols-12 gap-12 items-center">
-            <div className="md:col-span-7">
-              <div className="relative aspect-[4/3] overflow-hidden">
-                <Image src="/artisan-roastery-at-work.jpg" alt="Artisan roastery" fill className="object-cover" />
-              </div>
-            </div>
-            <div className="md:col-span-5">
-              <h3 className="font-serif text-3xl md:text-4xl lg:text-5xl mb-3">Heritage Roasters</h3>
-              <p className="font-sans text-sm uppercase tracking-widest text-muted-foreground mb-6">
-                Melbourne, Victoria
-              </p>
-              <p className="font-sans text-lg text-copper mb-6 italic">
-                Specialty: Single-origin, light roasts with bright, complex notes
-              </p>
-              <p className="font-sans text-base md:text-lg text-muted-foreground leading-relaxed mb-8 text-pretty">
-                Founded by third-generation coffee enthusiasts, Heritage Roasters brings decades of expertise to every
-                batch. They work directly with farmers in Ethiopia, Colombia, and Guatemala, ensuring fair prices and
-                sustainable practices. Their light roasts highlight the unique terroir of each origin, creating coffee
-                that's as much about the story as the taste. Perfect for teams who appreciate nuanced, fruit-forward
-                profiles and ethical sourcing.
-              </p>
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 text-copper hover:text-copper/80 transition-colors group"
-              >
-                <span className="font-sans text-sm uppercase tracking-wider">Learn More</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
-            </div>
-          </div>
+          <p className="text-xs uppercase tracking-[0.2em] text-copper font-semibold mb-3">
+            How bean matching works
+          </p>
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground mb-4 text-balance">
+            Matching the bean to the team
+          </h2>
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed text-pretty">
+            Not every workplace wants the same coffee. Here's how we work out what yours should be.
+          </p>
         </div>
 
-        {/* Roaster 2 - Secondary */}
-        <div
-          ref={(el) => {
-            roasterRefs.current[1] = el
-          }}
-          className={`mb-32 transition-all duration-1000 delay-200 ${
-            isVisible(1) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
-          }`}
-        >
-          <div className="grid md:grid-cols-12 gap-12 items-center">
-            <div className="md:col-span-5 order-2 md:order-1">
-              <h3 className="font-serif text-3xl md:text-4xl lg:text-5xl mb-3">Urban Craft Coffee</h3>
-              <p className="font-sans text-sm uppercase tracking-widest text-muted-foreground mb-6">
-                Sydney, New South Wales
-              </p>
-              <p className="font-sans text-lg text-copper mb-6 italic">
-                Specialty: Medium roasts with balanced, approachable flavors
-              </p>
-              <p className="font-sans text-base md:text-lg text-muted-foreground leading-relaxed mb-8 text-pretty">
-                Urban Craft Coffee is all about accessibility without compromise. They believe great coffee shouldn't be
-                intimidating, so they create medium roasts that are smooth, balanced, and crowd-pleasing. Their beans
-                come from women-owned farms in Central and South America, and they're passionate about creating coffee
-                that brings people together. Ideal for diverse teams seeking approachable, high-quality coffee.
-              </p>
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 text-copper hover:text-copper/80 transition-colors group"
-              >
-                <span className="font-sans text-sm uppercase tracking-wider">Learn More</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
-            </div>
-            <div className="md:col-span-7 order-1 md:order-2">
-              <div className="relative aspect-[4/3] overflow-hidden">
-                <Image
-                  src="/urban-craft-roastery.jpg"
-                  alt="Urban Craft Coffee roastery"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Roaster 3 - Tertiary */}
-        <div
-          ref={(el) => {
-            roasterRefs.current[2] = el
-          }}
-          className={`mb-20 transition-all duration-1000 delay-400 ${
-            isVisible(2) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
-          }`}
-        >
-          <div className="grid md:grid-cols-12 gap-12 items-center">
-            <div className="md:col-span-6">
-              <div className="relative aspect-[3/4] overflow-hidden max-w-md mx-auto">
-                <Image src="/bold-brew-roastery.jpg" alt="Bold Brew roastery" fill className="object-cover" />
-              </div>
-            </div>
-            <div className="md:col-span-6">
-              <h3 className="font-serif text-3xl md:text-4xl mb-3">Bold Brew Collective</h3>
-              <p className="font-sans text-sm uppercase tracking-widest text-muted-foreground mb-6">
-                Brisbane, Queensland
-              </p>
-              <p className="font-sans text-lg text-copper mb-6 italic">
-                Specialty: Dark roasts with rich, bold, chocolatey notes
-              </p>
-              <p className="font-sans text-base md:text-lg text-muted-foreground leading-relaxed mb-8 text-pretty">
-                For teams who love their coffee strong and full-bodied, Bold Brew Collective delivers. They specialize
-                in dark roasts that emphasize caramel, chocolate, and toasted nut flavors. Their beans are sourced from
-                organic farms in Brazil and Indonesia, roasted to perfection for maximum richness. Perfect for
-                businesses that want a classic, robust coffee experience.
-              </p>
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 text-copper hover:text-copper/80 transition-colors group"
-              >
-                <span className="font-sans text-sm uppercase tracking-wider">Learn More</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Additional Roasters - Horizontal Scroll */}
-        <div className="overflow-x-auto -mx-6 md:-mx-12 lg:-mx-20 px-6 md:px-12 lg:px-20 pb-8">
-          <div className="flex gap-8 min-w-max">
-            {[
-              { name: "Coastal Coffee Co.", location: "Perth, WA", specialty: "Organic blends" },
-              { name: "Mountain Peak Roasters", location: "Adelaide, SA", specialty: "High-altitude beans" },
-              { name: "Artisan Grounds", location: "Hobart, TAS", specialty: "Micro-batch roasting" },
-              { name: "The Coffee Lab", location: "Canberra, ACT", specialty: "Experimental roasts" },
-            ].map((roaster, index) => (
+        <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+          {steps.map((step, index) => {
+            const Icon = step.icon
+            return (
               <div
-                key={index}
-                className="w-80 flex-shrink-0 bg-background p-8 transition-all hover:shadow-lg group cursor-pointer"
+                key={step.number}
+                className="relative bg-background border border-muted/50 rounded-2xl p-6 md:p-7 hover:border-copper/40 hover:shadow-lg transition-all duration-500"
+                style={{
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? "translateY(0)" : "translateY(30px)",
+                  transitionDelay: `${index * 150}ms`,
+                  transitionProperty: "opacity, transform, border-color, box-shadow",
+                  transitionDuration: "1000ms",
+                }}
               >
-                <div className="relative aspect-square mb-6 overflow-hidden">
-                  <Image
-                    src={`/roaster-${index + 4}.jpg`}
-                    alt={roaster.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+                <div className="flex items-center justify-between mb-5">
+                  <div className="w-12 h-12 rounded-full bg-copper/10 flex items-center justify-center">
+                    <Icon className="w-6 h-6 text-copper" />
+                  </div>
+                  <span className="font-serif text-4xl text-copper/30">{step.number}</span>
                 </div>
-                <h4 className="font-serif text-2xl mb-2 group-hover:text-copper transition-colors">{roaster.name}</h4>
-                <p className="font-sans text-sm uppercase tracking-widest text-muted-foreground mb-3">
-                  {roaster.location}
+                <h3 className="font-serif text-xl md:text-2xl text-foreground mb-3 leading-snug text-balance">
+                  {step.title}
+                </h3>
+                <p className="text-muted-foreground text-sm md:text-base leading-relaxed text-pretty">
+                  {step.body}
                 </p>
-                <p className="font-sans text-sm text-copper italic">{roaster.specialty}</p>
               </div>
-            ))}
-          </div>
+            )
+          })}
+        </div>
+
+        <div
+          className="mt-12 md:mt-16 flex justify-center transition-all duration-1000"
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "translateY(0)" : "translateY(20px)",
+            transitionDelay: "600ms",
+          }}
+        >
+          <TestimonialCard
+            quote="Chris supplies us with fresh coffee and a fully maintained machine, and his attention to detail is what makes it work. We serve great coffee every day in a busy retail environment, and that's because of him."
+            name="Michael May"
+          />
         </div>
       </div>
     </section>

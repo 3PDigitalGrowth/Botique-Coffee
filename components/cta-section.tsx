@@ -28,7 +28,7 @@ export function CTASection() {
             href="/coffee"
             className="text-[oklch(0.7_0.15_45)] hover:text-[oklch(0.65_0.15_45)] transition-colors text-base uppercase tracking-wide font-medium"
           >
-            Explore Coffee & Partners
+            See what's in your supply
           </Link>
         </div>
 

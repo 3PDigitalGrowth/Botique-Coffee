@@ -1,26 +1,25 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Star, Quote } from "lucide-react"
+import { TestimonialCard } from "@/components/testimonial-card"
 
 const testimonials = [
   {
     quote:
-      "We took the trial on a whim. By week two, our team was cancelling their morning café runs. We kept the machine, signed a plan, and haven't looked back.",
-    role: "Founder, Tech Studio, Richmond VIC",
-    rating: 5,
+      "Chris upgraded us to a WMF machine and the whole office noticed. Easy to use, great coffee, great hot chocolate, and the service has been consistent for years. Everyone here loves it.",
+    name: "Paul Bruno",
+    company: "Pepperl+Fuchs Australia",
   },
   {
     quote:
-      "Chris turned up, set it up in 40 minutes, trained the team and left us with coffee better than most Melbourne cafés. The 30 days sold itself.",
-    role: "Director, Creative Agency, Collingwood VIC",
-    rating: 5,
+      "Reliable machine, well maintained, easy to use, and cost-effective. Our team looks forward to their first coffee every morning, and it's great to offer visitors something quality too.",
+    name: "Michael Wood",
   },
   {
     quote:
-      "As a business owner you're wary of 'free' anything. This was the real deal. Zero pressure, incredible coffee, and Chris actually picks up the phone.",
-    role: "Managing Partner, Professional Services, South Melbourne VIC",
-    rating: 5,
+      "A broken machine causes havoc when the office is busy. Chris is easily contactable and the service is reliable and regular, which means our team has coffee when they need it most. Genuinely grateful for that.",
+    name: "Chrissie Straw",
+    company: "AJM-JV",
   },
 ]
 
@@ -46,49 +45,40 @@ export function TrialTestimonials() {
     >
       <div className="max-w-6xl mx-auto">
         <div
-          className="text-center mb-12 md:mb-16 transition-all duration-1000"
+          className="text-center mb-12 md:mb-14 transition-all duration-1000"
           style={{
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "translateY(0)" : "translateY(20px)",
           }}
         >
-          <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">Victorian businesses, real stories</p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground mb-4 text-balance">
-            Owners and founders just like you
+          <p className="text-xs uppercase tracking-widest text-copper font-semibold mb-3">
+            Real Victorian clients
+          </p>
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground mb-4 text-balance leading-tight">
+            What long-term clients actually say
           </h2>
-          <div className="flex items-center justify-center gap-1 mt-4">
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} className="w-5 h-5 fill-copper text-copper" />
-            ))}
-            <span className="ml-2 text-sm text-muted-foreground">4.9/5 from 120+ local reviews</span>
-          </div>
+          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
+            Attributed, verified, and pulled straight from years of working with Chris. No anonymous fluff.
+          </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid md:grid-cols-3 gap-5 md:gap-6 items-stretch">
           {testimonials.map((t, index) => (
             <div
-              key={t.role}
-              className="bg-background rounded-2xl p-6 md:p-7 shadow-sm border border-muted/40 hover:shadow-lg transition-all duration-500 flex flex-col"
+              key={t.name}
+              className="h-full flex transition-all duration-1000"
               style={{
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? "translateY(0)" : "translateY(30px)",
-                transitionDelay: `${index * 150}ms`,
-                transitionProperty: "opacity, transform, box-shadow",
-                transitionDuration: "800ms",
+                transitionDelay: `${index * 140}ms`,
               }}
             >
-              <Quote className="w-8 h-8 text-copper/30 mb-4" />
-              <div className="flex gap-0.5 mb-3">
-                {[...Array(t.rating)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-copper text-copper" />
-                ))}
-              </div>
-              <blockquote className="font-serif text-lg md:text-xl text-foreground mb-6 leading-relaxed text-pretty flex-1">
-                "{t.quote}"
-              </blockquote>
-              <div className="mt-auto pt-4 border-t border-muted/40">
-                <p className="text-xs uppercase tracking-wide text-muted-foreground">{t.role}</p>
-              </div>
+              <TestimonialCard
+                quote={t.quote}
+                name={t.name}
+                company={t.company}
+                className="w-full"
+              />
             </div>
           ))}
         </div>

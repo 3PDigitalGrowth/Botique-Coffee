@@ -1,87 +1,72 @@
 "use client"
 
-import type React from "react"
-
-import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Phone } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { ArrowRight, Phone } from "lucide-react"
 
 export default function FounderHero() {
-  const heroRef = useRef<HTMLDivElement>(null)
-  const imageRef = useRef<HTMLDivElement>(null)
-  const [email, setEmail] = useState("")
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!heroRef.current || !imageRef.current) return
-
-      const scrolled = window.scrollY
-      const heroHeight = heroRef.current.offsetHeight
-
-      // Zoom effect on image
-      const scale = 1 + scrolled / heroHeight / 2
-      imageRef.current.style.transform = `scale(${scale})`
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle form submission
-  }
-
   return (
-    <section ref={heroRef} className="relative h-screen overflow-hidden bg-neutral-900">
-      <div ref={imageRef} className="absolute inset-0 transition-transform duration-100 ease-out" style={{
-        backgroundImage: "url('/hero-chris-coffee-shop.jpg')",
-        backgroundPosition: "center center",
-        backgroundSize: "cover",
-        backgroundAttachment: "fixed",
-      }}>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent" />
+    <section className="relative w-full bg-background pt-20 md:pt-24 lg:pt-0">
+      {/* Image: flow (banner) on mobile/tablet, absolute full-bleed on desktop */}
+      <div className="relative w-full aspect-[16/10] md:aspect-[16/9] overflow-hidden lg:absolute lg:inset-0 lg:aspect-auto">
+        <Image
+          src="/boutique-coffee-van-chris-team.png"
+          alt="Chris Prokopiou and the Boutique Coffee at Work team with their branded service van"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+          style={{ objectPosition: "center 45%" }}
+        />
+
+        {/* Subtle top fade on mobile so the fixed header blends over the image */}
+        <div className="lg:hidden absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-background/70 to-transparent" />
+
+        {/* Desktop: left-to-right dark gradient for copy legibility, fading off before the van */}
+        <div
+          className="hidden lg:block absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.7) 18%, rgba(0,0,0,0.4) 42%, rgba(0,0,0,0.05) 62%, rgba(0,0,0,0) 72%)",
+          }}
+        />
       </div>
 
-      <div className="absolute inset-0 flex items-center px-6">
-        <div className="w-full max-w-7xl mx-auto">
-          <div className="max-w-2xl bg-black/75 backdrop-blur-md rounded-2xl p-8 md:p-12">
-            <h1 className="font-serif text-5xl md:text-7xl text-white mb-4 text-pretty">Chris Prokopiou</h1>
-            <p className="text-xl md:text-2xl text-white/90 mb-6">Building Better Workplaces Through Coffee</p>
-            <p className="text-base md:text-lg text-white/80 mb-8 leading-relaxed">
-              With over a decade of experience in hospitality and workplace culture, Chris personally designs each
-              coffee solution to reflect your team's unique values and needs.
+      {/* Content block */}
+      <div className="relative lg:min-h-[680px] xl:min-h-[740px] lg:flex lg:items-center">
+        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 py-12 md:py-14 lg:py-24">
+          <div className="max-w-xl">
+            <p className="text-xs uppercase tracking-[0.2em] text-copper font-semibold mb-4">
+              Meet the founder
             </p>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <input
-                type="email"
-                placeholder="Your work email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-6 py-4 rounded-full bg-white text-neutral-900 placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-copper"
-                required
-              />
-              <Button
-                type="submit"
-                className="w-full bg-copper hover:bg-copper/90 text-white rounded-full py-6 font-medium transition-all"
-              >
-                Meet with Chris
-              </Button>
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground lg:text-white mb-5 leading-[1.05] text-balance">
+              Chris Prokopiou. Founder. Still the one who answers the phone.
+            </h1>
+
+            <p className="text-lg md:text-xl text-muted-foreground lg:text-white/85 leading-relaxed mb-8 text-pretty">
+              I started Boutique Coffee at Work in 2008 with one job: make great coffee easy for Melbourne workplaces. Seventeen years later, I'm still doing that same job, and still picking up when you call.
+            </p>
+
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
               <Link
-                href="tel:0411876625"
-                className="flex items-center justify-center gap-2 text-white/80 hover:text-white transition-colors text-sm"
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-copper hover:bg-copper-dark text-white text-sm uppercase tracking-wider font-medium rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
               >
-                <Phone className="h-4 w-4" />
-                Or call 0411 876 625
+                Book a 10-minute consult with Chris
+                <ArrowRight className="w-4 h-4" />
               </Link>
-            </form>
+              <a
+                href="tel:0411876625"
+                className="inline-flex items-center gap-2 text-foreground/80 lg:text-white/85 hover:text-copper lg:hover:text-copper transition-colors text-sm font-medium"
+              >
+                <Phone className="w-4 h-4" />
+                Or call me direct: 0411 876 625
+              </a>
+            </div>
           </div>
         </div>
       </div>
-      {/* </CHANGE> */}
     </section>
   )
 }

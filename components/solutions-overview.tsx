@@ -6,24 +6,28 @@ import { ArrowRight } from "lucide-react"
 
 const solutions = [
   {
-    title: "Creative Agencies",
-    description: "Fuel ideas with café-quality coffee that matches your studio's energy and taste.",
+    title: "Small office (up to 15 people)",
+    description:
+      "A compact super-automatic machine that handles morning rush without queues. Perfect for studios, agencies, and small teams who want café-quality without the café trip.",
+    priceAnchor: "From $35 a week",
     image: "/creative-agency-workspace-with-coffee-machine.jpg",
+    href: "/solutions#small-office",
   },
   {
-    title: "Tech Startups",
-    description: "A clean, reliable setup that keeps pace as your team grows and your space evolves.",
+    title: "Mid-size office (15 to 50 people)",
+    description:
+      "A step-up commercial machine built for steady daily volume. Ideal for growing teams, professional services, and workplaces where coffee is part of the culture.",
+    priceAnchor: "From $55 a week",
     image: "/tech-startup-office-with-coffee-machine.jpg",
+    href: "/solutions#mid-office",
   },
   {
-    title: "Professional Services",
-    description: "Host clients with coffee that signals quality and attention to detail in every meeting.",
+    title: "Large office (50+ people)",
+    description:
+      "Heavy-duty commercial setup, often paired across multiple floors or tea points. Designed for law firms, corporates, and head offices with real daily demand.",
+    priceAnchor: "From $85 a week",
     image: "/professional-services-office-coffee.jpg",
-  },
-  {
-    title: "Growing Businesses",
-    description: "Flexible options that fit your stage, with support that stays consistent as things change.",
-    image: "/growing-business-office-coffee.jpg",
+    href: "/solutions#large-office",
   },
 ]
 
@@ -58,18 +62,18 @@ export function SolutionsOverview() {
             transform: isVisible ? "translateY(0)" : "translateY(20px)",
           }}
         >
-          <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">Tailored Solutions</p>
+          <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">Find your fit</p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground mb-4 text-balance">
-            Solutions for Every Business
+            Packages sized to your team
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-10">
+        <div className="grid md:grid-cols-3 gap-8 md:gap-10 items-stretch">
           {solutions.map((solution, index) => (
             <Link
               key={solution.title}
-              href="/solutions"
-              className="group opacity-0 transition-all duration-1000"
+              href={solution.href}
+              className="group flex flex-col h-full opacity-0 transition-all duration-1000"
               style={{
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? "translateY(0)" : "translateY(30px)",
@@ -84,11 +88,16 @@ export function SolutionsOverview() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               </div>
-              <h3 className="font-serif text-xl md:text-2xl text-foreground mb-2 group-hover:text-[oklch(0.7_0.15_45)] transition-colors">
+              <h3 className="font-serif text-xl md:text-2xl text-foreground mb-2 group-hover:text-copper transition-colors text-balance">
                 {solution.title}
               </h3>
-              <p className="text-muted-foreground text-base mb-3 text-pretty">{solution.description}</p>
-              <span className="inline-flex items-center gap-2 text-sm text-[oklch(0.7_0.15_45)] uppercase tracking-wide">
+              <p className="text-muted-foreground text-base mb-4 text-pretty leading-relaxed flex-1">
+                {solution.description}
+              </p>
+              <p className="text-sm text-copper font-semibold uppercase tracking-wide mb-3">
+                {solution.priceAnchor}
+              </p>
+              <span className="inline-flex items-center gap-2 text-sm text-copper uppercase tracking-wide">
                 Learn More
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </span>
@@ -107,18 +116,21 @@ export function SolutionsOverview() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-4">
             <Link
               href="/solutions"
-              className="inline-flex items-center gap-2 text-[oklch(0.7_0.15_45)] hover:text-[oklch(0.65_0.15_45)] transition-colors"
+              className="inline-flex items-center gap-2 text-copper hover:text-copper-dark transition-colors"
             >
               <span className="text-sm uppercase tracking-wide">View All Solutions</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
           <p className="text-muted-foreground text-sm mt-6">
-            Not sure where you fit?{" "}
-            <Link href="/contact" className="text-[oklch(0.7_0.15_45)] hover:text-[oklch(0.65_0.15_45)] transition-colors underline decoration-copper/30 hover:decoration-copper">
-              Book a quick consult
-            </Link>{" "}
-            and we'll point you in the right direction.
+            Not sure which tier fits your team? Chris will walk you through it on a 10-minute call.{" "}
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-1 text-copper hover:text-copper-dark transition-colors underline decoration-copper/30 hover:decoration-copper font-medium"
+            >
+              Book a consult
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </p>
         </div>
       </div>

@@ -1,6 +1,25 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { Milk, CupSoda, Package } from "lucide-react"
+
+const extras = [
+  {
+    icon: Milk,
+    title: "Milk options",
+    body: "Full cream and skim standard. Oat, almond, and soy available on request. Some teams want all five on the go, others stick to one, whatever suits.",
+  },
+  {
+    icon: CupSoda,
+    title: "Hot chocolate",
+    body: "A good hot chocolate is surprisingly important for the quarter of your team who don't drink coffee. We supply quality drinking chocolate, not the cheap stuff.",
+  },
+  {
+    icon: Package,
+    title: "Consumables",
+    body: "Cups (compostable or standard), sugar sticks, wooden stirrers, paper napkins. Restocked on every service visit. If you need something specific, ask.",
+  },
+]
 
 export function CoffeeSelection() {
   const [isVisible, setIsVisible] = useState(false)
@@ -8,87 +27,63 @@ export function CoffeeSelection() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true)
-          }
-        })
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true)
       },
-      { threshold: 0.2 },
+      { threshold: 0.1 },
     )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current)
     return () => observer.disconnect()
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-24 px-6 md:px-12 lg:px-20">
-      <div className="max-w-7xl mx-auto">
-        {/* Subsection A */}
+    <section ref={sectionRef} className="py-16 md:py-24 px-6 md:px-12 lg:px-16 bg-muted/30">
+      <div className="max-w-6xl mx-auto">
         <div
-          className={`mb-24 transition-all duration-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-          }`}
+          className="text-center mb-12 md:mb-14 max-w-3xl mx-auto transition-all duration-1000"
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "translateY(0)" : "translateY(20px)",
+          }}
         >
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl mb-12 text-balance">The Art of Selection</h2>
-          <div className="grid md:grid-cols-2 gap-16 items-start">
-            <div>
-              <p className="font-sans text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 text-pretty">
-                Choosing the right coffee is both science and intuition. We consider origin, roast profile, flavor
-                notes, sustainability practices, and the story behind each bean. Every selection is made with care,
-                ensuring it meets our rigorous standards for quality, ethics, and taste.
-              </p>
-            </div>
-            <div className="space-y-6">
-              {[
-                { label: "Origin", description: "Single-origin beans from ethical farms" },
-                { label: "Roast Profile", description: "Light, medium, or dark based on preference" },
-                { label: "Flavor Notes", description: "Fruity, nutty, chocolatey, or floral" },
-                { label: "Sustainability", description: "Fair trade, organic, and eco-friendly" },
-              ].map((criterion, index) => (
-                <div key={index} className="border-l-2 border-copper pl-6">
-                  <h3 className="font-sans text-lg font-semibold mb-2">{criterion.label}</h3>
-                  <p className="font-sans text-base text-muted-foreground">{criterion.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+          <p className="text-xs uppercase tracking-[0.2em] text-copper font-semibold mb-3">
+            Milk, chocolate, and the small stuff
+          </p>
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground mb-4 text-balance leading-tight">
+            Milk, chocolate, and everything else
+          </h2>
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed text-pretty">
+            Coffee is the main event, but a workplace coffee setup is more than beans.
+          </p>
         </div>
 
-        {/* Subsection B */}
-        <div
-          className={`transition-all duration-1000 delay-300 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-          }`}
-        >
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl mb-12 text-balance">Tailored to Your Taste</h2>
-          <div className="grid md:grid-cols-3 gap-12">
-            <div>
-              <h3 className="font-sans text-xl font-semibold mb-4">Business Culture</h3>
-              <p className="font-sans text-base text-muted-foreground leading-relaxed text-pretty">
-                Creative agencies might love experimental, bright roasts. Law firms may prefer classic, bold profiles.
-                We match coffee to your company's personality and values.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-sans text-xl font-semibold mb-4">Team Preferences</h3>
-              <p className="font-sans text-base text-muted-foreground leading-relaxed text-pretty">
-                We survey your team to understand their tastes. Do they prefer espresso or filter? Light or dark? We
-                ensure everyone finds something they love.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-sans text-xl font-semibold mb-4">Seasonal Variations</h3>
-              <p className="font-sans text-base text-muted-foreground leading-relaxed text-pretty">
-                Coffee preferences shift with the seasons. Brighter, fruitier coffees in summer; richer, fuller-bodied
-                in winter. We adapt your selection throughout the year.
-              </p>
-            </div>
-          </div>
+        <div className="grid md:grid-cols-3 gap-5 md:gap-6">
+          {extras.map((item, index) => {
+            const Icon = item.icon
+            return (
+              <div
+                key={item.title}
+                className="flex flex-col h-full p-6 md:p-7 rounded-2xl bg-background border border-muted/50 hover:border-copper/40 hover:shadow-md transition-all duration-500"
+                style={{
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? "translateY(0)" : "translateY(30px)",
+                  transitionDelay: `${index * 120}ms`,
+                  transitionProperty: "opacity, transform, border-color, box-shadow",
+                  transitionDuration: "800ms",
+                }}
+              >
+                <div className="w-11 h-11 rounded-2xl bg-copper/10 flex items-center justify-center mb-4">
+                  <Icon className="w-5 h-5 text-copper" strokeWidth={1.75} />
+                </div>
+                <h3 className="font-serif text-lg md:text-xl text-foreground mb-2 leading-snug text-balance">
+                  {item.title}
+                </h3>
+                <p className="text-muted-foreground text-sm md:text-base leading-relaxed text-pretty">
+                  {item.body}
+                </p>
+              </div>
+            )
+          })}
         </div>
       </div>
     </section>

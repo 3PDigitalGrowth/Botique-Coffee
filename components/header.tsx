@@ -61,23 +61,29 @@ export function Header() {
     )
   }
 
-  const navItems = [
+  type NavItem = {
+    label: string
+    href: string
+    highlight?: boolean
+    submenu?: { label: string; href: string }[]
+  }
+
+  const navItems: NavItem[] = [
     { label: "Home", href: "/" },
     { label: "About Chris", href: "/founder" },
-    { label: "Our Coffee & Partners", href: "/coffee" },
+    { label: "The Coffee", href: "/coffee" },
     {
       label: "Solutions",
       href: "/solutions",
       submenu: [
-        { label: "Creative Agencies", href: "/solutions#creative" },
-        { label: "Tech Startups", href: "/solutions#tech" },
-        { label: "Professional Services", href: "/solutions#professional" },
-        { label: "Growing Businesses", href: "/solutions#growing" },
+        { label: "Small office (up to 15)", href: "/solutions#small-office" },
+        { label: "Mid-size office (15 to 50)", href: "/solutions#mid-office" },
+        { label: "Large office (50+)", href: "/solutions#large-office" },
       ],
     },
-    { label: "How It Works", href: "/journey" },
-    { label: "Client Stories", href: "/stories" },
-    { label: "Blog", href: "/blog" },
+    { label: "How It Works", href: "/how-it-works" },
+    { label: "Free Trial", href: "/free-trial", highlight: true },
+    { label: "Guides", href: "/guides" },
   ]
 
   return (
@@ -108,7 +114,11 @@ export function Header() {
                 <div key={item.label} className="relative group">
                   <Link
                     href={item.href}
-                    className="text-xs uppercase tracking-tight font-medium text-foreground/80 hover:text-copper transition-colors py-2 whitespace-nowrap leading-tight"
+                    className={
+                      item.highlight
+                        ? "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-copper/10 border border-copper/40 text-xs uppercase tracking-tight font-semibold text-copper hover:bg-copper hover:text-white transition-all duration-200 whitespace-nowrap leading-tight"
+                        : "text-xs uppercase tracking-tight font-medium text-foreground/80 hover:text-copper transition-colors py-2 whitespace-nowrap leading-tight"
+                    }
                   >
                     {item.label}
                   </Link>
@@ -168,11 +178,22 @@ export function Header() {
       >
         <div className="flex flex-col h-full pt-20 px-6 pb-6 overflow-y-auto">
           {navItems.map((item) => (
-            <div key={item.label} className="border-b border-foreground/10">
+            <div
+              key={item.label}
+              className={
+                item.highlight
+                  ? "border-b border-foreground/10 bg-copper/5"
+                  : "border-b border-foreground/10"
+              }
+            >
               <Link
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="block py-4 text-lg text-foreground hover:text-copper transition-colors"
+                className={
+                  item.highlight
+                    ? "block py-4 px-2 text-lg font-semibold text-copper hover:text-copper-dark transition-colors"
+                    : "block py-4 text-lg text-foreground hover:text-copper transition-colors"
+                }
               >
                 {item.label}
               </Link>

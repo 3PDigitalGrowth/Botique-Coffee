@@ -99,10 +99,10 @@ export function TrialHero() {
                 <>
                   <div className="mb-5">
                     <p className="text-xs uppercase tracking-widest text-copper font-semibold mb-1">
-                      Claim your free trial
+                      Five fields. No card.
                     </p>
                     <h2 className="font-serif text-2xl md:text-[1.6rem] text-foreground leading-tight">
-                      30 days, on us. Zero risk.
+                      Chris calls you back within 1 business day.
                     </h2>
                   </div>
 
@@ -185,7 +185,7 @@ export function TrialHero() {
                       size="lg"
                       className="w-full bg-copper hover:bg-copper-dark text-white border-none shadow-lg h-12 text-base rounded-lg font-medium"
                     >
-                      Claim my 30-day free trial
+                      Start my 30 days, no card, no lock-in
                     </Button>
 
                     <p className="text-xs text-muted-foreground text-center leading-relaxed">

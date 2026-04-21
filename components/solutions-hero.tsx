@@ -1,83 +1,84 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Phone } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
+import { ArrowRight, Phone } from "lucide-react"
 
 export function SolutionsHero() {
-  const [scrollY, setScrollY] = useState(0)
+  const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect()
-        const scrollProgress = Math.max(0, Math.min(1, 1 - rect.top / window.innerHeight))
-        setScrollY(scrollProgress)
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    handleScroll()
-    return () => window.removeEventListener("scroll", handleScroll)
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true)
+      },
+      { threshold: 0.1 },
+    )
+    if (sectionRef.current) observer.observe(sectionRef.current)
+    return () => observer.disconnect()
   }, [])
 
   return (
-    <section ref={sectionRef} className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          transform: `scale(${1 + scrollY * 0.1})`,
-        }}
-      >
-        <img
-          src="/modern-office-workspace-with-coffee-solutions.jpg"
-          alt="Modern office workspace"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6 py-16 md:py-24 relative z-10 w-full">
-        <div className="max-w-2xl">
-          <div className="bg-black/75 backdrop-blur-md rounded-2xl p-8 md:p-12">
-            <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl text-balance mb-6 text-white">
-              Coffee Solutions Built for Your Business
+    <section
+      ref={sectionRef}
+      className="relative w-full bg-background pt-24 md:pt-28 pb-12 md:pb-20 px-6 md:px-12 lg:px-16"
+    >
+      <div className="max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div
+            className="order-2 lg:order-1 transition-all duration-1000"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? "translateY(0)" : "translateY(20px)",
+            }}
+          >
+            <p className="text-xs uppercase tracking-widest text-copper font-semibold mb-4">
+              Find your fit
+            </p>
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground mb-6 text-balance leading-tight">
+              Three tiers, sized to real Melbourne workplaces
             </h1>
-            <p className="text-lg md:text-xl text-white/90 text-balance leading-relaxed mb-8">
-              We don't believe in one-size-fits-all. We specialise in understanding your unique needs.
-            </p>
-            {/* </CHANGE> */}
-            <p className="text-base text-white/80 mb-6 leading-relaxed">
-              Get a personalised coffee solution tailored to your business type, team size, and culture. Start with a
-              free consultation.
+            <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-8 text-pretty max-w-xl">
+              Small team, mid-size office, or large-scale setup. We'll match the machine, the supply, and the service to your actual daily volume, not the sales pitch you'd get from a corporate supplier.
             </p>
 
-            <form className="space-y-4 mb-6">
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-white/70 mb-2 uppercase tracking-wide">
-                  Work Email
-                </label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="your.name@company.com"
-                  className="bg-white/95 border-white/20 text-foreground h-12 rounded-lg"
-                />
-              </div>
-              <Button asChild className="w-full h-12 text-base bg-copper hover:bg-copper-dark rounded-lg">
-                <Link href="/contact">Schedule a Consultation</Link>
-              </Button>
-            </form>
-
-            <div className="flex items-center justify-center gap-2 text-white/70 text-sm">
-              <Phone className="w-4 h-4" />
-              <span>Or call us at</span>
-              <a href="tel:0411876625" className="text-white hover:text-copper transition-colors">
-                0411 876 625
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 px-7 py-4 bg-copper hover:bg-copper-dark text-white text-sm uppercase tracking-widest font-medium rounded-full shadow-lg hover:scale-[1.02] transition-all duration-200"
+              >
+                Not sure which tier? Book a 10-min consult
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <a
+                href="tel:0411876625"
+                className="inline-flex items-center gap-2 px-2 py-3 text-foreground/80 hover:text-copper transition-colors text-sm font-medium"
+              >
+                <Phone className="w-4 h-4" />
+                Or call Chris direct: 0411 876 625
               </a>
+            </div>
+          </div>
+
+          <div
+            className="order-1 lg:order-2 transition-all duration-1000"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? "translateX(0)" : "translateX(30px)",
+              transitionDelay: "150ms",
+            }}
+          >
+            <div className="relative rounded-2xl overflow-hidden shadow-xl aspect-[4/3] lg:aspect-[4/5]">
+              <Image
+                src="/modern-office-workspace-with-coffee-solutions.jpg"
+                alt="A modern Melbourne workplace with a commercial coffee setup"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+              />
             </div>
           </div>
         </div>
