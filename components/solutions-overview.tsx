@@ -18,7 +18,7 @@ const solutions = [
     description:
       "A step-up commercial machine built for steady daily volume. Ideal for growing teams, professional services, and workplaces where coffee is part of the culture.",
     priceAnchor: "From $55 a week",
-    image: "/tech-startup-office-with-coffee-machine.jpg",
+    image: "/modern-professional-espresso-machine-in-corporate.jpg",
     href: "/solutions#mid-office",
   },
   {
