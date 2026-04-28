@@ -44,7 +44,7 @@ export function ConsultForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ variant: "consult", ...form }),
       })
       const data = await res.json().catch(() => ({}))
 

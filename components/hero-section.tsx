@@ -12,11 +12,24 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { ArrowRight, Sparkles, ShieldCheck, Truck, Check } from "lucide-react"
+import { ArrowRight, Sparkles, ShieldCheck, Truck, Check, Loader2 } from "lucide-react"
+
+const HOME_TEAM_LABELS: Record<string, string> = {
+  "1-15": "1 to 15 people (small office)",
+  "15-50": "15 to 50 people (mid-size office)",
+  "50+": "50+ people (large office)",
+}
 
 export function HeroSection() {
   const [scrollY, setScrollY] = useState(0)
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [businessName, setBusinessName] = useState("")
+  const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
+  const [postcode, setPostcode] = useState("")
+  const [teamSize, setTeamSize] = useState("")
   const sectionRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -33,9 +46,47 @@ export function HeroSection() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
+    setError(null)
+    if (!teamSize) {
+      setError("Please choose a team size.")
+      return
+    }
+    setSubmitting(true)
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          variant: "quick",
+          source: "homepage-hero",
+          businessName,
+          email,
+          phone,
+          postcode,
+          teamSize: HOME_TEAM_LABELS[teamSize] || teamSize,
+        }),
+      })
+      const data = await res.json().catch(() => ({}))
+
+      if (!res.ok || !data.ok) {
+        setError(
+          data?.error ||
+            "Something went wrong sending your details. Please call Chris on 0411 876 625.",
+        )
+        setSubmitting(false)
+        return
+      }
+
+      setSubmitted(true)
+    } catch {
+      setError(
+        "Could not reach the server. Please call Chris directly on 0411 876 625 or try again.",
+      )
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -157,6 +208,9 @@ export function HeroSection() {
                         placeholder="Your company"
                         className="h-10 px-4 rounded-lg"
                         required
+                        value={businessName}
+                        onChange={(e) => setBusinessName(e.target.value)}
+                        autoComplete="organization"
                       />
                     </div>
 
@@ -173,6 +227,9 @@ export function HeroSection() {
                         placeholder="you@company.com.au"
                         className="h-10 px-4 rounded-lg"
                         required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        autoComplete="email"
                       />
                     </div>
 
@@ -190,6 +247,9 @@ export function HeroSection() {
                         placeholder="0411 000 000"
                         className="h-10 px-4 rounded-lg"
                         required
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        autoComplete="tel"
                       />
                       </div>
                       <div>
@@ -207,6 +267,9 @@ export function HeroSection() {
                           placeholder="3000"
                         className="h-10 px-4 rounded-lg"
                         required
+                        value={postcode}
+                        onChange={(e) => setPostcode(e.target.value)}
+                        autoComplete="postal-code"
                       />
                     </div>
                   </div>
@@ -218,8 +281,8 @@ export function HeroSection() {
                       >
                         Team size
                       </Label>
-                      <Select>
-                        <SelectTrigger id="home-team" className="h-10 rounded-lg">
+                      <Select value={teamSize || undefined} onValueChange={setTeamSize}>
+                        <SelectTrigger id="home-team" className="h-10 rounded-lg w-full">
                           <SelectValue placeholder="How many people drink coffee?" />
                         </SelectTrigger>
                         <SelectContent>
@@ -230,13 +293,29 @@ export function HeroSection() {
                       </Select>
                     </div>
 
+                    {error ? (
+                      <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/30 text-sm text-foreground">
+                        {error}
+                      </div>
+                    ) : null}
+
                     <Button
                       type="submit"
                       size="lg"
-                      className="w-full bg-copper hover:bg-copper-dark text-white border-none shadow-lg h-12 text-base rounded-lg font-medium"
+                      disabled={submitting}
+                      className="w-full bg-copper hover:bg-copper-dark text-white border-none shadow-lg h-12 text-base rounded-lg font-medium disabled:opacity-60"
                     >
-                      Start my 7-day free trial
-                      <ArrowRight className="w-4 h-4 ml-1" />
+                      {submitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          Start my 7-day free trial
+                          <ArrowRight className="w-4 h-4 ml-1" />
+                        </>
+                      )}
                     </Button>
 
                     <p className="text-xs text-muted-foreground text-center leading-relaxed">

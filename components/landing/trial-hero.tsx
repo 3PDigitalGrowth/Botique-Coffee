@@ -1,18 +1,72 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Check, MapPin, ShieldCheck, Truck } from "lucide-react"
+import { Check, MapPin, ShieldCheck, Truck, Loader2 } from "lucide-react"
+
+const TRIAL_TEAM_LABELS: Record<string, string> = {
+  "1-10": "1–10 people",
+  "11-25": "11–25 people",
+  "26-50": "26–50 people",
+  "51-100": "51–100 people",
+  "100+": "100+ people",
+}
 
 export function TrialHero() {
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [businessName, setBusinessName] = useState("")
+  const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
+  const [postcode, setPostcode] = useState("")
+  const [teamSize, setTeamSize] = useState("")
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
+    setError(null)
+    if (!teamSize) {
+      setError("Please choose a team size.")
+      return
+    }
+    setSubmitting(true)
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          variant: "quick",
+          source: "free-trial",
+          businessName,
+          email,
+          phone,
+          postcode,
+          teamSize: TRIAL_TEAM_LABELS[teamSize] || teamSize,
+        }),
+      })
+      const data = await res.json().catch(() => ({}))
+
+      if (!res.ok || !data.ok) {
+        setError(
+          data?.error ||
+            "Something went wrong sending your details. Please call Chris on 0411 876 625.",
+        )
+        setSubmitting(false)
+        return
+      }
+
+      setSubmitted(true)
+    } catch {
+      setError(
+        "Could not reach the server. Please call Chris directly on 0411 876 625 or try again.",
+      )
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -117,6 +171,9 @@ export function TrialHero() {
                         placeholder="Your company"
                         className="h-11 px-4 rounded-lg"
                         required
+                        value={businessName}
+                        onChange={(e) => setBusinessName(e.target.value)}
+                        autoComplete="organization"
                       />
                     </div>
 
@@ -130,6 +187,9 @@ export function TrialHero() {
                         placeholder="you@company.com.au"
                         className="h-11 px-4 rounded-lg"
                         required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        autoComplete="email"
                       />
                     </div>
 
@@ -144,6 +204,9 @@ export function TrialHero() {
                           placeholder="0411 000 000"
                           className="h-11 px-4 rounded-lg"
                           required
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          autoComplete="tel"
                         />
                       </div>
                       <div>
@@ -158,6 +221,9 @@ export function TrialHero() {
                           placeholder="3000"
                           className="h-11 px-4 rounded-lg"
                           required
+                          value={postcode}
+                          onChange={(e) => setPostcode(e.target.value)}
+                          autoComplete="postal-code"
                         />
                       </div>
                     </div>
@@ -166,8 +232,8 @@ export function TrialHero() {
                       <Label htmlFor="trial-team" className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block">
                         Team size
                       </Label>
-                      <Select>
-                        <SelectTrigger id="trial-team" className="h-11 rounded-lg">
+                      <Select value={teamSize || undefined} onValueChange={setTeamSize}>
+                        <SelectTrigger id="trial-team" className="h-11 rounded-lg w-full">
                           <SelectValue placeholder="How many people drink coffee?" />
                         </SelectTrigger>
                         <SelectContent>
@@ -180,16 +246,34 @@ export function TrialHero() {
                       </Select>
                     </div>
 
+                    {error ? (
+                      <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/30 text-sm text-foreground">
+                        {error}
+                      </div>
+                    ) : null}
+
                     <Button
                       type="submit"
                       size="lg"
-                      className="w-full bg-copper hover:bg-copper-dark text-white border-none shadow-lg h-12 text-base rounded-lg font-medium"
+                      disabled={submitting}
+                      className="w-full bg-copper hover:bg-copper-dark text-white border-none shadow-lg h-12 text-base rounded-lg font-medium disabled:opacity-60"
                     >
-                      Start my 7 days, no card, no lock-in
+                      {submitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        "Start my 7 days, no card, no lock-in"
+                      )}
                     </Button>
 
                     <p className="text-xs text-muted-foreground text-center leading-relaxed">
-                      Chris responds personally within 1 business day. By submitting, you agree to our privacy policy.
+                      Chris responds personally within 1 business day. By submitting, you agree to our{" "}
+                      <Link href="/privacy" className="text-copper hover:underline font-medium">
+                        privacy policy
+                      </Link>
+                      .
                     </p>
                   </form>
                 </>
