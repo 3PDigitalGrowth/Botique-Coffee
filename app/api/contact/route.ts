@@ -3,7 +3,7 @@
  *
  * Environment variables:
  *   RESEND_API_KEY     (required in production) — https://resend.com
- *   RESEND_FROM        — e.g. Boutique Coffee <noreply@coffee.websitesubmission.com.au>
+ *   RESEND_FROM        — e.g. Boutique Coffee <enquiry@coffee.websitesubmission.com.au>
  *                        (must use your verified sending domain in Resend)
  *   CONTACT_RECIPIENTS — comma-separated inbox list (default: alex + chris)
  *
@@ -41,7 +41,7 @@ const DEFAULT_RECIPIENTS = "alex@3pdigital.com.au,chris@boutiquecoffee.com.au"
 const FROM =
   process.env.RESEND_FROM ||
   process.env.CONTACT_FROM ||
-  "Boutique Coffee <noreply@coffee.websitesubmission.com.au>"
+  "Boutique Coffee <enquiry@coffee.websitesubmission.com.au>"
 
 function getRecipients(): string[] {
   const raw =
