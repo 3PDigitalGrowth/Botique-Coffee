@@ -42,6 +42,8 @@ export function TrialHero() {
         body: JSON.stringify({
           variant: "quick",
           source: "free-trial",
+          pagePath:
+            typeof window !== "undefined" ? window.location.pathname : "/free-trial",
           businessName,
           email,
           phone,

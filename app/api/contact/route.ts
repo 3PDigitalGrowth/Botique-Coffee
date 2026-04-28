@@ -1,22 +1,33 @@
 /**
  * All site form submissions (contact page, homepage hero, free-trial landing).
+ * Sends (1) admin notification to CONTACT_RECIPIENTS and (2) confirmation to the visitor.
  *
  * Environment variables:
- *   RESEND_API_KEY     (required in production) — https://resend.com
- *   RESEND_FROM        — e.g. Boutique Coffee <enquiry@coffee.websitesubmission.com.au>
- *                        (must use your verified sending domain in Resend)
- *   CONTACT_RECIPIENTS — comma-separated inbox list (default: alex + chris)
- *
- * Request body:
- *   { "variant": "consult", ... } — full contact form (see ConsultForm)
- *   { "variant": "quick", "source": "homepage-hero" | "free-trial", ... } — short hero forms
+ *   RESEND_API_KEY     (required in production)
+ *   RESEND_FROM        — verified sender, e.g. Boutique Coffee <enquiry@coffee.websitesubmission.com.au>
+ *   CONTACT_RECIPIENTS — comma-separated admin inboxes (default: alex + chris)
+ *   CONTACT_REPLY_TO   — optional; used as Reply-To on user confirmation (default: chris@boutiquecoffee.com.au)
+ *   NEXT_PUBLIC_SITE_URL / SITE_PUBLIC_URL — site origin for “open page” links in admin emails
  */
 
 import { NextResponse } from "next/server"
 import { Resend } from "resend"
+import {
+  buildAdminNotificationHtml,
+  buildAdminNotificationText,
+  buildUserConfirmationHtml,
+  buildUserConfirmationText,
+  formatMelbourneTimestamp,
+  mailtoLink,
+  telLink,
+  escapeHtml,
+  type AdminDataRow,
+  type SubmissionContext,
+} from "@/lib/email/enquiry-emails"
 
 type ConsultPayload = {
   variant?: string
+  pagePath?: string
   name?: string
   businessName?: string
   email?: string
@@ -29,6 +40,7 @@ type ConsultPayload = {
 type QuickPayload = {
   variant: "quick"
   source?: string
+  pagePath?: string
   businessName?: string
   email?: string
   phone?: string
@@ -42,6 +54,66 @@ const FROM =
   process.env.RESEND_FROM ||
   process.env.CONTACT_FROM ||
   "Boutique Coffee <enquiry@coffee.websitesubmission.com.au>"
+
+const USER_CONFIRM_REPLY_TO =
+  process.env.CONTACT_REPLY_TO || "chris@boutiquecoffee.com.au"
+
+function siteBase(): string {
+  return (
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    process.env.SITE_PUBLIC_URL ||
+    "https://boutiquecoffee.com.au"
+  ).replace(/\/$/, "")
+}
+
+function normalizePagePath(raw: string | undefined, fallback: string): string {
+  const p = (raw || "").trim() || fallback
+  return p.startsWith("/") ? p : `/${p}`
+}
+
+function resolveFormMeta(
+  variant: "consult" | "quick",
+  source?: string,
+): { formLabel: string; pageFallback: string } {
+  if (variant === "consult") {
+    return {
+      formLabel: "Contact page — Book a 10-minute consult",
+      pageFallback: "/contact",
+    }
+  }
+  if (source === "homepage-hero") {
+    return {
+      formLabel: "Homepage — Start your free trial",
+      pageFallback: "/",
+    }
+  }
+  if (source === "free-trial") {
+    return {
+      formLabel: "Free trial landing — Claim your trial",
+      pageFallback: "/free-trial",
+    }
+  }
+  return {
+    formLabel: "Website — Quick enquiry",
+    pageFallback: "/",
+  }
+}
+
+function makeContext(
+  variant: "consult" | "quick",
+  source: string | undefined,
+  pagePathRaw: string | undefined,
+): SubmissionContext {
+  const { formLabel, pageFallback } = resolveFormMeta(variant, source)
+  const pagePath = normalizePagePath(pagePathRaw, pageFallback)
+  const pageUrl = `${siteBase()}${pagePath}`
+  return {
+    formLabel,
+    pagePath,
+    pageUrl,
+    submittedAtFormatted: formatMelbourneTimestamp(new Date()),
+  }
+}
 
 function getRecipients(): string[] {
   const raw =
@@ -57,24 +129,17 @@ function getRecipients(): string[] {
   return list
 }
 
-const escapeHtml = (value: string) =>
-  value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;")
-
 const isEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
 const isPhone = (value: string) => /[0-9]{6,}/.test(value.replace(/\s+/g, ""))
 const isVicPostcode = (value: string) => /^3[0-9]{3}$/.test(value.trim())
 
 function noApiKeyFallback() {
-  const isDev = process.env.NODE_ENV === "development"
-  if (isDev) {
-    return true
-  }
-  return false
+  return process.env.NODE_ENV === "development"
+}
+
+function greetingFirstName(fullName: string): string {
+  const first = fullName.trim().split(/\s+/)[0]
+  return first || ""
 }
 
 export async function POST(request: Request) {
@@ -127,47 +192,58 @@ async function handleQuick(body: QuickPayload) {
     )
   }
 
-  const sourceLabel =
-    source === "homepage-hero"
-      ? "Homepage hero"
-      : source === "free-trial"
-        ? "Free trial landing page"
-        : source
+  const ctx = makeContext("quick", source, body.pagePath)
+  const headline = `${businessName} · ${teamSize}`
 
-  const subject = `[${sourceLabel}] Quick lead: ${businessName}`
+  const rows: AdminDataRow[] = [
+    {
+      label: "Business",
+      valueText: businessName,
+      valueHtml: `<strong>${escapeHtml(businessName)}</strong>`,
+    },
+    {
+      label: "Email",
+      valueText: email,
+      valueHtml: mailtoLink(email, email),
+    },
+    {
+      label: "Phone",
+      valueText: phone,
+      valueHtml: telLink(phone, phone),
+    },
+    { label: "Postcode", valueText: postcode, valueHtml: escapeHtml(postcode) },
+    { label: "Team size", valueText: teamSize, valueHtml: escapeHtml(teamSize) },
+  ]
 
-  const html = `
-    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 560px; margin: 0 auto; color: #222; line-height: 1.6;">
-      <h2 style="font-family: Georgia, serif; color: #b8651f; margin: 0 0 16px;">Quick lead</h2>
-      <p style="margin: 0 0 20px; color: #555;">Source: <strong>${escapeHtml(sourceLabel)}</strong></p>
-      <table style="width: 100%; border-collapse: collapse; font-size: 15px;">
-        <tr><td style="padding: 8px 0; width: 160px; color: #666;">Business</td><td style="padding: 8px 0;"><strong>${escapeHtml(businessName)}</strong></td></tr>
-        <tr><td style="padding: 8px 0; color: #666;">Email</td><td style="padding: 8px 0;"><a href="mailto:${escapeHtml(email)}" style="color: #b8651f;">${escapeHtml(email)}</a></td></tr>
-        <tr><td style="padding: 8px 0; color: #666;">Phone</td><td style="padding: 8px 0;"><a href="tel:${escapeHtml(phone.replace(/\s+/g, ""))}" style="color: #b8651f;">${escapeHtml(phone)}</a></td></tr>
-        <tr><td style="padding: 8px 0; color: #666;">Postcode</td><td style="padding: 8px 0;">${escapeHtml(postcode)}</td></tr>
-        <tr><td style="padding: 8px 0; color: #666;">Team size</td><td style="padding: 8px 0;">${escapeHtml(teamSize)}</td></tr>
-      </table>
-      <p style="margin: 28px 0 0; font-size: 13px; color: #999;">Reply directly to this email to respond to ${escapeHtml(businessName)}.</p>
-    </div>
-  `.trim()
+  const adminSubject = `[${ctx.formLabel.split(" — ")[0] || "Site"}] ${businessName}`
 
-  const text = [
-    `Quick lead — ${sourceLabel}`,
-    ``,
-    `Business: ${businessName}`,
-    `Email: ${email}`,
-    `Phone: ${phone}`,
-    `Postcode: ${postcode}`,
-    `Team size: ${teamSize}`,
-  ].join("\n")
-
-  return sendWithResend({
-    subject,
-    html,
-    text,
-    replyTo: email,
+  return deliverBoth({
+    adminSubject,
+    adminHtml: buildAdminNotificationHtml(ctx, rows, headline),
+    adminText: buildAdminNotificationText(ctx, rows, headline),
+    adminReplyTo: email,
+    userTo: email,
+    userSubject: "We received your enquiry — Boutique Coffee",
+    userHtml: buildUserConfirmationHtml({
+      greetingName: "",
+      formLabel: ctx.formLabel,
+      isConsult: false,
+    }),
+    userText: buildUserConfirmationText({
+      greetingName: "",
+      formLabel: ctx.formLabel,
+      isConsult: false,
+    }),
     logLabel: "quick",
-    logPayload: { source, businessName, email, phone, postcode, teamSize },
+    logPayload: {
+      source,
+      businessName,
+      email,
+      phone,
+      postcode,
+      teamSize,
+      pagePath: ctx.pagePath,
+    },
   })
 }
 
@@ -199,58 +275,72 @@ async function handleConsult(body: ConsultPayload) {
     )
   }
 
-  const subject = `New consult request from ${businessName}, ${teamSize}`
+  const ctx = makeContext("consult", undefined, body.pagePath)
+  const headline = `${name} · ${businessName}`
 
-  const html = `
-    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 560px; margin: 0 auto; color: #222; line-height: 1.6;">
-      <h2 style="font-family: Georgia, serif; color: #b8651f; margin: 0 0 16px;">New consult request</h2>
-      <p style="margin: 0 0 20px; color: #555;">Submitted via the /contact form at boutiquecoffee.com.au.</p>
-      <table style="width: 100%; border-collapse: collapse; font-size: 15px;">
-        <tr><td style="padding: 8px 0; width: 160px; color: #666;">Name</td><td style="padding: 8px 0;"><strong>${escapeHtml(name)}</strong></td></tr>
-        <tr><td style="padding: 8px 0; color: #666;">Business</td><td style="padding: 8px 0;"><strong>${escapeHtml(businessName)}</strong></td></tr>
-        <tr><td style="padding: 8px 0; color: #666;">Email</td><td style="padding: 8px 0;"><a href="mailto:${escapeHtml(email)}" style="color: #b8651f;">${escapeHtml(email)}</a></td></tr>
-        <tr><td style="padding: 8px 0; color: #666;">Phone</td><td style="padding: 8px 0;"><a href="tel:${escapeHtml(phone.replace(/\s+/g, ""))}" style="color: #b8651f;">${escapeHtml(phone)}</a></td></tr>
-        <tr><td style="padding: 8px 0; color: #666;">Team size</td><td style="padding: 8px 0;">${escapeHtml(teamSize)}</td></tr>
-        <tr><td style="padding: 8px 0; color: #666;">Suburb</td><td style="padding: 8px 0;">${escapeHtml(suburb)}</td></tr>
-      </table>
-      ${
-        notes
-          ? `<div style="margin-top: 24px; padding: 16px; background: #faf6f1; border-left: 4px solid #b8651f; border-radius: 4px;"><p style="margin: 0 0 6px; font-size: 13px; color: #666; text-transform: uppercase; letter-spacing: 0.05em;">Notes</p><p style="margin: 0; white-space: pre-wrap;">${escapeHtml(notes)}</p></div>`
-          : ""
-      }
-      <p style="margin: 28px 0 0; font-size: 13px; color: #999;">Reply directly to this email to respond to ${escapeHtml(name)}.</p>
-    </div>
-  `.trim()
-
-  const text = [
-    `New consult request from the /contact form`,
-    ``,
-    `Name: ${name}`,
-    `Business: ${businessName}`,
-    `Email: ${email}`,
-    `Phone: ${phone}`,
-    `Team size: ${teamSize}`,
-    `Suburb: ${suburb}`,
-    notes ? `\nNotes:\n${notes}` : "",
+  const rows: AdminDataRow[] = [
+    { label: "Name", valueText: name, valueHtml: `<strong>${escapeHtml(name)}</strong>` },
+    {
+      label: "Business",
+      valueText: businessName,
+      valueHtml: `<strong>${escapeHtml(businessName)}</strong>`,
+    },
+    {
+      label: "Email",
+      valueText: email,
+      valueHtml: mailtoLink(email, email),
+    },
+    {
+      label: "Phone",
+      valueText: phone,
+      valueHtml: telLink(phone, phone),
+    },
+    { label: "Team size", valueText: teamSize, valueHtml: escapeHtml(teamSize) },
+    { label: "Suburb", valueText: suburb, valueHtml: escapeHtml(suburb) },
   ]
-    .filter(Boolean)
-    .join("\n")
+  if (notes) {
+    rows.push({
+      label: "Notes",
+      valueText: notes,
+      valueHtml: `<span style="white-space:pre-wrap;">${escapeHtml(notes)}</span>`,
+    })
+  }
 
-  return sendWithResend({
-    subject,
-    html,
-    text,
-    replyTo: email,
+  const adminSubject = `Consult request: ${businessName} · ${teamSize}`
+
+  const greet = greetingFirstName(name)
+
+  return deliverBoth({
+    adminSubject,
+    adminHtml: buildAdminNotificationHtml(ctx, rows, headline),
+    adminText: buildAdminNotificationText(ctx, rows, headline),
+    adminReplyTo: email,
+    userTo: email,
+    userSubject: "We received your consult request — Boutique Coffee",
+    userHtml: buildUserConfirmationHtml({
+      greetingName: greet,
+      formLabel: ctx.formLabel,
+      isConsult: true,
+    }),
+    userText: buildUserConfirmationText({
+      greetingName: greet,
+      formLabel: ctx.formLabel,
+      isConsult: true,
+    }),
     logLabel: "consult",
-    logPayload: { name, businessName, email, phone, teamSize, suburb, notes },
+    logPayload: { name, businessName, email, phone, teamSize, suburb, pagePath: ctx.pagePath },
   })
 }
 
-async function sendWithResend(args: {
-  subject: string
-  html: string
-  text: string
-  replyTo: string
+async function deliverBoth(args: {
+  adminSubject: string
+  adminHtml: string
+  adminText: string
+  adminReplyTo: string
+  userTo: string
+  userSubject: string
+  userHtml: string
+  userText: string
   logLabel: string
   logPayload: Record<string, unknown>
 }) {
@@ -258,7 +348,9 @@ async function sendWithResend(args: {
 
   if (!apiKey) {
     if (noApiKeyFallback()) {
-      console.info(`[contact:${args.logLabel}] RESEND_API_KEY not set. Logging payload and returning ok=true.`)
+      console.info(
+        `[contact:${args.logLabel}] RESEND_API_KEY not set. Logging payload and returning ok=true.`,
+      )
       console.info(`[contact:${args.logLabel}] payload:`, args.logPayload)
       return NextResponse.json({ ok: true, delivered: false })
     }
@@ -286,17 +378,18 @@ async function sendWithResend(args: {
 
   try {
     const resend = new Resend(apiKey)
-    const result = await resend.emails.send({
+
+    const adminResult = await resend.emails.send({
       from: FROM,
       to: recipients,
-      replyTo: args.replyTo,
-      subject: args.subject,
-      html: args.html,
-      text: args.text,
+      replyTo: args.adminReplyTo,
+      subject: args.adminSubject,
+      html: args.adminHtml,
+      text: args.adminText,
     })
 
-    if (result.error) {
-      console.error("[contact] Resend error:", result.error)
+    if (adminResult.error) {
+      console.error("[contact] Resend admin error:", adminResult.error)
       return NextResponse.json(
         {
           ok: false,
@@ -304,6 +397,22 @@ async function sendWithResend(args: {
             "We couldn't deliver your enquiry just now. Please call Chris directly on 0411 876 625.",
         },
         { status: 502 },
+      )
+    }
+
+    const userResult = await resend.emails.send({
+      from: FROM,
+      to: args.userTo,
+      replyTo: USER_CONFIRM_REPLY_TO,
+      subject: args.userSubject,
+      html: args.userHtml,
+      text: args.userText,
+    })
+
+    if (userResult.error) {
+      console.error(
+        "[contact] Admin email sent but user confirmation failed:",
+        userResult.error,
       )
     }
 

@@ -62,6 +62,8 @@ export function HeroSection() {
         body: JSON.stringify({
           variant: "quick",
           source: "homepage-hero",
+          pagePath:
+            typeof window !== "undefined" ? window.location.pathname : "/",
           businessName,
           email,
           phone,
