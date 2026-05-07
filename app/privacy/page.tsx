@@ -51,8 +51,7 @@ export default function PrivacyPage() {
               <li>Your business name</li>
               <li>Your work email</li>
               <li>Your phone number</li>
-              <li>Your team size and Melbourne suburb</li>
-              <li>Anything you write in the notes field</li>
+              <li>If you provide them: location, team size, and comments</li>
             </ul>
             <p>
               We also use basic web analytics (page views, device type, referrer) through Vercel Analytics to understand which pages are useful. This data is aggregated and doesn&apos;t personally identify you.

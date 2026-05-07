@@ -32,8 +32,11 @@ type ConsultPayload = {
   businessName?: string
   email?: string
   phone?: string
-  teamSize?: string
+  /** Office / area / address (optional). Legacy: suburb */
+  location?: string
   suburb?: string
+  teamSize?: string
+  comments?: string
   notes?: string
 }
 
@@ -252,13 +255,16 @@ async function handleConsult(body: ConsultPayload) {
   const businessName = (body.businessName || "").trim()
   const email = (body.email || "").trim()
   const phone = (body.phone || "").trim()
+  const location = ((body.location ?? body.suburb) || "").trim()
   const teamSize = (body.teamSize || "").trim()
-  const suburb = (body.suburb || "").trim()
-  const notes = (body.notes || "").trim()
+  const comments = ((body.comments ?? body.notes) || "").trim()
 
-  if (!name || !businessName || !email || !phone || !teamSize || !suburb) {
+  if (!name || !businessName || !email || !phone) {
     return NextResponse.json(
-      { ok: false, error: "Please fill in every required field." },
+      {
+        ok: false,
+        error: "Please fill in Contact name, Business name, Work email, and Phone.",
+      },
       { status: 400 },
     )
   }
@@ -278,15 +284,22 @@ async function handleConsult(body: ConsultPayload) {
   const ctx = makeContext("consult", undefined, body.pagePath)
   const headline = `${name} · ${businessName}`
 
+  const dashHtml = `<span style="color:#a8a29e;">—</span>`
+  const dashText = "—"
+
   const rows: AdminDataRow[] = [
-    { label: "Name", valueText: name, valueHtml: `<strong>${escapeHtml(name)}</strong>` },
     {
-      label: "Business",
+      label: "Contact name",
+      valueText: name,
+      valueHtml: `<strong>${escapeHtml(name)}</strong>`,
+    },
+    {
+      label: "Business name",
       valueText: businessName,
       valueHtml: `<strong>${escapeHtml(businessName)}</strong>`,
     },
     {
-      label: "Email",
+      label: "Work email",
       valueText: email,
       valueHtml: mailtoLink(email, email),
     },
@@ -295,20 +308,38 @@ async function handleConsult(body: ConsultPayload) {
       valueText: phone,
       valueHtml: telLink(phone, phone),
     },
-    { label: "Team size", valueText: teamSize, valueHtml: escapeHtml(teamSize) },
-    { label: "Suburb", valueText: suburb, valueHtml: escapeHtml(suburb) },
+    {
+      label: "Location",
+      valueText: location || dashText,
+      valueHtml: location ? escapeHtml(location) : dashHtml,
+    },
+    {
+      label: "Team size",
+      valueText: teamSize || dashText,
+      valueHtml: teamSize ? escapeHtml(teamSize) : dashHtml,
+    },
+    {
+      label: "Comments",
+      valueText: comments || dashText,
+      valueHtml: comments
+        ? `<span style="white-space:pre-wrap;">${escapeHtml(comments)}</span>`
+        : dashHtml,
+    },
   ]
-  if (notes) {
-    rows.push({
-      label: "Notes",
-      valueText: notes,
-      valueHtml: `<span style="white-space:pre-wrap;">${escapeHtml(notes)}</span>`,
-    })
-  }
 
-  const adminSubject = `Consult request: ${businessName} · ${teamSize}`
+  const adminSubject = `Consult request: ${businessName}`
 
   const greet = greetingFirstName(name)
+
+  const detailRowsForUser = [
+    { label: "Contact name", value: name },
+    { label: "Business name", value: businessName },
+    { label: "Work email", value: email },
+    { label: "Phone", value: phone },
+    { label: "Location", value: location || "Not provided" },
+    { label: "Team size", value: teamSize || "Not provided" },
+    { label: "Comments", value: comments || "Not provided" },
+  ]
 
   return deliverBoth({
     adminSubject,
@@ -321,14 +352,24 @@ async function handleConsult(body: ConsultPayload) {
       greetingName: greet,
       formLabel: ctx.formLabel,
       isConsult: true,
+      detailRows: detailRowsForUser,
     }),
     userText: buildUserConfirmationText({
       greetingName: greet,
       formLabel: ctx.formLabel,
       isConsult: true,
+      detailRows: detailRowsForUser,
     }),
     logLabel: "consult",
-    logPayload: { name, businessName, email, phone, teamSize, suburb, pagePath: ctx.pagePath },
+    logPayload: {
+      name,
+      businessName,
+      email,
+      phone,
+      location,
+      teamSize,
+      pagePath: ctx.pagePath,
+    },
   })
 }
 

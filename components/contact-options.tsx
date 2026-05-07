@@ -26,7 +26,7 @@ const options = [
     value: "Use the form below",
     href: "#consult-form",
     subtext:
-      "Tell us your team size and suburb, Chris calls you back within 1 business day to lock in a time.",
+      "Share your contact details (and anything else that helps). Chris calls you back within 1 business day to lock in a time.",
   },
 ]
 

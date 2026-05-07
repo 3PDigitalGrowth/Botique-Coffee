@@ -10,9 +10,9 @@ type FormState = {
   businessName: string
   email: string
   phone: string
+  location: string
   teamSize: string
-  suburb: string
-  notes: string
+  comments: string
 }
 
 const initialState: FormState = {
@@ -20,9 +20,9 @@ const initialState: FormState = {
   businessName: "",
   email: "",
   phone: "",
+  location: "",
   teamSize: "",
-  suburb: "",
-  notes: "",
+  comments: "",
 }
 
 export function ConsultForm() {
@@ -31,9 +31,11 @@ export function ConsultForm() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const update = (key: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    setForm((prev) => ({ ...prev, [key]: e.target.value }))
-  }
+  const update =
+    (key: keyof FormState) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+      setForm((prev) => ({ ...prev, [key]: e.target.value }))
+    }
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -85,14 +87,15 @@ export function ConsultForm() {
             Book a 10-minute consult with Chris
           </h2>
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed text-pretty">
-            Five fields. No card, no commitment. Chris calls you back within one business day to lock in a site visit or answer questions.
+            Required fields are marked. No card, no commitment. Chris calls you back within one business day to lock in a
+            site visit or answer questions.
           </p>
         </div>
 
         <form onSubmit={onSubmit} className="space-y-6" noValidate>
           <div className="space-y-2">
             <label htmlFor="name" className="block text-sm font-medium text-foreground">
-              Your name
+              Contact name <span className="text-destructive">*</span>
             </label>
             <input
               id="name"
@@ -109,7 +112,7 @@ export function ConsultForm() {
 
           <div className="space-y-2">
             <label htmlFor="businessName" className="block text-sm font-medium text-foreground">
-              Business name
+              Business name <span className="text-destructive">*</span>
             </label>
             <input
               id="businessName"
@@ -126,7 +129,7 @@ export function ConsultForm() {
 
           <div className="space-y-2">
             <label htmlFor="email" className="block text-sm font-medium text-foreground">
-              Work email
+              Work email <span className="text-destructive">*</span>
             </label>
             <input
               id="email"
@@ -143,7 +146,7 @@ export function ConsultForm() {
 
           <div className="space-y-2">
             <label htmlFor="phone" className="block text-sm font-medium text-foreground">
-              Phone
+              Phone <span className="text-destructive">*</span>
             </label>
             <input
               id="phone"
@@ -159,18 +162,33 @@ export function ConsultForm() {
           </div>
 
           <div className="space-y-2">
+            <label htmlFor="location" className="block text-sm font-medium text-foreground">
+              Location
+            </label>
+            <input
+              id="location"
+              name="location"
+              type="text"
+              autoComplete="address-level2"
+              placeholder="e.g. Melbourne suburb, regional VIC, or office address"
+              value={form.location}
+              onChange={update("location")}
+              className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-copper focus:ring-2 focus:ring-copper/20 focus:outline-none text-base transition-colors placeholder:text-muted-foreground/50"
+            />
+          </div>
+
+          <div className="space-y-2">
             <label htmlFor="teamSize" className="block text-sm font-medium text-foreground">
-              How many people in the office?
+              Team size
             </label>
             <select
               id="teamSize"
               name="teamSize"
-              required
               value={form.teamSize}
               onChange={update("teamSize")}
               className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-copper focus:ring-2 focus:ring-copper/20 focus:outline-none text-base transition-colors"
             >
-              <option value="">Select your team size</option>
+              <option value="">Optional — select if helpful</option>
               <option value="Up to 15 people (small office)">Up to 15 people (small office)</option>
               <option value="15 to 50 people (mid-size office)">15 to 50 people (mid-size office)</option>
               <option value="50+ people (large office)">50+ people (large office)</option>
@@ -179,34 +197,16 @@ export function ConsultForm() {
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="suburb" className="block text-sm font-medium text-foreground">
-              Which Melbourne suburb?
-            </label>
-            <input
-              id="suburb"
-              name="suburb"
-              type="text"
-              required
-              autoComplete="address-level2"
-              placeholder="e.g., Richmond, South Yarra, Cremorne"
-              value={form.suburb}
-              onChange={update("suburb")}
-              className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-copper focus:ring-2 focus:ring-copper/20 focus:outline-none text-base transition-colors placeholder:text-muted-foreground/50"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <label htmlFor="notes" className="block text-sm font-medium text-foreground">
-              Anything specific you want to mention?{" "}
-              <span className="text-muted-foreground font-normal">(optional)</span>
+            <label htmlFor="comments" className="block text-sm font-medium text-foreground">
+              Comments
             </label>
             <textarea
-              id="notes"
-              name="notes"
+              id="comments"
+              name="comments"
               rows={4}
-              placeholder="Current coffee setup, timing, specific questions, or leave blank"
-              value={form.notes}
-              onChange={update("notes")}
+              placeholder="Current coffee setup, timing, questions, or anything else we should know"
+              value={form.comments}
+              onChange={update("comments")}
               className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-copper focus:ring-2 focus:ring-copper/20 focus:outline-none text-base transition-colors placeholder:text-muted-foreground/50 resize-none"
             />
           </div>

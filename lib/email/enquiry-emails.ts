@@ -158,13 +158,38 @@ export function buildUserConfirmationHtml(args: {
   greetingName: string
   formLabel: string
   isConsult: boolean
+  /** Shown on consult confirmations — label + plain value (values are escaped here) */
+  detailRows?: { label: string; value: string }[]
 }): string {
-  const { greetingName, formLabel, isConsult } = args
+  const { greetingName, formLabel, isConsult, detailRows } = args
   const hi = greetingName ? `Hi ${escapeHtml(greetingName)},` : "Hi there,"
 
   const bodyCopy = isConsult
     ? `Thank you for requesting a <strong>10-minute consult</strong> with Chris. Your details are with us and Chris will respond personally within <strong>one business day</strong> to book a time or answer quick questions.`
     : `Thank you for your interest in <strong>Boutique Coffee</strong>. We&apos;ve received your enquiry from the <strong>${escapeHtml(formLabel)}</strong> form. Chris will be in touch within <strong>one business day</strong> to confirm next steps.`
+
+  const detailsBlock =
+    detailRows && detailRows.length > 0
+      ? `
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin:0 0 28px;background:#ffffff;border-radius:12px;border:1px solid #e7e5e4;overflow:hidden;">
+              <tr>
+                <td style="padding:20px 24px;border-bottom:1px solid #e7e5e4;">
+                  <p style="margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:${COPPER};font-weight:600;">What you submitted</p>
+                </td>
+              </tr>
+              ${detailRows
+                .map(
+                  (r) => `
+              <tr>
+                <td style="padding:12px 24px;border-bottom:1px solid #f5f5f4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;">
+                  <span style="display:block;color:${MUTED};font-size:12px;margin-bottom:4px;">${escapeHtml(r.label)}</span>
+                  <span style="color:${INK};line-height:1.5;">${escapeHtml(r.value)}</span>
+                </td>
+              </tr>`,
+                )
+                .join("")}
+            </table>`
+      : ""
 
   const inner = `
         <tr>
@@ -177,6 +202,7 @@ export function buildUserConfirmationHtml(args: {
           <td style="padding:40px 40px 32px;">
             <p style="margin:0 0 20px;font-family:Georgia,'Times New Roman',serif;font-size:22px;line-height:1.35;color:${INK};">${hi}</p>
             <p style="margin:0 0 20px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:16px;line-height:1.65;color:${MUTED};">${bodyCopy}</p>
+            ${detailsBlock}
             <table role="presentation" cellspacing="0" cellpadding="0" style="margin:28px 0;background:${WARM_BG};border-radius:12px;border:1px solid #e7e5e4;">
               <tr>
                 <td style="padding:22px 24px;">
@@ -209,21 +235,24 @@ export function buildUserConfirmationText(args: {
   greetingName: string
   formLabel: string
   isConsult: boolean
+  detailRows?: { label: string; value: string }[]
 }): string {
-  const { greetingName, formLabel, isConsult } = args
+  const { greetingName, formLabel, isConsult, detailRows } = args
   const hi = greetingName ? `Hi ${greetingName},` : "Hi there,"
   const mid = isConsult
     ? "Thank you for requesting a 10-minute consult with Chris. He will respond within one business day."
     : `Thank you for your interest in Boutique Coffee. We've received your enquiry from the "${formLabel}" form. Chris will be in touch within one business day.`
-  return [
-    hi,
-    "",
-    mid,
+  const lines = [hi, "", mid]
+  if (detailRows && detailRows.length > 0) {
+    lines.push("", "WHAT YOU SUBMITTED", ...detailRows.map((r) => `${r.label}: ${r.value}`))
+  }
+  lines.push(
     "",
     "Prefer to talk now? Call Chris: 0411 876 625",
     "",
     "— Boutique Coffee · Melbourne",
-  ].join("\n")
+  )
+  return lines.join("\n")
 }
 
 export function mailtoLink(email: string, label: string): string {
