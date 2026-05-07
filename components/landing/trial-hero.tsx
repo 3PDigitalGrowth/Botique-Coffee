@@ -8,31 +8,21 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Check, MapPin, ShieldCheck, Truck, Loader2 } from "lucide-react"
 
-const TRIAL_TEAM_LABELS: Record<string, string> = {
-  "1-10": "1–10 people",
-  "11-25": "11–25 people",
-  "26-50": "26–50 people",
-  "51-100": "51–100 people",
-  "100+": "100+ people",
-}
-
 export function TrialHero() {
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [name, setName] = useState("")
   const [businessName, setBusinessName] = useState("")
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
-  const [postcode, setPostcode] = useState("")
+  const [location, setLocation] = useState("")
   const [teamSize, setTeamSize] = useState("")
+  const [comments, setComments] = useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
-    if (!teamSize) {
-      setError("Please choose a team size.")
-      return
-    }
     setSubmitting(true)
 
     try {
@@ -44,11 +34,13 @@ export function TrialHero() {
           source: "free-trial",
           pagePath:
             typeof window !== "undefined" ? window.location.pathname : "/free-trial",
+          name,
           businessName,
           email,
           phone,
-          postcode,
-          teamSize: TRIAL_TEAM_LABELS[teamSize] || teamSize,
+          location: location.trim(),
+          teamSize: teamSize.trim(),
+          comments: comments.trim(),
         }),
       })
       const data = await res.json().catch(() => ({}))
@@ -155,7 +147,7 @@ export function TrialHero() {
                 <>
                   <div className="mb-5">
                     <p className="text-xs uppercase tracking-widest text-copper font-semibold mb-1">
-                      Five fields. No card.
+                      No card. Fields marked * required.
                     </p>
                     <h2 className="font-serif text-2xl md:text-[1.6rem] text-foreground leading-tight">
                       Chris calls you back within 1 business day.
@@ -164,8 +156,24 @@ export function TrialHero() {
 
                   <form className="space-y-3.5" onSubmit={handleSubmit}>
                     <div>
+                      <Label htmlFor="trial-name" className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block">
+                        Contact name <span className="text-destructive">*</span>
+                      </Label>
+                      <Input
+                        id="trial-name"
+                        type="text"
+                        placeholder="Jane Smith"
+                        className="h-11 px-4 rounded-lg"
+                        required
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        autoComplete="name"
+                      />
+                    </div>
+
+                    <div>
                       <Label htmlFor="trial-business" className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block">
-                        Business name
+                        Business name <span className="text-destructive">*</span>
                       </Label>
                       <Input
                         id="trial-business"
@@ -181,7 +189,7 @@ export function TrialHero() {
 
                     <div>
                       <Label htmlFor="trial-email" className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block">
-                        Work email
+                        Work email <span className="text-destructive">*</span>
                       </Label>
                       <Input
                         id="trial-email"
@@ -195,39 +203,35 @@ export function TrialHero() {
                       />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <Label htmlFor="trial-phone" className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block">
-                          Phone
-                        </Label>
-                        <Input
-                          id="trial-phone"
-                          type="tel"
-                          placeholder="0411 000 000"
-                          className="h-11 px-4 rounded-lg"
-                          required
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                          autoComplete="tel"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="trial-postcode" className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block">
-                          VIC postcode
-                        </Label>
-                        <Input
-                          id="trial-postcode"
-                          type="text"
-                          inputMode="numeric"
-                          pattern="3[0-9]{3}"
-                          placeholder="3000"
-                          className="h-11 px-4 rounded-lg"
-                          required
-                          value={postcode}
-                          onChange={(e) => setPostcode(e.target.value)}
-                          autoComplete="postal-code"
-                        />
-                      </div>
+                    <div>
+                      <Label htmlFor="trial-phone" className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block">
+                        Phone <span className="text-destructive">*</span>
+                      </Label>
+                      <Input
+                        id="trial-phone"
+                        type="tel"
+                        placeholder="0411 000 000"
+                        className="h-11 px-4 rounded-lg"
+                        required
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        autoComplete="tel"
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="trial-location" className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block">
+                        Location
+                      </Label>
+                      <Input
+                        id="trial-location"
+                        type="text"
+                        placeholder="Suburb, regional VIC, or address"
+                        className="h-11 px-4 rounded-lg"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                        autoComplete="address-level2"
+                      />
                     </div>
 
                     <div>
@@ -236,16 +240,34 @@ export function TrialHero() {
                       </Label>
                       <Select value={teamSize || undefined} onValueChange={setTeamSize}>
                         <SelectTrigger id="trial-team" className="h-11 rounded-lg w-full">
-                          <SelectValue placeholder="How many people drink coffee?" />
+                          <SelectValue placeholder="Optional — select if helpful" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="1-10">1–10 people</SelectItem>
-                          <SelectItem value="11-25">11–25 people</SelectItem>
-                          <SelectItem value="26-50">26–50 people</SelectItem>
-                          <SelectItem value="51-100">51–100 people</SelectItem>
-                          <SelectItem value="100+">100+ people</SelectItem>
+                          <SelectItem value="Up to 15 people (small office)">
+                            Up to 15 people (small office)
+                          </SelectItem>
+                          <SelectItem value="15 to 50 people (mid-size office)">
+                            15 to 50 people (mid-size office)
+                          </SelectItem>
+                          <SelectItem value="50+ people (large office)">50+ people (large office)</SelectItem>
+                          <SelectItem value="Not sure yet">Not sure yet</SelectItem>
                         </SelectContent>
                       </Select>
+                    </div>
+
+                    <div>
+                      <Label htmlFor="trial-comments" className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block">
+                        Comments
+                      </Label>
+                      <textarea
+                        id="trial-comments"
+                        name="comments"
+                        rows={3}
+                        placeholder="Anything we should know"
+                        value={comments}
+                        onChange={(e) => setComments(e.target.value)}
+                        className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-copper focus:ring-2 focus:ring-copper/20 focus:outline-none text-base transition-colors placeholder:text-muted-foreground/50 resize-none"
+                      />
                     </div>
 
                     {error ? (

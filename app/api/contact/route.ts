@@ -44,11 +44,17 @@ type QuickPayload = {
   variant: "quick"
   source?: string
   pagePath?: string
+  name?: string
   businessName?: string
   email?: string
   phone?: string
+  location?: string
+  suburb?: string
+  /** Legacy hero forms — folded into Location in admin when no location */
   postcode?: string
   teamSize?: string
+  comments?: string
+  notes?: string
 }
 
 const DEFAULT_RECIPIENTS = "alex@3pdigital.com.au,chris@boutiquecoffee.com.au"
@@ -164,15 +170,26 @@ export async function POST(request: Request) {
 
 async function handleQuick(body: QuickPayload) {
   const source = (body.source || "").trim() || "unknown"
+  const name = (body.name || "").trim()
   const businessName = (body.businessName || "").trim()
   const email = (body.email || "").trim()
   const phone = (body.phone || "").trim()
-  const postcode = (body.postcode || "").trim()
+  const fromPostcode = (body.postcode || "").trim()
+  let location = ((body.location ?? body.suburb) || "").trim()
+  if (!location && fromPostcode) {
+    location = isVicPostcode(fromPostcode)
+      ? `Postcode ${fromPostcode}`
+      : fromPostcode
+  }
   const teamSize = (body.teamSize || "").trim()
+  const comments = ((body.comments ?? body.notes) || "").trim()
 
-  if (!businessName || !email || !phone || !postcode || !teamSize) {
+  if (!name || !businessName || !email || !phone) {
     return NextResponse.json(
-      { ok: false, error: "Please fill in every field." },
+      {
+        ok: false,
+        error: "Please fill in Contact name, Business name, Work email, and Phone.",
+      },
       { status: 400 },
     )
   }
@@ -188,24 +205,26 @@ async function handleQuick(body: QuickPayload) {
       { status: 400 },
     )
   }
-  if (!isVicPostcode(postcode)) {
-    return NextResponse.json(
-      { ok: false, error: "Please enter a valid Victorian postcode (e.g. 3000)." },
-      { status: 400 },
-    )
-  }
 
   const ctx = makeContext("quick", source, body.pagePath)
-  const headline = `${businessName} · ${teamSize}`
+  const headline = `${name} · ${businessName}`
+
+  const dashHtml = `<span style="color:#a8a29e;">—</span>`
+  const dashText = "—"
 
   const rows: AdminDataRow[] = [
     {
-      label: "Business",
+      label: "Contact name",
+      valueText: name,
+      valueHtml: `<strong>${escapeHtml(name)}</strong>`,
+    },
+    {
+      label: "Business name",
       valueText: businessName,
       valueHtml: `<strong>${escapeHtml(businessName)}</strong>`,
     },
     {
-      label: "Email",
+      label: "Work email",
       valueText: email,
       valueHtml: mailtoLink(email, email),
     },
@@ -214,11 +233,38 @@ async function handleQuick(body: QuickPayload) {
       valueText: phone,
       valueHtml: telLink(phone, phone),
     },
-    { label: "Postcode", valueText: postcode, valueHtml: escapeHtml(postcode) },
-    { label: "Team size", valueText: teamSize, valueHtml: escapeHtml(teamSize) },
+    {
+      label: "Location",
+      valueText: location || dashText,
+      valueHtml: location ? escapeHtml(location) : dashHtml,
+    },
+    {
+      label: "Team size",
+      valueText: teamSize || dashText,
+      valueHtml: teamSize ? escapeHtml(teamSize) : dashHtml,
+    },
+    {
+      label: "Comments",
+      valueText: comments || dashText,
+      valueHtml: comments
+        ? `<span style="white-space:pre-wrap;">${escapeHtml(comments)}</span>`
+        : dashHtml,
+    },
   ]
 
   const adminSubject = `[${ctx.formLabel.split(" — ")[0] || "Site"}] ${businessName}`
+
+  const greet = greetingFirstName(name)
+
+  const detailRowsForUser = [
+    { label: "Contact name", value: name },
+    { label: "Business name", value: businessName },
+    { label: "Work email", value: email },
+    { label: "Phone", value: phone },
+    { label: "Location", value: location || "Not provided" },
+    { label: "Team size", value: teamSize || "Not provided" },
+    { label: "Comments", value: comments || "Not provided" },
+  ]
 
   return deliverBoth({
     adminSubject,
@@ -228,22 +274,25 @@ async function handleQuick(body: QuickPayload) {
     userTo: email,
     userSubject: "We received your enquiry — Boutique Coffee",
     userHtml: buildUserConfirmationHtml({
-      greetingName: "",
+      greetingName: greet,
       formLabel: ctx.formLabel,
       isConsult: false,
+      detailRows: detailRowsForUser,
     }),
     userText: buildUserConfirmationText({
-      greetingName: "",
+      greetingName: greet,
       formLabel: ctx.formLabel,
       isConsult: false,
+      detailRows: detailRowsForUser,
     }),
     logLabel: "quick",
     logPayload: {
       source,
+      name,
       businessName,
       email,
       phone,
-      postcode,
+      location,
       teamSize,
       pagePath: ctx.pagePath,
     },

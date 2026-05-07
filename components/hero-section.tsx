@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -14,22 +13,18 @@ import {
 } from "@/components/ui/select"
 import { ArrowRight, Sparkles, ShieldCheck, Truck, Check, Loader2 } from "lucide-react"
 
-const HOME_TEAM_LABELS: Record<string, string> = {
-  "1-15": "1 to 15 people (small office)",
-  "15-50": "15 to 50 people (mid-size office)",
-  "50+": "50+ people (large office)",
-}
-
 export function HeroSection() {
   const [scrollY, setScrollY] = useState(0)
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [name, setName] = useState("")
   const [businessName, setBusinessName] = useState("")
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
-  const [postcode, setPostcode] = useState("")
+  const [location, setLocation] = useState("")
   const [teamSize, setTeamSize] = useState("")
+  const [comments, setComments] = useState("")
   const sectionRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -49,10 +44,6 @@ export function HeroSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
-    if (!teamSize) {
-      setError("Please choose a team size.")
-      return
-    }
     setSubmitting(true)
 
     try {
@@ -64,11 +55,13 @@ export function HeroSection() {
           source: "homepage-hero",
           pagePath:
             typeof window !== "undefined" ? window.location.pathname : "/",
+          name,
           businessName,
           email,
           phone,
-          postcode,
-          teamSize: HOME_TEAM_LABELS[teamSize] || teamSize,
+          location: location.trim(),
+          teamSize: teamSize.trim(),
+          comments: comments.trim(),
         }),
       })
       const data = await res.json().catch(() => ({}))
@@ -194,15 +187,37 @@ export function HeroSection() {
                     <h2 className="font-serif text-xl md:text-2xl text-foreground leading-tight">
                       Book a 10-minute consult
                     </h2>
+                    <p className="text-xs text-muted-foreground mt-1.5">
+                      Fields marked <span className="text-destructive">*</span> are required.
+                    </p>
                   </div>
 
                   <form className="space-y-3" onSubmit={handleSubmit}>
                     <div>
                       <Label
+                        htmlFor="home-name"
+                        className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block"
+                      >
+                        Contact name <span className="text-destructive">*</span>
+                      </Label>
+                      <Input
+                        id="home-name"
+                        type="text"
+                        placeholder="Jane Smith"
+                        className="h-10 px-4 rounded-lg"
+                        required
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        autoComplete="name"
+                      />
+                    </div>
+
+                    <div>
+                      <Label
                         htmlFor="home-business"
                         className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block"
                       >
-                        Business name
+                        Business name <span className="text-destructive">*</span>
                       </Label>
                       <Input
                         id="home-business"
@@ -221,7 +236,7 @@ export function HeroSection() {
                         htmlFor="home-email"
                         className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block"
                       >
-                        Work email
+                        Work email <span className="text-destructive">*</span>
                       </Label>
                       <Input
                         id="home-email"
@@ -235,14 +250,13 @@ export function HeroSection() {
                       />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <Label
-                          htmlFor="home-phone"
-                          className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block"
-                        >
-                          Phone
-                        </Label>
+                    <div>
+                      <Label
+                        htmlFor="home-phone"
+                        className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block"
+                      >
+                        Phone <span className="text-destructive">*</span>
+                      </Label>
                       <Input
                         id="home-phone"
                         type="tel"
@@ -253,46 +267,66 @@ export function HeroSection() {
                         onChange={(e) => setPhone(e.target.value)}
                         autoComplete="tel"
                       />
-                      </div>
-                      <div>
-                        <Label
-                          htmlFor="home-postcode"
-                          className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block"
-                        >
-                          Postcode
-                        </Label>
-                        <Input
-                          id="home-postcode"
-                          type="text"
-                          inputMode="numeric"
-                          pattern="3[0-9]{3}"
-                          placeholder="3000"
+                    </div>
+
+                    <div>
+                      <Label
+                        htmlFor="home-location"
+                        className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block"
+                      >
+                        Location
+                      </Label>
+                      <Input
+                        id="home-location"
+                        type="text"
+                        placeholder="Suburb, regional VIC, or address"
                         className="h-10 px-4 rounded-lg"
-                        required
-                        value={postcode}
-                        onChange={(e) => setPostcode(e.target.value)}
-                        autoComplete="postal-code"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                        autoComplete="address-level2"
                       />
                     </div>
-                  </div>
 
-                  <div>
-                    <Label
-                      htmlFor="home-team"
+                    <div>
+                      <Label
+                        htmlFor="home-team"
                         className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block"
                       >
                         Team size
                       </Label>
                       <Select value={teamSize || undefined} onValueChange={setTeamSize}>
                         <SelectTrigger id="home-team" className="h-10 rounded-lg w-full">
-                          <SelectValue placeholder="How many people drink coffee?" />
+                          <SelectValue placeholder="Optional — select if helpful" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="1-15">1 to 15 people (small office)</SelectItem>
-                          <SelectItem value="15-50">15 to 50 people (mid-size office)</SelectItem>
-                          <SelectItem value="50+">50+ people (large office)</SelectItem>
+                          <SelectItem value="Up to 15 people (small office)">
+                            Up to 15 people (small office)
+                          </SelectItem>
+                          <SelectItem value="15 to 50 people (mid-size office)">
+                            15 to 50 people (mid-size office)
+                          </SelectItem>
+                          <SelectItem value="50+ people (large office)">50+ people (large office)</SelectItem>
+                          <SelectItem value="Not sure yet">Not sure yet</SelectItem>
                         </SelectContent>
                       </Select>
+                    </div>
+
+                    <div>
+                      <Label
+                        htmlFor="home-comments"
+                        className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block"
+                      >
+                        Comments
+                      </Label>
+                      <textarea
+                        id="home-comments"
+                        name="comments"
+                        rows={3}
+                        placeholder="Anything we should know"
+                        value={comments}
+                        onChange={(e) => setComments(e.target.value)}
+                        className="w-full px-4 py-2 rounded-lg bg-background border border-border focus:border-copper focus:ring-2 focus:ring-copper/20 focus:outline-none text-sm transition-colors placeholder:text-muted-foreground/50 resize-none"
+                      />
                     </div>
 
                     {error ? (
