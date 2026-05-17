@@ -1,0 +1,82 @@
+---
+title: "Test post — every block in one file"
+slug: "test-post"
+date: "2026-05-17"
+author: "Boutique Coffee"
+readTime: "5 min read"
+metaTitle: "Test post — every block in one file"
+metaDescription: "A sandbox post for verifying the Boutique Coffee blog template renders all components correctly."
+primaryKeyword: "test post"
+keywords: ["test", "sandbox"]
+tags: ["test"]
+breadcrumb: ["Blog", "Test"]
+faqSchema:
+  - question: "Does the FAQ block render?"
+    answer: "Yes — with FAQ JSON-LD schema in the page head."
+  - question: "Are drafts excluded from the index and sitemap?"
+    answer: "Yes. Setting `draft: true` adds a noindex meta tag and removes the post from /blog and /sitemap.xml."
+internalLinks:
+  - url: "/contact"
+    anchor: "get in touch"
+references:
+  - title: "Sample reference"
+    url: "https://example.com"
+    note: "Demonstrates references rendering"
+draft: true
+---
+
+This is the intro paragraph. It exists to verify body copy, line-height, and the 720px column width set out in the template spec. Removing the `draft: true` flag publishes the post to /blog and /sitemap.xml.
+
+<KeyTakeaways items={[
+  "Key takeaways render as a callout block at the top of the article.",
+  "Every MDX component listed in the spec is registered and renders.",
+  "Drafts are visible at their URL but noindexed and excluded from listings.",
+]} />
+
+## A section heading
+
+Body copy goes here. Body copy goes here. Body copy goes here. This paragraph is mostly here so we have something to read between the components — width, line-height, and link colour should all look right.
+
+<Callout type="tip">
+  This is a tip callout. Use it for inline asides — short, scannable, useful.
+</Callout>
+
+<Callout type="warning">
+  This is a warning callout. Use it for caveats, gotchas, or things the reader should not skip.
+</Callout>
+
+<ComparisonTable
+  headers={["Factor", "Option A", "Option B"]}
+  rows={[
+    ["Cost", "$100", "$200"],
+    ["Speed", "Fast", "Slow"],
+    ["Verdict", "Better for small teams", "Better for high volume"],
+  ]}
+/>
+
+<Stats items={[
+  { value: "312%", label: "organic traffic increase" },
+  { value: "4.8★", label: "client satisfaction" },
+  { value: "60s", label: "time to publish" },
+  { value: "100%", label: "spec compliance" },
+]} />
+
+<CaseStudy
+  industry="Hospitality"
+  metric="312%"
+  metricLabel="organic traffic increase"
+  quote="Best decision we made this year."
+  author="Jane Doe, GM"
+>
+  Brief two-sentence description of what was achieved. Demonstrates the case study block layout — body copy on the left, metric panel on the right.
+</CaseStudy>
+
+<CTA slot="primary" />
+
+## Closing thoughts
+
+Final body paragraph. The inline form below should post to `/api/contact` with `source: "blog-inline"`. Visit our [contact page](/contact) to learn more.
+
+<CTA slot="secondary" />
+
+<CTA slot="inline-form" />

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next"
 import { GUIDES, ARTICLES } from "@/lib/content"
+import { getAllPosts } from "@/lib/blog"
 
 const SITE_URL = "https://boutiquecoffee.com.au"
 
@@ -67,6 +68,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.9,
     },
+    {
+      url: `${SITE_URL}/blog`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
   ]
 
   const guideRoutes: MetadataRoute.Sitemap = GUIDES.map((guide) => ({
@@ -83,5 +90,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
-  return [...staticRoutes, ...guideRoutes, ...articleRoutes]
+  // Blog posts — drafts excluded (getAllPosts default).
+  const blogPosts = getAllPosts()
+  const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+    url: `${SITE_URL}/blog/${post.frontmatter.slug}`,
+    lastModified: post.frontmatter.date ? new Date(post.frontmatter.date) : now,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }))
+
+  return [...staticRoutes, ...guideRoutes, ...articleRoutes, ...blogRoutes]
 }

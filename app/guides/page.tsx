@@ -171,6 +171,32 @@ export default function GuidesIndexPage() {
         </div>
       </section>
 
+      {/* Section 3b - Blog cross-link */}
+      <section className="px-6 md:px-12 lg:px-16 py-12 md:py-16">
+        <div className="max-w-6xl mx-auto">
+          <Link
+            href="/blog"
+            className="group flex flex-col md:flex-row md:items-center justify-between gap-4 rounded-2xl border border-border bg-background hover:border-copper/40 hover:shadow-md p-6 md:p-8 transition-all"
+          >
+            <div>
+              <p className="text-xs uppercase tracking-widest text-copper font-semibold mb-2">
+                Also worth reading
+              </p>
+              <h2 className="font-serif text-xl md:text-2xl text-foreground leading-snug mb-1.5">
+                The Boutique Coffee blog
+              </h2>
+              <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl text-pretty">
+                Fresh writing on workplace coffee, trends, and the things we&apos;re hearing from Melbourne offices.
+              </p>
+            </div>
+            <span className="inline-flex items-center gap-1.5 text-sm font-medium text-copper whitespace-nowrap">
+              Visit the blog
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            </span>
+          </Link>
+        </div>
+      </section>
+
       {/* Section 4 - Final CTA */}
       <ContentFinalCta />
     </main>

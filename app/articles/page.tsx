@@ -1,4 +1,6 @@
 import type { Metadata } from "next"
+import Link from "next/link"
+import { ArrowRight } from "lucide-react"
 import { ContentFinalCta } from "@/components/content/content-final-cta"
 import { ArticlesList } from "@/components/content/articles-list"
 import { ARTICLES, ARTICLE_CATEGORIES } from "@/lib/content"
@@ -39,6 +41,31 @@ export default function ArticlesIndexPage() {
       <section className="py-16 md:py-20 px-6 md:px-12 lg:px-16">
         <div className="max-w-5xl mx-auto">
           <ArticlesList articles={ARTICLES} categories={ARTICLE_CATEGORIES} />
+        </div>
+      </section>
+
+      <section className="px-6 md:px-12 lg:px-16 pb-16 md:pb-20">
+        <div className="max-w-5xl mx-auto">
+          <Link
+            href="/blog"
+            className="group flex flex-col md:flex-row md:items-center justify-between gap-4 rounded-2xl border border-border bg-muted/30 hover:bg-muted/50 hover:border-copper/40 p-6 md:p-8 transition-colors"
+          >
+            <div>
+              <p className="text-xs uppercase tracking-widest text-copper font-semibold mb-2">
+                Also worth reading
+              </p>
+              <h2 className="font-serif text-xl md:text-2xl text-foreground leading-snug mb-1.5">
+                The Boutique Coffee blog
+              </h2>
+              <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl text-pretty">
+                Fresh writing on workplace coffee, trends, and the things we&apos;re hearing from Melbourne offices.
+              </p>
+            </div>
+            <span className="inline-flex items-center gap-1.5 text-sm font-medium text-copper whitespace-nowrap">
+              Visit the blog
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            </span>
+          </Link>
         </div>
       </section>
 

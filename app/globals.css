@@ -40,6 +40,21 @@
   /* Adding copper color tokens for brand accent */
   --copper: oklch(0.7 0.15 45);
   --copper-dark: oklch(0.65 0.15 45);
+
+  /* Blog template brand tokens (see blog-template-spec.md §5) */
+  --brand-primary: var(--copper);
+  --brand-accent: var(--copper-dark);
+  --brand-text: var(--foreground);
+  --brand-heading: var(--foreground);
+  --brand-muted: var(--muted-foreground);
+  --brand-bg: var(--background);
+  --brand-surface: var(--card);
+  --brand-border: var(--border);
+  --brand-cta-bg: var(--copper);
+  --brand-cta-text: #ffffff;
+
+  --font-heading: "Playfair Display", Georgia, serif;
+  --font-body: "Inter", -apple-system, sans-serif;
 }
 
 .dark {
