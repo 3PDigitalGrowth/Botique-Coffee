@@ -1,9 +1,10 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, Phone, Clock } from "lucide-react"
+import { ArrowRight, Phone, Clock, Calendar } from "lucide-react"
 import { ContentFinalCta } from "@/components/content/content-final-cta"
-import { GUIDES, ARTICLES } from "@/lib/content"
+import { GUIDES } from "@/lib/content"
+import { getAllPosts } from "@/lib/blog"
 
 export const metadata: Metadata = {
   title: "Guides | Boutique Coffee at Work",
@@ -21,8 +22,20 @@ export const metadata: Metadata = {
   },
 }
 
+function formatDate(iso: string): string {
+  try {
+    return new Date(iso).toLocaleDateString("en-AU", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    })
+  } catch {
+    return iso
+  }
+}
+
 export default function GuidesIndexPage() {
-  const featuredArticles = ARTICLES.slice(0, 3)
+  const latestPosts = getAllPosts().slice(0, 3)
 
   return (
     <main className="bg-background">
@@ -112,55 +125,87 @@ export default function GuidesIndexPage() {
         </div>
       </section>
 
-      {/* Section 3 - Articles teaser */}
+      {/* Section 3 - Latest from the blog */}
       <section className="py-20 md:py-24 px-6 md:px-12 lg:px-16 bg-muted/30 border-y border-border">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-12">
             <div className="max-w-2xl">
               <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-3 text-balance leading-tight">
-                Fresh articles, every week
+                Latest from the blog
               </h2>
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed text-pretty">
-                Shorter reads on specific questions. Updated with four new articles every month.
+                Fresh writing on workplace coffee, trends, and the things we&apos;re hearing from Melbourne offices. New posts every week.
               </p>
             </div>
             <Link
-              href="/articles"
+              href="/blog"
               className="inline-flex items-center gap-1.5 text-sm font-medium text-copper hover:text-copper-dark transition-colors whitespace-nowrap"
             >
-              See all articles
+              See all posts
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
-          {featuredArticles.length > 0 ? (
+          {latestPosts.length > 0 ? (
             <div className="grid md:grid-cols-3 gap-5 md:gap-6">
-              {featuredArticles.map((article) => (
-                <Link
-                  key={article.slug}
-                  href={`/articles/${article.slug}`}
-                  className="group flex flex-col h-full p-6 rounded-2xl bg-background border border-border hover:border-copper/40 hover:shadow-md transition-all duration-200"
-                >
-                  <span className="text-[10px] uppercase tracking-widest text-copper font-semibold mb-3">
-                    {article.category}
-                  </span>
-                  <h3 className="font-serif text-lg md:text-xl text-foreground mb-3 text-balance leading-snug group-hover:text-copper transition-colors">
-                    {article.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed text-pretty mb-5 flex-1">
-                    {article.description}
-                  </p>
-                  <span className="inline-flex items-center gap-1.5 text-sm font-medium text-copper">
-                    Read
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                  </span>
-                </Link>
-              ))}
+              {latestPosts.map((post) => {
+                const fm = post.frontmatter
+                return (
+                  <Link
+                    key={fm.slug}
+                    href={`/blog/${fm.slug}`}
+                    className="group flex flex-col h-full rounded-2xl bg-background border border-border overflow-hidden hover:border-copper/40 hover:shadow-md transition-all duration-200"
+                  >
+                    {fm.heroImage ? (
+                      <div className="relative aspect-[16/9] overflow-hidden bg-muted">
+                        <Image
+                          src={fm.heroImage}
+                          alt={fm.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                          className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                        />
+                      </div>
+                    ) : null}
+                    <div className="flex flex-col flex-1 p-6">
+                      <div className="flex items-center justify-between mb-3 text-xs">
+                        {fm.primaryKeyword ? (
+                          <span className="uppercase tracking-widest text-copper font-semibold">
+                            {fm.primaryKeyword}
+                          </span>
+                        ) : <span />}
+                        {fm.readTime ? (
+                          <span className="inline-flex items-center gap-1 text-muted-foreground">
+                            <Clock className="w-3.5 h-3.5" aria-hidden />
+                            {fm.readTime}
+                          </span>
+                        ) : null}
+                      </div>
+                      <h3 className="font-serif text-lg md:text-xl text-foreground mb-3 text-balance leading-snug group-hover:text-copper transition-colors">
+                        {fm.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed text-pretty mb-5 flex-1">
+                        {post.excerpt}
+                      </p>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="inline-flex items-center gap-1.5 text-muted-foreground">
+                          <Calendar className="w-3.5 h-3.5" aria-hidden />
+                          {formatDate(fm.date)}
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 font-medium text-copper">
+                          Read
+                          <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                )
+              })}
             </div>
           ) : (
             <div className="p-8 md:p-10 rounded-2xl bg-background border border-border text-center">
               <p className="text-base md:text-lg text-foreground/85 leading-relaxed max-w-xl mx-auto">
-                New articles coming soon. In the meantime, start with the guides above, or{" "}
+                First posts are landing soon. In the meantime, start with the guides above, or{" "}
                 <Link href="/contact" className="text-copper font-medium hover:underline">
                   book a consult with Chris
                 </Link>
@@ -168,32 +213,6 @@ export default function GuidesIndexPage() {
               </p>
             </div>
           )}
-        </div>
-      </section>
-
-      {/* Section 3b - Blog cross-link */}
-      <section className="px-6 md:px-12 lg:px-16 py-12 md:py-16">
-        <div className="max-w-6xl mx-auto">
-          <Link
-            href="/blog"
-            className="group flex flex-col md:flex-row md:items-center justify-between gap-4 rounded-2xl border border-border bg-background hover:border-copper/40 hover:shadow-md p-6 md:p-8 transition-all"
-          >
-            <div>
-              <p className="text-xs uppercase tracking-widest text-copper font-semibold mb-2">
-                Also worth reading
-              </p>
-              <h2 className="font-serif text-xl md:text-2xl text-foreground leading-snug mb-1.5">
-                The Boutique Coffee blog
-              </h2>
-              <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl text-pretty">
-                Fresh writing on workplace coffee, trends, and the things we&apos;re hearing from Melbourne offices.
-              </p>
-            </div>
-            <span className="inline-flex items-center gap-1.5 text-sm font-medium text-copper whitespace-nowrap">
-              Visit the blog
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            </span>
-          </Link>
         </div>
       </section>
 
