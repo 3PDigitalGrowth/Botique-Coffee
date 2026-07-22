@@ -209,6 +209,9 @@ export function Footer() {
           <p className="text-sm text-background/60">
             &copy; {new Date().getFullYear()} Boutique Coffee at Work. All rights reserved.
           </p>
+          <p className="mt-2 text-sm text-background/60">
+            <a href="https://www.3pdigital.com.au" target="_blank" rel="noopener" className="transition-colors hover:text-background">Proudly supported by 3P Digital</a>
+          </p>
         </div>
       </div>
     </footer>
