@@ -25,6 +25,7 @@ import {
   type SubmissionContext,
 } from "@/lib/email/enquiry-emails"
 import { assessSpam } from "@/lib/spam-filter"
+import { recordLead, type LeadLogEntry } from "@/lib/lead-log"
 
 type ConsultPayload = {
   variant?: string
@@ -211,6 +212,21 @@ async function handleQuick(body: QuickPayload) {
     )
   }
 
+  const ctx = makeContext("quick", source, body.pagePath)
+
+  const lead: Omit<LeadLogEntry, "status"> = {
+    timestamp: ctx.submittedAtFormatted,
+    form: ctx.formLabel,
+    pagePath: ctx.pagePath,
+    name,
+    businessName,
+    email,
+    phone,
+    location,
+    teamSize,
+    comments,
+  }
+
   const spam = assessSpam({
     name,
     businessName,
@@ -226,10 +242,15 @@ async function handleQuick(body: QuickPayload) {
       `[contact:quick] dropped spam submission (score ${spam.score}): ${spam.reasons.join("; ")}`,
       { source, name, businessName, email, phone, location },
     )
+    await recordLead({
+      ...lead,
+      status: "Spam (dropped)",
+      spamScore: spam.score,
+      spamReasons: spam.reasons.join("; "),
+    })
     return NextResponse.json({ ok: true, delivered: false })
   }
 
-  const ctx = makeContext("quick", source, body.pagePath)
   const headline = `${name} · ${businessName}`
 
   const dashHtml = `<span style="color:#a8a29e;">—</span>`
@@ -319,6 +340,7 @@ async function handleQuick(body: QuickPayload) {
       teamSize,
       pagePath: ctx.pagePath,
     },
+    lead,
   })
 }
 
@@ -353,6 +375,21 @@ async function handleConsult(body: ConsultPayload) {
     )
   }
 
+  const ctx = makeContext("consult", undefined, body.pagePath)
+
+  const lead: Omit<LeadLogEntry, "status"> = {
+    timestamp: ctx.submittedAtFormatted,
+    form: ctx.formLabel,
+    pagePath: ctx.pagePath,
+    name,
+    businessName,
+    email,
+    phone,
+    location,
+    teamSize,
+    comments,
+  }
+
   const spam = assessSpam({
     name,
     businessName,
@@ -368,10 +405,15 @@ async function handleConsult(body: ConsultPayload) {
       `[contact:consult] dropped spam submission (score ${spam.score}): ${spam.reasons.join("; ")}`,
       { name, businessName, email, phone, location },
     )
+    await recordLead({
+      ...lead,
+      status: "Spam (dropped)",
+      spamScore: spam.score,
+      spamReasons: spam.reasons.join("; "),
+    })
     return NextResponse.json({ ok: true, delivered: false })
   }
 
-  const ctx = makeContext("consult", undefined, body.pagePath)
   const headline = `${name} · ${businessName}`
 
   const dashHtml = `<span style="color:#a8a29e;">—</span>`
@@ -460,6 +502,7 @@ async function handleConsult(body: ConsultPayload) {
       teamSize,
       pagePath: ctx.pagePath,
     },
+    lead,
   })
 }
 
@@ -474,6 +517,7 @@ async function deliverBoth(args: {
   userText: string
   logLabel: string
   logPayload: Record<string, unknown>
+  lead: Omit<LeadLogEntry, "status">
 }) {
   const apiKey = process.env.RESEND_API_KEY
 
@@ -483,9 +527,11 @@ async function deliverBoth(args: {
         `[contact:${args.logLabel}] RESEND_API_KEY not set. Logging payload and returning ok=true.`,
       )
       console.info(`[contact:${args.logLabel}] payload:`, args.logPayload)
+      await recordLead({ ...args.lead, status: "Received (dev, email disabled)" })
       return NextResponse.json({ ok: true, delivered: false })
     }
     console.error(`[contact:${args.logLabel}] RESEND_API_KEY not set in production.`)
+    await recordLead({ ...args.lead, status: "Received (email not configured)" })
     return NextResponse.json(
       {
         ok: false,
@@ -521,6 +567,7 @@ async function deliverBoth(args: {
 
     if (adminResult.error) {
       console.error("[contact] Resend admin error:", adminResult.error)
+      await recordLead({ ...args.lead, status: "Delivery failed" })
       return NextResponse.json(
         {
           ok: false,
@@ -547,9 +594,11 @@ async function deliverBoth(args: {
       )
     }
 
+    await recordLead({ ...args.lead, status: "Delivered" })
     return NextResponse.json({ ok: true, delivered: true })
   } catch (err) {
     console.error("[contact] unexpected error:", err)
+    await recordLead({ ...args.lead, status: "Delivery failed" })
     return NextResponse.json(
       {
         ok: false,
