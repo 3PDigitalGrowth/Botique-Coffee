@@ -31,6 +31,7 @@ export function InlineForm({ config, pagePath }: Props) {
       phone: String(data.get("phone") ?? "").trim(),
       teamSize: String(data.get("teamSize") ?? "").trim(),
       comments: String(data.get("comments") ?? "").trim(),
+      website: String(data.get("website") ?? ""),
     }
 
     setStatus("submitting")
@@ -91,6 +92,14 @@ export function InlineForm({ config, pagePath }: Props) {
           {config.subtext}
         </p>
       ) : null}
+
+      {/* Honeypot: hidden from humans, bots auto-fill it and get silently dropped */}
+      <div aria-hidden="true" className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden">
+        <label>
+          Website
+          <input name="website" type="text" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
 
       <div className="grid sm:grid-cols-2 gap-4">
         <Field name="name" label="Your name" required autoComplete="name" />

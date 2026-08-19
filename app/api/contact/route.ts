@@ -24,6 +24,7 @@ import {
   type AdminDataRow,
   type SubmissionContext,
 } from "@/lib/email/enquiry-emails"
+import { assessSpam } from "@/lib/spam-filter"
 
 type ConsultPayload = {
   variant?: string
@@ -38,6 +39,8 @@ type ConsultPayload = {
   teamSize?: string
   comments?: string
   notes?: string
+  /** Honeypot — hidden field, humans leave it empty */
+  website?: string
 }
 
 type QuickPayload = {
@@ -55,6 +58,8 @@ type QuickPayload = {
   teamSize?: string
   comments?: string
   notes?: string
+  /** Honeypot — hidden field, humans leave it empty */
+  website?: string
 }
 
 const DEFAULT_RECIPIENTS = "alex@3pdigital.com.au,chris@boutiquecoffee.com.au"
@@ -206,6 +211,24 @@ async function handleQuick(body: QuickPayload) {
     )
   }
 
+  const spam = assessSpam({
+    name,
+    businessName,
+    email,
+    phone,
+    location,
+    comments,
+    honeypot: body.website,
+  })
+  if (spam.isSpam) {
+    // Silent accept: spammer sees success, no email goes anywhere.
+    console.warn(
+      `[contact:quick] dropped spam submission (score ${spam.score}): ${spam.reasons.join("; ")}`,
+      { source, name, businessName, email, phone, location },
+    )
+    return NextResponse.json({ ok: true, delivered: false })
+  }
+
   const ctx = makeContext("quick", source, body.pagePath)
   const headline = `${name} · ${businessName}`
 
@@ -328,6 +351,24 @@ async function handleConsult(body: ConsultPayload) {
       { ok: false, error: "That phone number doesn't look right. Please check it." },
       { status: 400 },
     )
+  }
+
+  const spam = assessSpam({
+    name,
+    businessName,
+    email,
+    phone,
+    location,
+    comments,
+    honeypot: body.website,
+  })
+  if (spam.isSpam) {
+    // Silent accept: spammer sees success, no email goes anywhere.
+    console.warn(
+      `[contact:consult] dropped spam submission (score ${spam.score}): ${spam.reasons.join("; ")}`,
+      { name, businessName, email, phone, location },
+    )
+    return NextResponse.json({ ok: true, delivered: false })
   }
 
   const ctx = makeContext("consult", undefined, body.pagePath)

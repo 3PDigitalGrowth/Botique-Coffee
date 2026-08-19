@@ -13,6 +13,8 @@ type FormState = {
   location: string
   teamSize: string
   comments: string
+  /** Honeypot — stays empty for humans, bots fill it */
+  website: string
 }
 
 const initialState: FormState = {
@@ -23,6 +25,7 @@ const initialState: FormState = {
   location: "",
   teamSize: "",
   comments: "",
+  website: "",
 }
 
 export function ConsultForm() {
@@ -93,6 +96,21 @@ export function ConsultForm() {
         </div>
 
         <form onSubmit={onSubmit} className="space-y-6" noValidate>
+          {/* Honeypot: hidden from humans, bots auto-fill it and get silently dropped */}
+          <div aria-hidden="true" className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden">
+            <label>
+              Website
+              <input
+                name="website"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={form.website}
+                onChange={update("website")}
+              />
+            </label>
+          </div>
+
           <div className="space-y-2">
             <label htmlFor="name" className="block text-sm font-medium text-foreground">
               Contact name <span className="text-destructive">*</span>

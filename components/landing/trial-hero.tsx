@@ -19,6 +19,8 @@ export function TrialHero() {
   const [location, setLocation] = useState("")
   const [teamSize, setTeamSize] = useState("")
   const [comments, setComments] = useState("")
+  // Honeypot — stays empty for humans, bots fill it
+  const [website, setWebsite] = useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -41,6 +43,7 @@ export function TrialHero() {
           location: location.trim(),
           teamSize: teamSize.trim(),
           comments: comments.trim(),
+          website,
         }),
       })
       const data = await res.json().catch(() => ({}))
@@ -155,6 +158,21 @@ export function TrialHero() {
                   </div>
 
                   <form className="space-y-3.5" onSubmit={handleSubmit}>
+                    {/* Honeypot: hidden from humans, bots auto-fill it and get silently dropped */}
+                    <div aria-hidden="true" className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden">
+                      <label>
+                        Website
+                        <input
+                          name="website"
+                          type="text"
+                          tabIndex={-1}
+                          autoComplete="off"
+                          value={website}
+                          onChange={(e) => setWebsite(e.target.value)}
+                        />
+                      </label>
+                    </div>
+
                     <div>
                       <Label htmlFor="trial-name" className="text-xs uppercase tracking-wide text-foreground/70 mb-1 block">
                         Contact name <span className="text-destructive">*</span>

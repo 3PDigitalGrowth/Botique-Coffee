@@ -25,6 +25,8 @@ export function HeroSection() {
   const [location, setLocation] = useState("")
   const [teamSize, setTeamSize] = useState("")
   const [comments, setComments] = useState("")
+  // Honeypot — stays empty for humans, bots fill it
+  const [website, setWebsite] = useState("")
   const sectionRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -62,6 +64,7 @@ export function HeroSection() {
           location: location.trim(),
           teamSize: teamSize.trim(),
           comments: comments.trim(),
+          website,
         }),
       })
       const data = await res.json().catch(() => ({}))
@@ -193,6 +196,21 @@ export function HeroSection() {
                   </div>
 
                   <form className="space-y-3" onSubmit={handleSubmit}>
+                    {/* Honeypot: hidden from humans, bots auto-fill it and get silently dropped */}
+                    <div aria-hidden="true" className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden">
+                      <label>
+                        Website
+                        <input
+                          name="website"
+                          type="text"
+                          tabIndex={-1}
+                          autoComplete="off"
+                          value={website}
+                          onChange={(e) => setWebsite(e.target.value)}
+                        />
+                      </label>
+                    </div>
+
                     <div>
                       <Label
                         htmlFor="home-name"
