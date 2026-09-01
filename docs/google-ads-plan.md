@@ -94,7 +94,7 @@ The thing that made SKAG work, ad copy and landing page that name the searcher's
 - Language: English. Network: Search only, no partners, no Display expansion.
 - Bidding: Maximise Clicks with an $8 CPC ceiling for the first 3 to 4 weeks, then Maximise Conversions once the account has 15 or more conversions, then a target CPA around $90 once it has 30.
 - Ad schedule: Monday to Friday, 6am to 8pm. Weekends on at a minus 40% adjustment for the first month, then decide from data.
-- Final URL: set per ad group (table below). Campaign default `https://boutiquecoffee.com.au/coffee-machine-rental`.
+- Final URL: set per ad group (table below). Campaign default `https://www.boutiquecoffee.com.au/coffee-machine-rental`. Always the `www` host: the apex domain 307-redirects to it, and a redirect on an ad click costs load time and can drop the URL suffix.
 - Final URL suffix at campaign level: `loc={loc_physical_ms}&kw={keyword}&mt={matchtype}&campaignid={campaignid}&adgroupid={adgroupid}`
 
 The `loc={loc_physical_ms}` parameter is what replaces suburb SKAGs. Google fills it with the searcher's physical location ID; the landing page maps that ID to a suburb name and rewrites its headline, docket, map and form to match. A Richmond searcher lands on "Office coffee machine rental in Richmond" without any Richmond keyword existing.
@@ -169,7 +169,7 @@ Every submission also lands in the Boutique Coffee Website Leads sheet with the 
 
 ## 4. The landing page
 
-Four pages, one per ad group, built in this repo (not pushed or deployed yet; all `noindex`, so they never compete with the organic site once live):
+Four pages, one per ad group, live on www.boutiquecoffee.com.au since 1 September 2026 (all `noindex`, so they never compete with the organic site):
 
 - `/coffee-machine-rental` (Rental ad group)
 - `/coffee-machine-hire` (Hire ad group)
@@ -211,7 +211,7 @@ Still to do on the page before launch:
 
 ## 5. Launch checklist
 
-1. Create the Google Ads account under the 3P MCC (`create_client_account.yml`), Chris adds billing.
+1. Google Ads account created under the 3P MCC on 1 September 2026: **565-072-3596** (Boutique Coffee at Work, AUD, Australia/Melbourne). Registered in G.Ads-Agent as paused with all automation off. Chris needs to be invited as an admin and add billing before anything can serve.
 2. Link GA4 property 538119704 and Search Console to the Ads account.
 3. GTM: thank-you page-view tag, tel: click tag, publish container.
 4. Conversion actions in Google Ads: thank-you page (primary), calls from ads (primary), tel click (secondary), GA4 generate_lead (secondary).

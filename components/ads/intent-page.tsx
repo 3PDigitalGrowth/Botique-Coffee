@@ -22,7 +22,7 @@ export function intentMetadata(intentSlug: string, suburbRaw?: string, loc?: str
     description: intent.metaDescription(s.name),
     // Paid landing pages stay out of the index; the SEO site carries organic.
     robots: { index: false, follow: false },
-    alternates: { canonical: `https://boutiquecoffee.com.au/${intent.slug}/${s.slug}` },
+    alternates: { canonical: `https://www.boutiquecoffee.com.au/${intent.slug}/${s.slug}` },
   }
 }
 
