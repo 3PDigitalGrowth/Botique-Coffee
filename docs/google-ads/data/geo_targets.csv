@@ -1,0 +1,349 @@
+search_term,id,name,canonical_name,target_type,status,reach
+Melbourne,1000567,Melbourne,"Melbourne,Victoria,Australia",City,ENABLED,7920000
+Melbourne,9060880,Melbourne,"Melbourne,Melbourne,Victoria,Australia",City,ENABLED,940000
+Melbourne,9112654,Melbourne City,"Melbourne City,Victoria,Australia",Municipality,ENABLED,1300000
+Melbourne,9198419,Melbourne Airport,"Melbourne Airport,Victoria,Australia",City,ENABLED,227000
+Melbourne,9056913,CBD & South Melbourne,"CBD & South Melbourne,Victoria,Australia",City Region,ENABLED,1430000
+Melbourne,1000521,Cranbourne,"Cranbourne,Victoria,Australia",City,ENABLED,68000
+Melbourne,9047631,Mornington,"Mornington,Victoria,Australia",City,ENABLED,67000
+Melbourne,9071338,3000,"3000,Victoria,Australia",Postal Code,ENABLED,787000
+Melbourne,9071341,3003,"3003,Victoria,Australia",Postal Code,ENABLED,128000
+Melbourne,9071422,3206,"3206,Victoria,Australia",Postal Code,ENABLED,51000
+Victoria,20040,Victoria,"Victoria,Australia",State,ENABLED,8120000
+Victoria,1000226,Victoria Point,"Victoria Point,Queensland,Australia",City,ENABLED,26000
+Victoria,9060908,Victoria Park,"Victoria Park,Western Australia,Australia",City,ENABLED,51000
+Victoria,9112763,Town of Victoria Park,"Town of Victoria Park,Western Australia,Australia",Municipality,ENABLED,305000
+Victoria,9071338,3000,"3000,Victoria,Australia",Postal Code,ENABLED,787000
+Victoria,9071333,3121,"3121,Victoria,Australia",Postal Code,ENABLED,263000
+Victoria,9071331,3144,"3144,Victoria,Australia",Postal Code,ENABLED,77000
+Victoria,20036,Northern Territory,"Northern Territory,Australia",State,ENABLED,258000
+Victoria,9070765,0852,"0852,Northern Territory,Australia",Postal Code,ENABLED,29000
+Victoria,9070668,6429,"6429,Western Australia,Australia",Postal Code,ENABLED,6000
+Melbourne CBD,9060880,Melbourne,"Melbourne,Melbourne,Victoria,Australia",City,ENABLED,940000
+Melbourne CBD,9199088,Port Melbourne,"Port Melbourne,Victoria,Australia",City,ENABLED,93000
+Melbourne CBD,9056913,CBD & South Melbourne,"CBD & South Melbourne,Victoria,Australia",City Region,ENABLED,1430000
+Melbourne CBD,9060882,South Melbourne,"South Melbourne,Victoria,Australia",City,ENABLED,115000
+Melbourne CBD,9060892,East Melbourne,"East Melbourne,Victoria,Australia",City,ENABLED,135000
+Melbourne CBD,9060883,Collingwood,"Collingwood,Victoria,Australia",City,ENABLED,96000
+Melbourne CBD,9060886,Southbank,"Southbank,Victoria,Australia",City,ENABLED,212000
+Melbourne CBD,9071341,3003,"3003,Victoria,Australia",Postal Code,ENABLED,128000
+Melbourne CBD,9071422,3206,"3206,Victoria,Australia",Postal Code,ENABLED,51000
+Melbourne CBD,9071344,3068,"3068,Victoria,Australia",Postal Code,ENABLED,82000
+Docklands,9071341,3003,"3003,Victoria,Australia",Postal Code,ENABLED,128000
+Southbank,9060886,Southbank,"Southbank,Victoria,Australia",City,ENABLED,212000
+Southbank,9071406,3006,"3006,Victoria,Australia",Postal Code,ENABLED,243000
+Carlton,9060885,Carlton,"Carlton,Victoria,Australia",City,ENABLED,194000
+Carlton,9231305,Carlton,"Carlton,Tasmania,Australia",City,ENABLED,1000
+Carlton,9071423,3054,"3054,Victoria,Australia",Postal Code,ENABLED,51000
+Carlton,9071853,2218,"2218,New South Wales,Australia",Postal Code,ENABLED,33000
+Carlton,9072344,7173,"7173,Tasmania,Australia",Postal Code,ENABLED,7000
+Fitzroy,9060881,Fitzroy,"Fitzroy,Victoria,Australia",City,ENABLED,131000
+Fitzroy,9070763,6728,"6728,Western Australia,Australia",Postal Code,ENABLED,10000
+Fitzroy,9071931,2577,"2577,New South Wales,Australia",Postal Code,ENABLED,80000
+Fitzroy,9070869,5082,"5082,South Australia,Australia",Postal Code,ENABLED,69000
+Fitzroy,9230349,Cairns Regional,"Cairns Regional,Queensland,Australia",Municipality,ENABLED,309000
+Fitzroy,9071344,3068,"3068,Victoria,Australia",Postal Code,ENABLED,82000
+Collingwood,9060883,Collingwood,"Collingwood,Victoria,Australia",City,ENABLED,96000
+Collingwood,9190946,Collingwood Park,"Collingwood Park,Queensland,Australia",City,ENABLED,13000
+Collingwood,9071669,2850,"2850,New South Wales,Australia",Postal Code,ENABLED,53000
+Collingwood,9070653,6330,"6330,Western Australia,Australia",Postal Code,ENABLED,37000
+Richmond,1000278,Richmond,"Richmond,New South Wales,Australia",City,ENABLED,21000
+Richmond,9060887,Richmond,"Richmond,Victoria,Australia",City,ENABLED,167000
+Richmond,9060832,Richmond,"Richmond,South Australia,Australia",City,ENABLED,15000
+Richmond,9248308,Richmond,"Richmond,Tasmania,Australia",City,ENABLED,8000
+Richmond,9193337,North Richmond,"North Richmond,New South Wales,Australia",City,ENABLED,11000
+Richmond,9246166,Clarence Valley Council,"Clarence Valley Council,New South Wales,Australia",Municipality,ENABLED,77000
+Richmond,20037,Queensland,"Queensland,Australia",State,ENABLED,5710000
+Richmond,9069031,4822,"4822,Queensland,Australia",Postal Code,ENABLED,3000
+Richmond,9216292,Charters Towers,"Charters Towers,Queensland,Australia",City,ENABLED,10000
+Richmond,9068976,4740,"4740,Queensland,Australia",Postal Code,ENABLED,109000
+South Yarra,9060889,South Yarra,"South Yarra,Victoria,Australia",City,ENABLED,144000
+South Yarra,9060883,Collingwood,"Collingwood,Victoria,Australia",City,ENABLED,96000
+South Yarra,9060881,Fitzroy,"Fitzroy,Victoria,Australia",City,ENABLED,131000
+South Yarra,9060893,Abbotsford,"Abbotsford,Victoria,Australia",City,ENABLED,78000
+South Yarra,9228089,Yarramundi,"Yarramundi,New South Wales,Australia",City,ENABLED,1000
+South Yarra,9071344,3068,"3068,Victoria,Australia",Postal Code,ENABLED,82000
+South Yarra,9071734,2753,"2753,New South Wales,Australia",Postal Code,ENABLED,35000
+South Yarra,9071888,2233,"2233,New South Wales,Australia",Postal Code,ENABLED,38000
+South Yarra,9072189,2259,"2259,New South Wales,Australia",Postal Code,ENABLED,126000
+South Yarra,9070791,5713,"5713,South Australia,Australia",Postal Code,ENABLED,2000
+Cremorne,9071783,2088,"2088,New South Wales,Australia",Postal Code,ENABLED,104000
+Cremorne,9071333,3121,"3121,Victoria,Australia",Postal Code,ENABLED,263000
+Cremorne,9071795,2090,"2090,New South Wales,Australia",Postal Code,ENABLED,31000
+Cremorne,9072338,7020,"7020,Tasmania,Australia",Postal Code,ENABLED,2000
+Cremorne,9068976,4740,"4740,Queensland,Australia",Postal Code,ENABLED,109000
+Abbotsford,9060893,Abbotsford,"Abbotsford,Victoria,Australia",City,ENABLED,78000
+Abbotsford,9071757,2046,"2046,New South Wales,Australia",Postal Code,ENABLED,65000
+Hawthorn,9192810,Hawthorn East,"Hawthorn East,Victoria,Australia",City,ENABLED,59000
+Hawthorn,9244709,Hawthorn,"Hawthorn,Victoria,Australia",City,ENABLED,113000
+Hawthorn,9222745,Hawthorndene,"Hawthorndene,South Australia,Australia",City,ENABLED,4000
+Hawthorn,9070894,5061,"5061,South Australia,Australia",Postal Code,ENABLED,37000
+Hawthorn,9069263,4170,"4170,Queensland,Australia",Postal Code,ENABLED,79000
+Hawthorn,9071335,3122,"3122,Victoria,Australia",Postal Code,ENABLED,111000
+Hawthorn,9070903,5051,"5051,South Australia,Australia",Postal Code,ENABLED,24000
+Hawthorn,9070550,6016,"6016,Western Australia,Australia",Postal Code,ENABLED,36000
+Kew,9192881,Kew,"Kew,Victoria,Australia",City,ENABLED,85000
+Kew,9190099,Kew East,"Kew East,Victoria,Australia",City,ENABLED,24000
+Kew,9194760,Kewdale,"Kewdale,Western Australia,Australia",City,ENABLED,44000
+Kew,9217929,Kewarra Beach,"Kewarra Beach,Queensland,Australia",City,ENABLED,7000
+Kew,9256746,Kew,"Kew,New South Wales,Australia",City,ENABLED,4000
+Kew,9071134,3393,"3393,Victoria,Australia",Postal Code,ENABLED,3000
+Kew,9072249,2439,"2439,New South Wales,Australia",Postal Code,ENABLED,10000
+Kew,9070592,6105,"6105,Western Australia,Australia",Postal Code,ENABLED,203000
+Kew,9069205,4879,"4879,Queensland,Australia",Postal Code,ENABLED,34000
+Camberwell,9071323,3124,"3124,Victoria,Australia",Postal Code,ENABLED,81000
+Camberwell,9235061,Singleton Council,"Singleton Council,New South Wales,Australia",Municipality,ENABLED,42000
+Balwyn,9192117,Balwyn North,"Balwyn North,Victoria,Australia",City,ENABLED,62000
+Balwyn,9190828,Balwyn,"Balwyn,Victoria,Australia",City,ENABLED,35000
+Balwyn,9071328,3103,"3103,Victoria,Australia",Postal Code,ENABLED,43000
+Surrey Hills,9193454,Surrey Hills,"Surrey Hills,Victoria,Australia",City,ENABLED,32000
+Surrey Hills,9071327,3127,"3127,Victoria,Australia",Postal Code,ENABLED,54000
+Glen Iris,9189448,Glen Iris,"Glen Iris,Victoria,Australia",City,ENABLED,67000
+Glen Iris,9219829,Glen Iris,"Glen Iris,Western Australia,Australia",City,ENABLED,6000
+Glen Iris,9070489,6230,"6230,Western Australia,Australia",Postal Code,ENABLED,67000
+Malvern,9197677,Malvern East,"Malvern East,Victoria,Australia",City,ENABLED,162000
+Malvern,9071331,3144,"3144,Victoria,Australia",Postal Code,ENABLED,77000
+Malvern,9070894,5061,"5061,South Australia,Australia",Postal Code,ENABLED,37000
+Malvern,9071447,3145,"3145,Victoria,Australia",Postal Code,ENABLED,193000
+Prahran,9060884,Prahran,"Prahran,Victoria,Australia",City,ENABLED,75000
+Windsor,9060890,Windsor,"Windsor,Victoria,Australia",City,ENABLED,45000
+Windsor,9191621,Windsor,"Windsor,New South Wales,Australia",City,ENABLED,14000
+Windsor,9214455,Windsor Downs,"Windsor Downs,New South Wales,Australia",City,ENABLED,3000
+Windsor,9193680,South Windsor,"South Windsor,New South Wales,Australia",City,ENABLED,14000
+Windsor,9068903,4006,"4006,Queensland,Australia",Postal Code,ENABLED,309000
+Windsor,9070881,5075,"5075,South Australia,Australia",Postal Code,ENABLED,27000
+Windsor,9071010,5501,"5501,South Australia,Australia",Postal Code,ENABLED,20000
+Windsor,9071661,2756,"2756,New South Wales,Australia",Postal Code,ENABLED,65000
+St Kilda,9060888,St Kilda,"St Kilda,Victoria,Australia",City,ENABLED,94000
+St Kilda,9071425,3182,"3182,Victoria,Australia",Postal Code,ENABLED,104000
+South Melbourne,9060882,South Melbourne,"South Melbourne,Victoria,Australia",City,ENABLED,115000
+South Melbourne,9060880,Melbourne,"Melbourne,Melbourne,Victoria,Australia",City,ENABLED,940000
+South Melbourne,9056913,CBD & South Melbourne,"CBD & South Melbourne,Victoria,Australia",City Region,ENABLED,1430000
+South Melbourne,9060892,East Melbourne,"East Melbourne,Victoria,Australia",City,ENABLED,135000
+South Melbourne,9060883,Collingwood,"Collingwood,Victoria,Australia",City,ENABLED,96000
+South Melbourne,9060886,Southbank,"Southbank,Victoria,Australia",City,ENABLED,212000
+South Melbourne,9060881,Fitzroy,"Fitzroy,Victoria,Australia",City,ENABLED,131000
+South Melbourne,9071341,3003,"3003,Victoria,Australia",Postal Code,ENABLED,128000
+South Melbourne,9071422,3206,"3206,Victoria,Australia",Postal Code,ENABLED,51000
+South Melbourne,9071344,3068,"3068,Victoria,Australia",Postal Code,ENABLED,82000
+Port Melbourne,9199088,Port Melbourne,"Port Melbourne,Victoria,Australia",City,ENABLED,93000
+Port Melbourne,9060882,South Melbourne,"South Melbourne,Victoria,Australia",City,ENABLED,115000
+Port Melbourne,9060888,St Kilda,"St Kilda,Victoria,Australia",City,ENABLED,94000
+Port Melbourne,9112781,Port Phillip City,"Port Phillip City,Victoria,Australia",Municipality,ENABLED,356000
+Port Melbourne,9071422,3206,"3206,Victoria,Australia",Postal Code,ENABLED,51000
+Port Melbourne,9071428,3184,"3184,Victoria,Australia",Postal Code,ENABLED,36000
+Port Melbourne,9071425,3182,"3182,Victoria,Australia",Postal Code,ENABLED,104000
+Elwood,9071428,3184,"3184,Victoria,Australia",Postal Code,ENABLED,36000
+Brighton,9112561,Brighton Council,"Brighton Council,Tasmania,Australia",Municipality,ENABLED,21000
+Brighton,9263374,Brighton East,"Brighton East,Victoria,Australia",City,ENABLED,43000
+Brighton,9192070,Brighton,"Brighton,Queensland,Australia",City,ENABLED,13000
+Brighton,9212648,Brighton,"Brighton,Tasmania,Australia",City,ENABLED,7000
+Brighton,9211352,Old Beach,"Old Beach,Tasmania,Australia",City,ENABLED,4000
+Brighton,9220768,Bridgewater,"Bridgewater,Tasmania,Australia",City,ENABLED,8000
+Brighton,9071429,3187,"3187,Victoria,Australia",Postal Code,ENABLED,42000
+Brighton,9112591,City of Holdfast Bay,"City of Holdfast Bay,South Australia,Australia",Municipality,ENABLED,83000
+Brighton,9071826,2216,"2216,New South Wales,Australia",Postal Code,ENABLED,79000
+Brighton,9072352,7017,"7017,Tasmania,Australia",Postal Code,ENABLED,9000
+Footscray,9195050,Footscray,"Footscray,Victoria,Australia",City,ENABLED,111000
+Footscray,9190841,West Footscray,"West Footscray,Victoria,Australia",City,ENABLED,39000
+Footscray,9071414,3012,"3012,Victoria,Australia",Postal Code,ENABLED,109000
+Yarraville,9193860,Yarraville,"Yarraville,Victoria,Australia",City,ENABLED,49000
+Seddon,9071414,3012,"3012,Victoria,Australia",Postal Code,ENABLED,109000
+Seddon,9070808,5223,"5223,South Australia,Australia",Postal Code,ENABLED,5000
+Kensington,9254176,Kensington Grove - Regency Downs,"Kensington Grove - Regency Downs,Queensland,Australia",City,ENABLED,6000
+Kensington,9071829,2033,"2033,New South Wales,Australia",Postal Code,ENABLED,79000
+Kensington,1000342,Bundaberg,"Bundaberg,Queensland,Australia",City,ENABLED,99000
+Kensington,9071397,3031,"3031,Victoria,Australia",Postal Code,ENABLED,89000
+Kensington,9070595,6151,"6151,Western Australia,Australia",Postal Code,ENABLED,72000
+Kensington,9070874,5068,"5068,South Australia,Australia",Postal Code,ENABLED,33000
+Kensington,9070882,5072,"5072,South Australia,Australia",Postal Code,ENABLED,26000
+Kensington,9070883,5067,"5067,South Australia,Australia",Postal Code,ENABLED,70000
+Flemington,9071402,3032,"3032,Victoria,Australia",Postal Code,ENABLED,129000
+Ascot Vale,9189586,Ascot Vale,"Ascot Vale,Victoria,Australia",City,ENABLED,39000
+Ascot Vale,9071402,3032,"3032,Victoria,Australia",Postal Code,ENABLED,129000
+Essendon,9195276,Essendon,"Essendon,Victoria,Australia",City,ENABLED,59000
+Essendon,9071402,3032,"3032,Victoria,Australia",Postal Code,ENABLED,129000
+Essendon,9071393,3041,"3041,Victoria,Australia",Postal Code,ENABLED,80000
+North Melbourne,9060891,North Melbourne,"North Melbourne,Victoria,Australia",City,ENABLED,102000
+North Melbourne,9220219,Ringwood North,"Ringwood North,Victoria,Australia",City,ENABLED,15000
+North Melbourne,9194082,Clyde North,"Clyde North,Victoria,Australia",City,ENABLED,77000
+North Melbourne,9192117,Balwyn North,"Balwyn North,Victoria,Australia",City,ENABLED,62000
+North Melbourne,9194304,Caulfield North,"Caulfield North,Victoria,Australia",City,ENABLED,47000
+North Melbourne,9194481,Laverton North,"Laverton North,Victoria,Australia",City,ENABLED,55000
+North Melbourne,9191574,Greensborough,"Greensborough,Victoria,Australia",City,ENABLED,50000
+North Melbourne,9071370,3087,"3087,Victoria,Australia",Postal Code,ENABLED,20000
+North Melbourne,9071257,3977,"3977,Victoria,Australia",Postal Code,ENABLED,240000
+North Melbourne,9071357,3084,"3084,Victoria,Australia",Postal Code,ENABLED,86000
+Brunswick,9197875,Brunswick,"Brunswick,Victoria,Australia",City,ENABLED,317000
+Brunswick,9191267,Brunswick West,"Brunswick West,Victoria,Australia",City,ENABLED,39000
+Brunswick,9195284,Brunswick Heads,"Brunswick Heads,New South Wales,Australia",City,ENABLED,11000
+Brunswick,9250468,Brunswick,"Brunswick,Western Australia,Australia",City,ENABLED,3000
+Brunswick,9240136,Ocean Shores,"Ocean Shores,Ocean Shores,New South Wales,Australia",City,ENABLED,8000
+Brunswick,9071399,3056,"3056,Victoria,Australia",Postal Code,ENABLED,317000
+Brunswick,9072259,2483,"2483,New South Wales,Australia",Postal Code,ENABLED,27000
+Brunswick,9070496,6224,"6224,Western Australia,Australia",Postal Code,ENABLED,3000
+Coburg,9194718,Coburg,"Coburg,Victoria,Australia",City,ENABLED,81000
+Coburg,9189387,Coburg North,"Coburg North,Victoria,Australia",City,ENABLED,41000
+Northcote,9194350,Northcote,"Northcote,Victoria,Australia",City,ENABLED,91000
+Thornbury,9198194,Thornbury,"Thornbury,Victoria,Australia",City,ENABLED,57000
+Preston,9193750,Prestons,"Prestons,New South Wales,Australia",City,ENABLED,50000
+Preston,9251401,Preston,"Preston,Victoria,Australia",City,ENABLED,152000
+Preston,9069126,4350,"4350,Queensland,Australia",Postal Code,ENABLED,189000
+Preston,9069279,4800,"4800,Queensland,Australia",Postal Code,ENABLED,24000
+Preston,9070485,6225,"6225,Western Australia,Australia",Postal Code,ENABLED,11000
+Preston,9070500,6215,"6215,Western Australia,Australia",Postal Code,ENABLED,14000
+Preston,9072411,7315,"7315,Tasmania,Australia",Postal Code,ENABLED,16000
+Preston,9071723,2170,"2170,New South Wales,Australia",Postal Code,ENABLED,404000
+Cheltenham,9071751,2121,"2121,New South Wales,Australia",Postal Code,ENABLED,86000
+Cheltenham,9070854,5011,"5011,South Australia,Australia",Postal Code,ENABLED,76000
+Cheltenham,9112798,City of Kingston,"City of Kingston,Victoria,Australia",Municipality,ENABLED,348000
+Moorabbin,9192555,Moorabbin,"Moorabbin,Victoria,Australia",City,ENABLED,58000
+Moorabbin,9071452,3194,"3194,Victoria,Australia",Postal Code,ENABLED,65000
+Clayton,9198188,Clayton,"Clayton,Victoria,Australia",City,ENABLED,128000
+Clayton,9193100,Clayton South,"Clayton South,Victoria,Australia",City,ENABLED,45000
+Clayton,20038,South Australia,"South Australia,Australia",State,ENABLED,1970000
+Clayton,9070944,5214,"5214,South Australia,Australia",Postal Code,ENABLED,15000
+Clayton,9071445,3168,"3168,Victoria,Australia",Postal Code,ENABLED,177000
+Mount Waverley,9198248,Mount Waverley,"Mount Waverley,Victoria,Australia",City,ENABLED,145000
+Glen Waverley,9199103,Glen Waverley,"Glen Waverley,Victoria,Australia",City,ENABLED,129000
+Box Hill,9194040,Box Hill,"Box Hill,Victoria,Australia",City,ENABLED,92000
+Box Hill,9192105,Box Hill North,"Box Hill North,Victoria,Australia",City,ENABLED,31000
+Box Hill,9189681,Box Hill,"Box Hill,New South Wales,Australia",City,ENABLED,27000
+Box Hill,9193863,Box Hill South,"Box Hill South,Victoria,Australia",City,ENABLED,34000
+Box Hill,9071735,2765,"2765,New South Wales,Australia",Postal Code,ENABLED,150000
+Box Hill,9071364,3129,"3129,Victoria,Australia",Postal Code,ENABLED,46000
+Dandenong,9056914,Dandenongs,"Dandenongs,Victoria,Australia",City Region,ENABLED,340000
+Dandenong,9199156,Dandenong,"Dandenong,Victoria,Australia",City,ENABLED,116000
+Dandenong,9194559,Dandenong South,"Dandenong South,Victoria,Australia",City,ENABLED,97000
+Dandenong,9193497,Dandenong North,"Dandenong North,Victoria,Australia",City,ENABLED,49000
+Dandenong,9112542,Greater Dandenong City,"Greater Dandenong City,Victoria,Australia",Municipality,ENABLED,471000
+Dandenong,9192991,Rowville,"Rowville,Victoria,Australia",City,ENABLED,69000
+Dandenong,9192941,Keysborough,"Keysborough,Victoria,Australia",City,ENABLED,86000
+Dandenong,9071278,3160,"3160,Victoria,Australia",Postal Code,ENABLED,20000
+Dandenong,9071316,3153,"3153,Victoria,Australia",Postal Code,ENABLED,77000
+Dandenong,9071260,3175,"3175,Victoria,Australia",Postal Code,ENABLED,306000
+Dandenong South,9194559,Dandenong South,"Dandenong South,Victoria,Australia",City,ENABLED,97000
+Dandenong South,9112542,Greater Dandenong City,"Greater Dandenong City,Victoria,Australia",Municipality,ENABLED,471000
+Dandenong South,9199156,Dandenong,"Dandenong,Victoria,Australia",City,ENABLED,116000
+Dandenong South,9192941,Keysborough,"Keysborough,Victoria,Australia",City,ENABLED,86000
+Dandenong South,9194754,Springvale,"Springvale,Victoria,Australia",City,ENABLED,107000
+Dandenong South,9191502,Noble Park North,"Noble Park North,Victoria,Australia",City,ENABLED,24000
+Dandenong South,9190820,Noble Park,"Noble Park,Victoria,Australia",City,ENABLED,56000
+Dandenong South,9071260,3175,"3175,Victoria,Australia",Postal Code,ENABLED,306000
+Mulgrave,9192430,Mulgrave,"Mulgrave,Victoria,Australia",City,ENABLED,86000
+Mulgrave,9207073,Mulgrave,"Mulgrave,New South Wales,Australia",City,ENABLED,6000
+Mulgrave,9069004,4807,"4807,Queensland,Australia",Postal Code,ENABLED,11000
+Mulgrave,9071661,2756,"2756,New South Wales,Australia",Postal Code,ENABLED,65000
+Mulgrave,9069101,4870,"4870,Queensland,Australia",Postal Code,ENABLED,216000
+Notting Hill,9071445,3168,"3168,Victoria,Australia",Postal Code,ENABLED,177000
+Tullamarine,9193788,Tullamarine,"Tullamarine,Victoria,Australia",City,ENABLED,52000
+Tullamarine,9071394,3043,"3043,Victoria,Australia",Postal Code,ENABLED,80000
+Laverton,9194481,Laverton North,"Laverton North,Victoria,Australia",City,ENABLED,55000
+Laverton,9194843,Laverton,"Laverton,Victoria,Australia",City,ENABLED,27000
+Laverton,9257623,Laverton,"Laverton,Western Australia,Australia",City,ENABLED,4000
+Laverton,9070681,6440,"6440,Western Australia,Australia",Postal Code,ENABLED,6000
+Truganina,9199013,Truganina,"Truganina,Victoria,Australia",City,ENABLED,133000
+Derrimut,9191216,Derrimut,"Derrimut,Victoria,Australia",City,ENABLED,58000
+Altona,9193136,Altona,"Altona,Victoria,Australia",City,ENABLED,36000
+Altona,9190470,Altona Meadows,"Altona Meadows,Victoria,Australia",City,ENABLED,29000
+Altona,9245646,Altona North,"Altona North,Victoria,Australia",City,ENABLED,71000
+Altona,9070978,5351,"5351,South Australia,Australia",Postal Code,ENABLED,11000
+Altona,9071416,3018,"3018,Victoria,Australia",Postal Code,ENABLED,46000
+Bayswater,9190583,Bayswater,"Bayswater,Western Australia,Australia",City,ENABLED,56000
+Bayswater,9195445,Bayswater North,"Bayswater North,Victoria,Australia",City,ENABLED,34000
+Bayswater,9192263,Bayswater,"Bayswater,Victoria,Australia",City,ENABLED,41000
+Bayswater,9112613,City of Bayswater,"City of Bayswater,Western Australia,Australia",Municipality,ENABLED,183000
+Bayswater,9191331,Morley,"Morley,Western Australia,Australia",City,ENABLED,76000
+Bayswater,9194768,Maylands,"Maylands,Western Australia,Australia",City,ENABLED,32000
+Bayswater,9193471,Noranda,"Noranda,Western Australia,Australia",City,ENABLED,18000
+Bayswater,9071316,3153,"3153,Victoria,Australia",Postal Code,ENABLED,77000
+Bayswater,9070584,6062,"6062,Western Australia,Australia",Postal Code,ENABLED,113000
+Scoresby,9252327,Scoresby,"Scoresby,Victoria,Australia",City,ENABLED,38000
+Rowville,9192991,Rowville,"Rowville,Victoria,Australia",City,ENABLED,69000
+Keysborough,9192941,Keysborough,"Keysborough,Victoria,Australia",City,ENABLED,86000
+Braeside,9190827,Braeside,"Braeside,Victoria,Australia",City,ENABLED,24000
+Braeside,9071456,3195,"3195,Victoria,Australia",Postal Code,ENABLED,105000
+Frankston,9112766,Frankston City,"Frankston City,Victoria,Australia",Municipality,ENABLED,237000
+Frankston,9193351,Frankston,"Frankston,Victoria,Australia",City,ENABLED,95000
+Frankston,9190102,Frankston South,"Frankston South,Victoria,Australia",City,ENABLED,26000
+Frankston,9195563,Frankston North,"Frankston North,Victoria,Australia",City,ENABLED,12000
+Frankston,9193079,Carrum Downs,"Carrum Downs,Victoria,Australia",City,ENABLED,64000
+Frankston,9191214,Langwarrin,"Langwarrin,Victoria,Australia",City,ENABLED,41000
+Frankston,9207419,Langwarrin South,"Langwarrin South,Victoria,Australia",City,ENABLED,3000
+Frankston,9071257,3977,"3977,Victoria,Australia",Postal Code,ENABLED,240000
+Ringwood,9191060,Ringwood,"Ringwood,Victoria,Australia",City,ENABLED,97000
+Ringwood,9193716,Ringwood East,"Ringwood East,Victoria,Australia",City,ENABLED,24000
+Ringwood,9220219,Ringwood North,"Ringwood North,Victoria,Australia",City,ENABLED,15000
+Ringwood,9069293,4343,"4343,Queensland,Australia",Postal Code,ENABLED,25000
+Ringwood,9072017,2646,"2646,New South Wales,Australia",Postal Code,ENABLED,9000
+Ringwood,9071317,3134,"3134,Victoria,Australia",Postal Code,ENABLED,116000
+Nunawading,9193722,Nunawading,"Nunawading,Victoria,Australia",City,ENABLED,51000
+Doncaster,9189895,Doncaster East,"Doncaster East,Victoria,Australia",City,ENABLED,58000
+Doncaster,9236095,Doncaster,"Doncaster,Victoria,Australia",City,ENABLED,103000
+Heidelberg,9195568,Heidelberg West,"Heidelberg West,Victoria,Australia",City,ENABLED,23000
+Heidelberg,9071357,3084,"3084,Victoria,Australia",Postal Code,ENABLED,86000
+Heidelberg,9071358,3081,"3081,Victoria,Australia",Postal Code,ENABLED,46000
+Bundoora,9194668,Bundoora,"Bundoora,Victoria,Australia",City,ENABLED,85000
+Bundoora,9069262,4723,"4723,Queensland,Australia",Postal Code,ENABLED,4000
+Bundoora,9071369,3083,"3083,Victoria,Australia",Postal Code,ENABLED,101000
+Werribee,9197721,Werribee,"Werribee,Victoria,Australia",City,ENABLED,115000
+Werribee,9191362,Werribee South,"Werribee South,Victoria,Australia",City,ENABLED,18000
+Werribee,9071462,3030,"3030,Victoria,Australia",Postal Code,ENABLED,256000
+Sunshine,9053248,Sunshine Coast,"Sunshine Coast,Queensland,Australia",City,ENABLED,353000
+Sunshine,9193075,Sunshine,"Sunshine,Victoria,Australia",City,ENABLED,56000
+Sunshine,9191299,Sunshine West,"Sunshine West,Victoria,Australia",City,ENABLED,48000
+Sunshine,9244574,Sunshine Coast Regional,"Sunshine Coast Regional,Queensland,Australia",Municipality,ENABLED,407000
+Sunshine,9191002,Sunshine North,"Sunshine North,Victoria,Australia",City,ENABLED,44000
+Sunshine,1000348,Caloundra,"Caloundra,Queensland,Australia",City,ENABLED,28000
+Sunshine,1000341,Buderim,"Buderim,Queensland,Australia",City,ENABLED,50000
+Sunshine,9069272,4567,"4567,Queensland,Australia",Postal Code,ENABLED,45000
+Sunshine,9072189,2259,"2259,New South Wales,Australia",Postal Code,ENABLED,126000
+Sunshine,9071940,2536,"2536,New South Wales,Australia",Postal Code,ENABLED,26000
+Campbellfield,9195195,Campbellfield,"Campbellfield,Victoria,Australia",City,ENABLED,62000
+Thomastown,9193496,Thomastown,"Thomastown,Victoria,Australia",City,ENABLED,104000
+Epping,9197714,Epping,"Epping,Victoria,Australia",City,ENABLED,122000
+Epping,9192095,Epping,"Epping,New South Wales,Australia",City,ENABLED,67000
+Epping,9072378,7212,"7212,Tasmania,Australia",Postal Code,ENABLED,11000
+Epping,9071771,2074,"2074,New South Wales,Australia",Postal Code,ENABLED,42000
+Epping,9071751,2121,"2121,New South Wales,Australia",Postal Code,ENABLED,86000
+Broadmeadows,9195173,Broadmeadows,"Broadmeadows,Victoria,Australia",City,ENABLED,61000
+Broadmeadows,9244145,Smithton,"Smithton,Tasmania,Australia",City,ENABLED,4000
+Mornington,9056918,Mornington Peninsula,"Mornington Peninsula,Victoria,Australia",City Region,ENABLED,218000
+Mornington,9047631,Mornington,"Mornington,Victoria,Australia",City,ENABLED,67000
+Mornington,9112590,Mornington Peninsula Shire,"Mornington Peninsula Shire,Victoria,Australia",Municipality,ENABLED,219000
+Mornington,9192170,Mornington,"Mornington,Tasmania,Australia",City,ENABLED,8000
+Mornington,9047632,Mount Eliza,"Mount Eliza,Victoria,Australia",City,ENABLED,27000
+Mornington,9047635,Rosebud,"Rosebud,Victoria,Australia",City,ENABLED,27000
+Mornington,9047633,Mount Martha,"Mount Martha,Victoria,Australia",City,ENABLED,24000
+Mornington,20037,Queensland,"Queensland,Australia",State,ENABLED,5710000
+Mornington,9069183,4825,"4825,Australia",Postal Code,ENABLED,24000
+Mornington,9070502,6220,"6220,Western Australia,Australia",Postal Code,ENABLED,15000
+Geelong,1000537,Geelong,"Geelong,Victoria,Australia",City,ENABLED,290000
+Geelong,9060867,Geelong,"Geelong,Geelong,Geelong,Victoria,Australia",City,ENABLED,71000
+Geelong,9056916,Geelong,"Geelong,Geelong,Victoria,Australia",City Region,ENABLED,316000
+Geelong,9193942,Lara,"Lara,Victoria,Australia",City,ENABLED,37000
+Geelong,9193067,Ocean Grove,"Ocean Grove,Victoria,Australia",City,ENABLED,22000
+Geelong,9194031,Grovedale,"Grovedale,Victoria,Australia",City,ENABLED,34000
+Geelong,9195052,Barwon Heads,"Barwon Heads,Victoria,Australia",City,ENABLED,7000
+Geelong,9071206,3220,"3220,Victoria,Australia",Postal Code,ENABLED,101000
+Geelong,9071209,3212,"3212,Victoria,Australia",Postal Code,ENABLED,54000
+Geelong,9071207,3219,"3219,Victoria,Australia",Postal Code,ENABLED,37000
+Ballarat,1000492,Ballarat,"Ballarat,Victoria,Australia",City,ENABLED,171000
+Ballarat,9112565,City of Ballarat,"City of Ballarat,Victoria,Australia",Municipality,ENABLED,183000
+Ballarat,9060837,Ballarat Central,"Ballarat,Ballarat,Victoria,Australia",City,ENABLED,44000
+Ballarat,9209187,Ballarat East,"Ballarat East,Victoria,Australia",City,ENABLED,15000
+Ballarat,9190280,Wendouree,"Wendouree,Victoria,Australia",City,ENABLED,28000
+Ballarat,9220385,Sebastopol,"Sebastopol,Victoria,Australia",City,ENABLED,16000
+Ballarat,9211026,Canadian,"Canadian,Victoria,Australia",City,ENABLED,5000
+Ballarat,9071153,3350,"3350,Victoria,Australia",Postal Code,ENABLED,152000
+Ballarat,9071151,3352,"3352,Victoria,Australia",Postal Code,ENABLED,62000
+Bendigo,1000498,Bendigo,"Bendigo,Victoria,Australia",City,ENABLED,145000
+Bendigo,9194245,Bendigo,"Bendigo,Bendigo,Victoria,Australia",City,ENABLED,42000
+Bendigo,9195051,Kangaroo Flat,"Kangaroo Flat,Victoria,Australia",City,ENABLED,22000
+Bendigo,9222630,White Hills,"White Hills,Victoria,Australia",City,ENABLED,7000
+Bendigo,9190310,Golden Square,"Golden Square,Victoria,Australia",City,ENABLED,16000
+Bendigo,9221107,North Bendigo,"North Bendigo,Victoria,Australia",City,ENABLED,10000
+Bendigo,9215906,Strathdale,"Strathdale,Victoria,Australia",City,ENABLED,8000
+Bendigo,9237082,Campaspe Shire,"Campaspe Shire,Victoria,Australia",Municipality,ENABLED,48000
+Bendigo,9071500,3550,"3550,Victoria,Australia",Postal Code,ENABLED,100000
+Bendigo,9071499,3556,"3556,Victoria,Australia",Postal Code,ENABLED,19000

@@ -61,6 +61,8 @@ type QuickPayload = {
   notes?: string
   /** Honeypot — hidden field, humans leave it empty */
   website?: string
+  /** Click attribution captured by the Google Ads lander (gclid, utm_*, kw, loc) */
+  attribution?: Record<string, string>
 }
 
 const DEFAULT_RECIPIENTS = "alex@3pdigital.com.au,chris@boutiquecoffee.com.au"
@@ -108,6 +110,12 @@ function resolveFormMeta(
       pageFallback: "/free-trial",
     }
   }
+  if (source === "ads-lander") {
+    return {
+      formLabel: "Google Ads landing — Coffee machine rental trial",
+      pageFallback: "/coffee-machine-rental",
+    }
+  }
   return {
     formLabel: "Website — Quick enquiry",
     pageFallback: "/",
@@ -152,6 +160,34 @@ function noApiKeyFallback() {
   return process.env.NODE_ENV === "development"
 }
 
+const ATTRIBUTION_ALLOWED = new Set([
+  "gclid",
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_term",
+  "utm_content",
+  "kw",
+  "mt",
+  "loc",
+  "campaignid",
+  "adgroupid",
+  "referrer",
+  "landing",
+  "intent",
+])
+
+function formatAttribution(attr: unknown): string {
+  if (!attr || typeof attr !== "object") return ""
+  const parts: string[] = []
+  for (const [k, v] of Object.entries(attr as Record<string, unknown>)) {
+    if (!ATTRIBUTION_ALLOWED.has(k) || typeof v !== "string") continue
+    const clean = v.replace(/[\r\n]+/g, " ").trim().slice(0, 200)
+    if (clean) parts.push(`${k}=${clean}`)
+  }
+  return parts.join("; ")
+}
+
 function greetingFirstName(fullName: string): string {
   const first = fullName.trim().split(/\s+/)[0]
   return first || ""
@@ -188,7 +224,12 @@ async function handleQuick(body: QuickPayload) {
       : fromPostcode
   }
   const teamSize = (body.teamSize || "").trim()
-  const comments = ((body.comments ?? body.notes) || "").trim()
+  const userComments = ((body.comments ?? body.notes) || "").trim()
+  const attributionText = formatAttribution(body.attribution)
+  // Attribution rides along in the comments column so it lands in the leads sheet.
+  const comments = [userComments, attributionText ? `[ads] ${attributionText}` : ""]
+    .filter(Boolean)
+    .join("\n")
 
   if (!name || !businessName || !email || !phone) {
     return NextResponse.json(
@@ -289,11 +330,20 @@ async function handleQuick(body: QuickPayload) {
     },
     {
       label: "Comments",
-      valueText: comments || dashText,
-      valueHtml: comments
-        ? `<span style="white-space:pre-wrap;">${escapeHtml(comments)}</span>`
+      valueText: userComments || dashText,
+      valueHtml: userComments
+        ? `<span style="white-space:pre-wrap;">${escapeHtml(userComments)}</span>`
         : dashHtml,
     },
+    ...(attributionText
+      ? [
+          {
+            label: "Ad attribution",
+            valueText: attributionText,
+            valueHtml: `<span style="font-size:12px;color:#57534e;">${escapeHtml(attributionText)}</span>`,
+          },
+        ]
+      : []),
   ]
 
   const adminSubject = `[${ctx.formLabel.split(" — ")[0] || "Site"}] ${businessName}`

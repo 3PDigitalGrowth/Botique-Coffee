@@ -5,12 +5,15 @@ import Link from "next/link"
 import { Menu, X, Phone } from "lucide-react"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
+import { adsLanderHome, isAdsLanderPath } from "@/lib/ads-intents"
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
-  const isLanding = pathname?.startsWith("/free-trial")
+  const isAdsLander = isAdsLanderPath(pathname)
+  const isLanding = (pathname?.startsWith("/free-trial") ?? false) || isAdsLander
+  const landingHome = isAdsLander ? adsLanderHome(pathname) : "/free-trial"
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,7 +32,7 @@ export function Header() {
       >
         <nav className="max-w-7xl mx-auto px-6 py-3">
           <div className="flex items-center justify-between gap-4">
-            <Link href="/free-trial" className="hover:opacity-80 transition-opacity">
+            <Link href={landingHome} className="hover:opacity-80 transition-opacity">
               <Image
                 src="/images/boutique-coffee-logo-transparent-clean.png"
                 alt="Boutique Coffee @work"

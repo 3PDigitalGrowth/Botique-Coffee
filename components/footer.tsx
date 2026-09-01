@@ -4,10 +4,11 @@ import Link from "next/link"
 import Image from "next/image"
 import { Phone, Mail, Facebook, Instagram, Linkedin } from "lucide-react"
 import { usePathname } from "next/navigation"
+import { isAdsLanderPath } from "@/lib/ads-intents"
 
 export function Footer() {
   const pathname = usePathname()
-  const isLanding = pathname?.startsWith("/free-trial")
+  const isLanding = (pathname?.startsWith("/free-trial") ?? false) || isAdsLanderPath(pathname)
 
   if (isLanding) {
     return (
@@ -36,6 +37,10 @@ export function Footer() {
             </a>
             <p className="text-xs text-background/50 mt-2">
               &copy; {new Date().getFullYear()} Boutique Coffee at Work
+              <span className="mx-1.5">&middot;</span>
+              <a href="https://www.3pdigital.com.au" target="_blank" rel="noopener" className="hover:text-background/80 transition-colors">
+                Proudly supported by 3P Digital
+              </a>
             </p>
           </div>
         </div>
