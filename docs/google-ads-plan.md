@@ -213,9 +213,9 @@ Still to do on the page before launch:
 
 1. Google Ads account created under the 3P MCC on 1 September 2026: **565-072-3596** (Boutique Coffee at Work, AUD, Australia/Melbourne). Registered in G.Ads-Agent as paused with all automation off. Chris needs to be invited as an admin and add billing before anything can serve.
 2. Link GA4 property 538119704 and Search Console to the Ads account.
-3. GTM: thank-you page-view tag, tel: click tag, publish container.
-4. Conversion actions in Google Ads: thank-you page (primary), calls from ads (primary), tel click (secondary), GA4 generate_lead (secondary).
-5. Build Campaign 1 as above with the four launch ad groups, negatives, assets, schedule, URL suffix. Campaign created paused, per house rule.
+3. Conversion tag wired in site code rather than GTM (the 3P service account only has read access to the container): `AW-18421695400` configured in `app/layout.tsx`; thank-you page fires the enquiry conversion; every `tel:` click on a lander fires the phone-click conversion (`lib/ads-tracking.ts`, `components/ads/ads-tracking.tsx`). Done 2 September 2026.
+4. Conversion actions created 2 September 2026: "Ads lander enquiry (thank-you page)" primary, label `scazCIjBj-wcEKiHk9BE`; "Ads lander phone click" secondary, label `pvoICP3jj-wcEKiHk9BE`; "Calls from ads (30s+)" primary, AD_CALL. GA4 `generate_lead` import still to link once Chris has accepted the account invite (the GA4 link needs an admin in both).
+5. Campaign built 2 September 2026 via `build_search_campaign.yml`, PAUSED: campaign 24197481309 ("Search | Melbourne | Coffee machine rental, hire, lease"), $30/day, Maximise Clicks $8 ceiling, Melbourne presence-only, English, 43 negatives, Mon to Fri 6am to 8pm plus weekends at minus 40%, URL suffix set. Ad groups: Rental 196993629302 (10 keywords), Hire 200394328712 (8), Lease 196993634622 (6), Free trial and near me 195067819850 (6). One RSA per group with 14 to 15 headlines and 4 descriptions, four sitelinks per group, six callouts, brand snippet, call asset on 0411 876 625. Spec lives in `docs/google-ads/campaign_spec.py`.
 6. Test: click a test ad in preview, submit the form on the lander with "TEST" in the business name, confirm the thank-you page fires the conversion in GTM preview and the row lands in the leads sheet.
 7. Chris confirms the copy points in section 4.
 8. Enable. Budget $30/day. Search terms reviewed Tuesday and Friday for the first four weeks.

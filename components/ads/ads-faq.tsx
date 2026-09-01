@@ -9,7 +9,7 @@ type Props = { title: string; faqs: Faq[] }
 export function AdsFaq({ title, faqs }: Props) {
 
   return (
-    <section className="py-16 md:py-24 px-6 md:px-12 lg:px-16 bg-background">
+    <section id="faq" className="py-16 md:py-24 px-6 md:px-12 lg:px-16 bg-background">
       <div className="max-w-3xl mx-auto">
         <div className="mb-10">
           <p className="text-xs uppercase tracking-[0.2em] text-copper font-semibold mb-3">

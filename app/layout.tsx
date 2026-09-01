@@ -10,6 +10,7 @@ import { Footer } from "@/components/footer"
 const GA_MEASUREMENT_ID = "G-DHEZ6YWCVP"
 const GTM_ID = "GTM-M8PFQVB4"
 const CLARITY_PROJECT_ID = "wsblyf8tva"
+const GADS_CONVERSION_ID = "AW-18421695400"
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -73,6 +74,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', '${GA_MEASUREMENT_ID}');
+            gtag('config', '${GADS_CONVERSION_ID}');
           `}
         </Script>
         {/* Microsoft Clarity */}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { CheckCircle2, Phone } from "lucide-react"
+import { AdsEnquiryConversion } from "@/components/ads/ads-tracking"
 
 export const metadata: Metadata = {
   title: "Booked. Chris will call you | Boutique Coffee",
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
 }
 
 type Props = {
-  searchParams: Promise<{ name?: string; suburb?: string }>
+  searchParams: Promise<{ name?: string; suburb?: string; intent?: string }>
 }
 
 /**
@@ -16,12 +17,13 @@ type Props = {
  * Google Ads conversion action fires on a page view of /coffee-machine-rental/thank-you.
  */
 export default async function AdsThankYouPage({ searchParams }: Props) {
-  const { name, suburb } = await searchParams
+  const { name, suburb, intent } = await searchParams
   const first = (name || "").trim().split(/\s+/)[0] || "there"
   const place = (suburb || "").trim().slice(0, 40)
 
   return (
     <main className="bg-[oklch(0.975_0.015_65)] min-h-[80vh] flex items-center pt-20">
+      <AdsEnquiryConversion suburb={place || undefined} intent={(intent || "").slice(0, 40) || undefined} />
       <section className="w-full py-20 md:py-28 px-6 md:px-12 lg:px-16">
         <div className="max-w-2xl mx-auto text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-copper/10 mb-8">
