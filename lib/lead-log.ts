@@ -78,24 +78,32 @@ export async function recordLead(entry: LeadLogEntry): Promise<void> {
       entry.spamReasons ?? "",
     ]
 
-    const res = await fetch(
-      `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${encodeURIComponent(
-        SHEET_RANGE,
-      )}:append?valueInputOption=RAW`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ values: [row] }),
-        signal: AbortSignal.timeout(5000),
-      },
-    )
-    if (!res.ok) {
-      const detail = (await res.text()).slice(0, 300)
-      console.error(`[lead-log] append failed: ${res.status} ${detail}`)
+    // Two attempts with a 10s budget each: a cold Vercel function plus the
+    // Sheets round trip occasionally blew the original 5s budget and the
+    // row was lost while the email still went out.
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${encodeURIComponent(
+      SHEET_RANGE,
+    )}:append?valueInputOption=RAW`
+    let lastError = ""
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      try {
+        const res = await fetch(url, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ values: [row] }),
+          signal: AbortSignal.timeout(10000),
+        })
+        if (res.ok) return
+        lastError = `${res.status} ${(await res.text()).slice(0, 300)}`
+        if (res.status < 500 && res.status !== 429) break
+      } catch (err) {
+        lastError = err instanceof Error ? err.message : String(err)
+      }
     }
+    console.error(`[lead-log] append failed after retry: ${lastError}`)
   } catch (err) {
     console.error("[lead-log] error:", err)
   }
