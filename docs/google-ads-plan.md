@@ -129,7 +129,7 @@ Headlines (15, pin the first to position 1). Headline 1 uses the ad group's own 
 10. Installed Within the Week
 11. Loan Machine if Yours Breaks
 12. {KeyWord:Coffee Machine Rental} Melbourne
-13. Call Chris: 0411 876 625
+13. Talk Straight to the Owner
 14. Servicing {LOCATION(City):Melbourne} Offices
 15. Try It Free for 7 Days
 
@@ -222,3 +222,7 @@ Still to do on the page before launch:
 9. Week 3: add the "Office machines" research ad group at a $5 ceiling.
 10. Week 4: switch to Maximise Conversions if 15+ conversions have been recorded; otherwise hold Maximise Clicks and revisit at week 6.
 11. Day 60: read the report, decide on Phase 2 region split.
+
+### Post-launch fix log
+
+- 18 September 2026: all four RSAs came back APPROVED_LIMITED with policy topic PHONE_NUMBER_IN_AD_TEXT (the "Call Chris: 0411 876 625" headline; Google prohibits phone numbers in ad text, the call asset is the compliant route and stays). Replaced each ad with an identical RSA carrying "Talk Straight to the Owner" instead, removed the flagged ads (new ad ids 825082895728, 825082911031, 825082896151, 825082930453). New ads enter policy review; expect approval within a business day. Campaign primary status also showed BIDDING_STRATEGY_LEARNING, which is normal for a new Maximise Clicks strategy and clears on its own.

@@ -15,7 +15,7 @@ SHARED_HEADLINES = [
     "WMF, Jura & Eversys Machines",
     "Installed Within the Week",
     "Loan Machine if Yours Breaks",
-    "Call Chris: 0411 876 625",
+    "Talk Straight to the Owner",
     "Servicing {LOCATION(City):Melbourne} Offices",
     "Try It Free for 7 Days",
 ]
